@@ -1,4 +1,4 @@
-<div class="container-fluid position-relative d-flex p-0">
+<div class="container-fluid position-relative d-flex p-0" style="background-color: #f5f6f7;">
     <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
 
 
@@ -11,22 +11,46 @@
 
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
+            <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Danh sách khách đăng ký sự kiện</h6>
+                    <h6 class="mb-0">Danh sách khách đặt vé sự kiện <br />(Số lượng : {{listDangKy.length}})</h6>
                     <!-- <a href="">Show All</a> -->
                 </div>
-                <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="userFullname" (input)="getAllRegistrations()">
+                <div style="display: flex;">
+                    <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="userFullname" (input)="getAllRegistrations()">
+                    <div style="width: 1%;"></div>
+                    <select name="" class="form-control mb-3" id="" style="width: 15%;" [(ngModel)]="status" (ngModelChange)="onStatusChange($event)">
+                        <option value="-1">Đã thanh toán</option>
+                        <option value="0">Chưa xác nhận</option>
+                        <option value="2">Không tham dự đúng hẹn</option>
+                    </select>
+                    <div style="width: 1%;"></div>
+                    <div style="width: 10%;">
+                        Chỉ lọc theo tháng <input type="checkbox" [(ngModel)]="filterByMonth" (change)="onFilterByMonthChange($event)">
+                    </div>
+                    <div style="width: 1%;"></div>
+                    <input style="width: 15%;" class="form-control mb-3" type="date" style="width: 15%;" [(ngModel)]="selectedDate" (change)="onDateChange($event)"><div style="width: 1%;"></div>
+                    <button (click)="resetFilters()" class="btn btn-warning mb-3">Reset</button>
+                </div>
+                
+
+                <!-- <div style="display: flex;">
+
+                    <div style="width: 80%;"></div>
+                    <input style="width: 20%;" class="form-control mb-3" type="date">
+                </div> -->
+                
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
-                            <tr class="text-white">
+                            <tr >
                                 <th scope="col">STT</th>
                                 <th scope="col">Khách hàng</th>
                                 <th scope="col">Tài khoản</th>
                                 <th scope="col">Sự kiện</th>
-                                <th scope="col">Ngày đăng ký</th>
+                                <th scope="col">Ngày đặt vé</th>
                                 <th scope="col">Trạng thái</th>
+                                <th scope="col">Lý do không tham dự (nếu có)</th>
                                 <th scope="col">Thao tác</th>
                             </tr>
                         </thead>
@@ -39,11 +63,12 @@
                                 <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
                                 <td>
                                     <span *ngIf="l.status ==0">Chưa xử lý</span>
-                                    <span *ngIf="l.status ==1">Đã tham gia</span>
+                                    <span *ngIf="l.status ==-1">Đã thanh toán</span>
                                     <span *ngIf="l.status ==2">Không tham gia đúng hẹn</span>
                                 </td>
+                                <td>{{l.refuseMessage  }}</td>
                                 <td>
-                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,1)"  >Xác nhận tham dự</a></div>
+                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,-1)"  >Xác nhận thanh toán</a></div>
                                             <div *ngIf="l.status == 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,2)">Không tham dự</a></div>
                                             <div *ngIf="l.status != 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,0)">Hoàn tác</a></div>
                                 </td>

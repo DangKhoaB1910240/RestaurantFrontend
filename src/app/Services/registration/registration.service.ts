@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,9 +17,9 @@ export class RegistrationService {
   private getFullUrl(endpoint: string): string {
     return `${AppConfig.baseUrl}/${endpoint}`;
   }
-  registerEvent(registration: any): Observable<any> {
-    return this.http.post<Registration>(
-      this.getFullUrl(`api/v1/registration`),registration
+  registerEvent(registration: any): Observable<string> {
+    return this.http.post(
+      this.getFullUrl(`api/v1/registration`),registration, { responseType: 'text' }
     );
   }
   checkExist(userId: number, eventId: number) : Observable<Boolean> {
@@ -36,7 +36,26 @@ export class RegistrationService {
   updateById(id: number,userId:number, r: any) :Observable<any> {
     return this.http.patch<void>(this.getFullUrl(`api/v1/registration/${id}/user/${userId}`),r);
   }
-  getAllRegistrationByFilter(eventId: number | string, userFullname:string | null): Observable<Registration[]> {
-    return this.http.get<Registration[]>(this.getFullUrl(`api/v1/registration/order-by-registration-date/filter?eventId=${eventId}&userFullname=${userFullname}`));
+  getAllRegistrationByFilter(
+    eventId: number | string, 
+    userFullname: string | null, 
+    status: number | null, 
+    monthYear: string | null, 
+    dayMonthYear: string | null
+  ): Observable<Registration[]> {
+    
+    let params: any = {};
+
+    if (eventId) params.eventId = eventId;
+    if (userFullname) params.userFullname = userFullname;
+    if (status !== null) params.status = status;
+    if (monthYear) params.monthYear = monthYear;
+    if (dayMonthYear) params.dayMonthYear = dayMonthYear;
+
+    const queryParams = new HttpParams({ fromObject: params });
+
+    console.log(`api/v1/registration/order-by-registration-date/filter`, queryParams.toString());
+
+    return this.http.get<Registration[]>(this.getFullUrl(`api/v1/registration/order-by-registration-date/filter`), { params: queryParams });
   }
 }

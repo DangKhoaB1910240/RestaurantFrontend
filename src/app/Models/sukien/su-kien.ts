@@ -12,6 +12,12 @@ export class SuKien {
       public totalRegistered: number,
       public totalAttended: number,
       public img: string,
-      public organizer: NhaToChuc // Sử dụng class Organizer hoặc thay thế bằng dữ liệu tương ứng
+      public tinhThanhId: number,
+      public quanHuyenId: number,
+      public phuongXaId: number,
+      public address: string,
+      public cost: number,
+      public organizer: NhaToChuc, // Sử dụng class Organizer hoặc thay thế bằng dữ liệu tương ứng
+      public fullAddress?: string // Thêm thuộc tính fullAddress
     ) {}
   }

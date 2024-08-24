@@ -221,7 +221,7 @@
               </div>
             </div>
             <div class="css-1y2krk0" *ngIf="suKien && suKien.length>0;else noEvent">
-              <div type="grid" class="css-13w7uog" *ngFor="let s of suKien" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
+              <div type="grid" class="css-13w7uog pb-1" *ngFor="let s of suKien" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
                 <div
                   class="product-card css-1msrncq"
                   data-content-region-name="itemProductResult"
@@ -309,7 +309,7 @@
                             
                             <div
                               type="caption"
-                              class="att-product-detail-retail-price css-18z00w6"
+                              class=""
                               color="textSecondary"
                             >
                               Số lượng hiện tại: {{s.totalRegistered}}
@@ -321,6 +321,10 @@
                             >
                               Số lượng tối đa: {{s.maxQuantity}}
                             </div>
+                          </div>
+                          <div >
+                            
+                            Giá vé: {{s.cost | number}}đ
                           </div>
                         </div>
                       </div>

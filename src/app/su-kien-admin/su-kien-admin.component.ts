@@ -10,6 +10,9 @@ import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { SuKienService } from '../Services/sukien/su-kien.service';
 import { SuKien } from '../Models/sukien/su-kien';
 import { datetimeFormatValidator } from '../validators/datetime-format.validator';
+import { TinhThanhService } from '../Services/tinh-thanh/tinh-thanh.service';
+import { TinhThanh } from '../Models/tinhThanh/tinh-thanh';
+import { TinhThanhChiTiet } from '../Models/tinhThanh/tinh-thanh-chi-tiet';
 
 @Component({
   selector: 'app-su-kien-admin',
@@ -35,7 +38,12 @@ export class SuKienAdminComponent implements OnInit {
   eventStatus: string = '';
   organizerId: number | string = '';
   listSuKien: SuKien[] = [];
-  constructor(private formBuilder: FormBuilder, private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router:Router) { 
+
+  listTinhThanh: TinhThanh[] = [];
+  listQuanHuyen: TinhThanh[] = [];
+  listPhuongXa: TinhThanh[] = [];
+  chiTiet!: TinhThanhChiTiet;
+  constructor(private formBuilder: FormBuilder, private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router:Router, private tinhThanhService: TinhThanhService) { 
     this.suKienForm = this.formBuilder.group({
         eventName: ['', Validators.required],
         startDateTime: ['', [Validators.required, datetimeFormatValidator()]],
@@ -44,6 +52,11 @@ export class SuKienAdminComponent implements OnInit {
         maxQuantity: ['', Validators.required],
         img: ['', Validators.required],
         organizerId: ['', Validators.required],
+        tinhThanhId: ['', Validators.required],
+        quanHuyenId: ['', Validators.required],
+        phuongXaId: ['', Validators.required],
+        address: ['', Validators.required],
+        cost: ['', Validators.required],
         status: ['']
       });
   }    
@@ -51,13 +64,80 @@ export class SuKienAdminComponent implements OnInit {
   ngOnInit(): void {
     this.getNhaToChuc();
     this.getSuKien();
+    this.getTinhThanh();
   }
   getSuKien() {
     this.suKienService.getSuKien().subscribe({
       next:(response: SuKien[]) => {
         this.listSuKien = response;
+
+        // Duyệt qua từng sự kiện và tạo fullAddress
+        this.listSuKien.forEach(suKien => {
+          console.log(suKien.phuongXaId)
+          this.tinhThanhService.getDetailsAddressById(suKien.phuongXaId).subscribe({
+            next: (c: any) => {
+              this.chiTiet = c.data;
+              suKien.fullAddress = `${suKien.address}, ${this.chiTiet.full_name}`;
+            }
+          });
+        });
+      }
+    });
+}
+  getTinhThanh() {
+    this.tinhThanhService.getProvinces().subscribe({
+      next: (response: any) => {
+        this.listTinhThanh = response.data;
+        console.log(this.listTinhThanh);
+        console.log(1)
+      },
+      error: (error) => {
+
       }
     })
+  }
+  onTinhThanhChange(event: any) {
+    const target = event.target as HTMLSelectElement;
+    const tinhThanhId = target.value;
+  
+    if (tinhThanhId) {
+      this.tinhThanhService.getDistricts(tinhThanhId).subscribe({
+        next: (response: any) => {
+          this.listQuanHuyen = response.data;
+          this.listPhuongXa = []; // Clear communes when province changes
+          this.suKienForm.controls['quanHuyenId'].setValue('');
+          this.suKienForm.controls['phuongXaId'].setValue('');
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    } else {
+      this.listQuanHuyen = [];
+      this.listPhuongXa = [];
+      this.suKienForm.controls['quanHuyenId'].setValue('');
+      this.suKienForm.controls['phuongXaId'].setValue('');
+    }
+  }
+  
+  onQuanHuyenChange(event: any) {
+    const target = event.target as HTMLSelectElement;
+    const quanHuyenId = target.value;
+  
+    if (quanHuyenId) {
+      this.tinhThanhService.getCommunes(quanHuyenId).subscribe({
+        next: (response: any) => {
+          this.listPhuongXa = response.data;
+          this.suKienForm.controls['phuongXaId'].setValue('');
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    } else {
+      this.listPhuongXa = [];
+      this.suKienForm.controls['phuongXaId'].setValue('');
+    }
   }
   updateSuKienByStatusAndEventNameAndOrganizerId() {
     this.suKienService.getEventsByStatusAndOrganizerIdAndName(this.eventStatus,this.tenSuKien,this.organizerId).subscribe({
@@ -119,6 +199,7 @@ export class SuKienAdminComponent implements OnInit {
       next: (response: SuKien) => {
         this.cancel();
         this.isEditForm = true;
+        console.log(response);
         this.suKienForm.patchValue({
           eventName: response.eventName,
           startDateTime: response.startDateTime,
@@ -127,8 +208,32 @@ export class SuKienAdminComponent implements OnInit {
           maxQuantity: response.maxQuantity,
           img: response.img,
           organizerId: response.organizer.id,
+          tinhThanhId: response.tinhThanhId,
+          quanHuyenId: response.quanHuyenId,
+          phuongXaId: response.phuongXaId,
+          cost: response.cost,
+          address: response.address,
           status: response.status
         });
+        // Gọi onTinhThanhChange để cập nhật danh sách quận/huyện
+        this.onTinhThanhChange({ target: { value: response.tinhThanhId } });
+
+        // Chờ cho danh sách quận/huyện được cập nhật, sau đó gán giá trị quanHuyenId và phuongXaId
+        setTimeout(() => {
+          this.suKienForm.patchValue({
+            quanHuyenId: response.quanHuyenId
+          });
+
+          // Gọi onQuanHuyenChange để cập nhật danh sách phường/xã
+          this.onQuanHuyenChange({ target: { value: response.quanHuyenId } });
+
+          // Chờ cho danh sách phường/xã được cập nhật, sau đó gán giá trị phuongXaId
+          setTimeout(() => {
+            this.suKienForm.patchValue({
+              phuongXaId: response.phuongXaId
+            });
+          }, 500);
+        }, 500);
         // Cuộn trang lên đầu
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },

@@ -63,36 +63,43 @@
                                         <h1 class="css-nlaxuc">{{event.eventName}}</h1>
                                         <div>
                                             <div type="caption" color="textSecondary" class="css-1f5a6jh"
-                                                style="font-size: 14px; margin-top: -4px;"> Địa chỉ: {{event.organizer.address}}<br /><a target="_self" class="css-cbrxda"
+                                                style="font-size: 14px; margin-top: -4px;"> Địa chỉ: {{event.address}}, {{tinhThanhChiTiet.full_name}}<br /><a target="_self" class="css-cbrxda"
                                                     href="/halio-brand.halio"><span
                                                         class="css-n67qkj">{{event.startDateTime| date: 'hh:mm dd/MM/yyyy'}} - {{event.endDateTime| date: 'hh:mm dd/MM/yyyy'}} </span></a>
                                                         <div style="font-weight: bold;"
-                                                    class="css-1qgvt7n" *ngIf="hanDangKy">Hạn đăng ký đến hết ngày: {{hanDangKy | date: 'dd/MM/yyyy'}}</div>
+                                                    class="css-1qgvt7n" *ngIf="hanDangKy">Hạn đặt vé đến hết ngày: {{hanDangKy | date: 'dd/MM/yyyy'}}</div>
                                                 
                                                 </div>
                                         </div>
                                     </div>
-                                    <div class="css-qmrpdk"></div>
+                                    <div class="css-qmrpdk">Giá vé: {{event.cost | number}}đ</div>
                                     <div class="css-2zf5gn">
                                         <div type="title" class="att-product-detail-latest-price css-roachw"
                                             color="primary500">Còn trống: {{event.maxQuantity - event.totalRegistered}} chỗ</div>
                                         <div class="css-3mjppt">
                                             <div type="caption" class="att-product-detail-retail-price css-18z00w6"
                                                 color="textSecondary"></div>
-                                            <div type="caption" color="primary500" class="css-2rwx6s"></div>
+                                            <div type="caption" color="primary500" class="css-2rwx6s1"></div>
                                         </div>
                                     </div>
                                     <div class="css-1veiyrs">
                                         <div width="100%" color="divider" class="css-1fm9yfq"></div>
                                     </div>
-                                    
+                                    <div *ngIf="!thamGiaChua;">
+                                        <label for="" style="font-weight: bold;">Phương thức thanh toán</label>
+                                        <select class="form-control" name="" id="" [(ngModel)]="paymentMethod">
+                                            <option value="1">Thanh toán bằng VNPay</option>
+                                            <option value="0">Thanh toán trực tiếp</option>
+                                        </select>
+                                    </div>
                                     <div class="css-f7zc9t">
                                         <div data-content-region-name="descriptionDetail" data-track-content="true" *ngIf="!thamGiaChua; else thamGiaRoi"
                                             data-content-name="buyNow" data-content-target="cart"
                                             data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
                                             class="css-yp9swi"><button height="2.5rem" color="white" (click)="dangKySuKien()"
                                                 class="att-detail-page-buy-now-button css-f7nwna" type="button">
-                                                <div type="subtitle" class="css-fdtrln">ĐĂNG KÝ THAM GIA
+                                                
+                                                <div type="subtitle" class="css-fdtrln">ĐẶT VÉ SỰ KIỆN NÀY
                                                     </div><span style="margin-left: 0px;">
                                                     <div class="css-157jl91"></div>
                                                 </span>
@@ -105,18 +112,18 @@
                                             color: #fff;
                                             font-weight: bold; pointer-events: none;"
                                                 class="css-1nhnj3v" type="button">
-                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ ĐĂNG KÝ SỰ KIỆN NÀY</div><span style="margin-left: 0px;">
+                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ ĐẶT VÉ SỰ KIỆN NÀY</div><span style="margin-left: 0px;">
                                                     <div class="css-157jl91"></div>
                                                 </span>
                                             </button></div>
-                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  *ngIf="registration && registration.status == 1"
+                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  *ngIf="registration && registration.status == -1"
                                             data-content-name="addToCart" data-content-target="productDetail"
                                             data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
                                             class="css-yp9swi"><button height="2.5rem" color="primary500"  style="    background: black;
                                             color: #fff;
                                             font-weight: bold; pointer-events: none;"
                                                 class="css-1nhnj3v" type="button">
-                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ THAM DỰ ĐÚNG HẸN</div><span style="margin-left: 0px;">
+                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ THANH TOÁN</div><span style="margin-left: 0px;">
                                                     <div class="css-157jl91"></div>
                                                 </span>
                                             </button></div>
@@ -128,7 +135,7 @@
                                                 color: #fff;
                                                 font-weight: bold; pointer-events: none;"
                                                     class="css-1nhnj3v" type="button">
-                                                    <div type="subtitle" class="css-fdtrln" >BẠN KHÔNG THAM DỰ ĐÚNG HẸN. TÀI KHOẢN BẠN SẼ BỊ KHÓA</div><span style="margin-left: 0px;">
+                                                    <div type="subtitle" class="css-fdtrln" >BẠN KHÔNG THAM DỰ ĐÚNG HẸN. TÀI KHOẢN BẠN SẼ BỊ KHÓA NẾU KHÔNG CÓ LÝ DO CHÍNH ĐÁNG</div><span style="margin-left: 0px;">
                                                         <div class="css-157jl91"></div>
                                                     </span>
                                                 </button>
@@ -208,10 +215,25 @@
                                                         loading="lazy" decoding="async"
                                                         style="width: 100%; height: 24px;"></div>
                                                 <div class="att-policy-content-0 css-9yb8e7">
-                                                    <p>Đăng ký mà không tham dự: Tài khoản bạn sẽ bị <span style="font-weight: bold;">KHÓA</span>&nbsp;</p>
+                                                    <p>Đặt vé mà không tham dự, không có lý do chính đáng: Tài khoản bạn sẽ bị <span style="font-weight: bold;">KHÓA</span>&nbsp;</p>
                                                 </div>
                                                 
                                             </div>
+                                            <div class="css-15eranj" *ngIf="registration && registration.status != 02">
+                                                <div height="24" width="24" class="css-1a6hohg"><img
+                                                        src="../../assets/images/remove.png"
+                                                        loading="lazy" decoding="async"
+                                                        style="width: 100%; height: 24px;"></div>
+                                                <div class="att-policy-content-0 css-9yb8e7">
+                                                    <p>Gửi lý do không tham gia được tại đây&nbsp;</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div *ngIf="registration && registration.status != 02">
+                                                <textarea [(ngModel)]="refuseMessage" name="refuseMessage" id="refuseMessage" placeholder="Nhập lý do không tham dự được của bạn ở đây" style="width: 100%;"></textarea>
+                                                <button class="btn btn-secondary" (click)="onSubmit()">Gửi</button>
+                                            </div>
+                                            
                                         </div>
                                         <div direction="row" class="css-1ata8it"></div>
                                     </div>
@@ -246,7 +268,7 @@
           <div class="tab-content row justify-content-center">
             <div role="tabpanel" class="col-lg-9  tab-pane fade"  *ngFor="let activity of hoatDong; let i = index" [id]="'day-' + (i+1)" [class.show]="i == 0" [class.active]="i == 0">
                 <div class="row schedule-item" *ngFor="let hd of hoatDong; let j = index">
-                    <div class="col-md-2"><time>10:30</time></div>
+                    <div class="col-md-2"><time>{{ hd.dateTime | date: 'hh:mm'}}</time></div>
                     <div class="col-md-10">
                         <div class="speaker" *ngIf="hd.img">
                             <img [src]="hd.img" alt="Brenden Legros">
@@ -341,7 +363,7 @@
                                                                 <div
                                                                   type="caption"
                                                                   color="primary500"
-                                                                  class="css-2rwx6s"
+                                                                  class="css-2rwx6s1"
                                                                 >
                                                                   Số lượng tối đa: {{s.maxQuantity}}
                                                                 </div>

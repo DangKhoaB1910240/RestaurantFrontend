@@ -7,7 +7,9 @@ export class Registration {
         public event: SuKien,
         public registrationDate: Date,
         public status: number,
-        public users: User
+        public users: User,
+        public paymentMethod: number,
+        public refuseMessage: string
     ) {
 
     }

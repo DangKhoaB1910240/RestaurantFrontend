@@ -11,6 +11,8 @@ import { RegistrationService } from '../Services/registration/registration.servi
 import { subDays } from 'date-fns';
 import { Registration } from '../Models/registration/registration';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TinhThanhService } from '../Services/tinh-thanh/tinh-thanh.service';
+import { TinhThanhChiTiet } from '../Models/tinhThanh/tinh-thanh-chi-tiet';
 
 @Component({
   selector: 'app-chi-tiet-su-kien',
@@ -23,12 +25,15 @@ export class ChiTietSuKienComponent implements OnInit {
   userId!: number;
   event!: SuKien;
   hoatDong: HoatDong[] = [];
-  constructor(private spinner: NgxSpinnerService,private registrationService: RegistrationService,private userService: UserService,private router: Router,private datePipe: DatePipe ,private route: ActivatedRoute,private suKienService: SuKienService,private hoatDongService: HoatDongService) { }
+  constructor(private tinhThanhService: TinhThanhService,private spinner: NgxSpinnerService,private registrationService: RegistrationService,private userService: UserService,private router: Router,private datePipe: DatePipe ,private route: ActivatedRoute,private suKienService: SuKienService,private hoatDongService: HoatDongService) { }
   eventDays: string[] = [];
   relatedEvents: SuKien[] = [];
   thamGiaChua: Boolean = false;
   hanDangKy!: Date;
   registration: Registration | null = null;
+  paymentMethod: number = 1;
+  refuseMessage: string = '';
+  tinhThanhChiTiet !: TinhThanhChiTiet;
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -72,26 +77,37 @@ export class ChiTietSuKienComponent implements OnInit {
   }
   dangKySuKien() {
     this.spinner.show();
-    if(confirm("Khi đăng ký xong không thể hoàn tác! Bạn có muốn tiếp tục không.")) {
+    let payString = ''
+    if(confirm("Bạn đăng ký sự kiện với phương thức thanh toán là "+(this.paymentMethod == 1 ? "VNPay" : "Thanh toán trực tiếp")+" ! Bạn có muốn tiếp tục không.")) {
         this.registrationService.registerEvent({
           "users" : {
               "id" :this.userId
           },
           "event" : {
               "id":this.eventId
-          }
+          },
+          "paymentMethod" : this.paymentMethod
       }).subscribe({
-        next: (response: any) => {
+        next: (response: string) => {
+          
           this.spinner.hide();
-          alert("Đăng ký sự kiện thành công!");
-          this.thamGiaChua = true;
-          this.getRegistrationByUserIdAndEventId();
+          if(this.paymentMethod == 1) {
+            window.location.href = response;
+          } else {
+            alert("Đăng ký sự kiện thành công!");
+            this.thamGiaChua = true;
+            this.getRegistrationByUserIdAndEventId();
+            this.fetchEventDetails();
+          }
+          
         },
         error: (error) => {
-          alert(error.error.message);
+          console.log(error);
           this.spinner.hide();
         }
       })
+    } else {
+      this.spinner.hide();
     }
     
   }
@@ -106,7 +122,7 @@ export class ChiTietSuKienComponent implements OnInit {
     this.suKienService.getEventById(this.eventId).subscribe({
       next: (response: SuKien) => {
         this.event = response;
-        
+        this.getEventAddress(response);
         const startDate = new Date(this.event.startDateTime);
         const endDate = new Date(this.event.endDateTime);
         this.hanDangKy = subDays(startDate, 1);
@@ -152,6 +168,38 @@ export class ChiTietSuKienComponent implements OnInit {
       },
       error: (error) => {
 
+      }
+    })
+  }
+  onSubmit() {
+    if (this.refuseMessage.trim() === '') {
+      alert('Vui lòng nhập lý do không tham dự.');
+    } else {
+      this.registrationService.getRegistrationByUserIdAndEventId(this.userId,this.eventId).subscribe({
+        next: (response: Registration) => {
+          this.registrationService.updateById(response.id, this.userId, {"refuseMessage": this.refuseMessage}).subscribe({
+            next: (response) => {
+              alert("Gửi lý do không tham dự sự kiện thành công.");
+              this.refuseMessage = '';
+              this.getRegistrationByUserIdAndEventId();
+              this.fetchEventDetails();
+            },
+            error: (error) => {
+              alert(error.error.message);
+            }
+          })
+        }
+      })
+      
+    }
+  }
+
+  getEventAddress(event: SuKien) {
+    console.log(event);
+    this.tinhThanhService.getDetailsAddressById(this.event.phuongXaId).subscribe({
+      next: (response: any) => {
+
+          this.tinhThanhChiTiet = response.data;
       }
     })
   }

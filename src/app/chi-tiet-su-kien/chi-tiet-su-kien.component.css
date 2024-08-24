@@ -1633,7 +1633,7 @@ img, svg {
     transition: color 0.3s ease 0s;
     text-decoration: line-through;
 }
-.css-2rwx6s {
+.css-2rwx6s1 {
     margin: 0px;
     padding: 0px;
     border-style: none;
@@ -2244,24 +2244,4 @@ img, svg {
     min-width: unset;
     transition: color 0.3s ease 0s;
     text-decoration: line-through;
-}
-.css-2rwx6s {
-    margin: 0px;
-    padding: 0px;
-    border-style: none;
-    border-width: 1px;
-    border-color: unset;
-    opacity: 1;
-    color: rgb(20, 53, 195);
-    font-weight: 400;
-    text-decoration: unset;
-    font-size: 12px;
-    line-height: 16px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: unset;
-    max-width: unset;
-    min-width: unset;
-    transition: color 0.3s ease 0s;
 }

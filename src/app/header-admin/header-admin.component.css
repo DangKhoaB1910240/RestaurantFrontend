@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
     --primary: #EB1616;
-    --secondary: #191C24;
+    --secondary: #fff;
     --light: #6C7293;
-    --dark: #000000;
+    --dark: #f5f6f7;
 }
 
 .back-to-top {
@@ -71,7 +71,7 @@
     width: 250px;
     height: 100vh;
     overflow-y: auto;
-    background: var(--secondary);
+    background: white;
     transition: 0.5s;
     z-index: 999;
 }
@@ -131,7 +131,7 @@
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: var(--dark);
+    background: #fff;
     border-color: var(--primary);
 }
 
@@ -147,7 +147,7 @@
 
 .sidebar .navbar .navbar-nav .nav-link:hover i,
 .sidebar .navbar .navbar-nav .nav-link.active i {
-    background: var(--secondary);
+    background: white;
 }
 
 .sidebar .navbar .dropdown-toggle::after {
@@ -173,7 +173,8 @@
 
 .sidebar .navbar .dropdown-item:hover,
 .sidebar .navbar .dropdown-item.active {
-    background: var(--dark);
+    background: #fff;
+    color: red;
 }
 
 .content .navbar .navbar-nav .nav-link {
@@ -195,7 +196,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--dark);
+    background: white;
     border-radius: 40px;
 }
 
@@ -292,7 +293,7 @@
     color: #EB1616;
 }
 .bg-seconday {
-    background-color: #191C24 !important;
+    background-color: #DEB887 !important;
 }
 a {
     cursor: pointer;

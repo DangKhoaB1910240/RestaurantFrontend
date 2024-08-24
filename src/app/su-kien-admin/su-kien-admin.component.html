@@ -26,6 +26,62 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <div class="form-floating">
+                                  <label for="tinhThanhSelect">Chọn tỉnh thành</label>
+                                  <select class="form-control" id="tinhThanhSelect" formControlName="tinhThanhId" (change)="onTinhThanhChange($event)">
+                                    <option value="" selected>Tất cả</option>
+                                    <option *ngFor="let tt of listTinhThanh" [value]="tt.id">{{ tt.name }}</option>
+                                  </select>
+                                  <div *ngIf="submitted && suKienForm.controls['tinhThanhId'].errors">
+                                    <small class="text-danger">Tỉnh thành không được để trống</small>
+                                  </div>
+                                </div>
+                              </div>
+                             <!-- District Dropdown -->
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                <label for="quanHuyenSelect">Chọn quận huyện</label>
+                                <select class="form-control" id="quanHuyenSelect" formControlName="quanHuyenId" (change)="onQuanHuyenChange($event)">
+                                    <option value="" selected>Tất cả</option>
+                                    <option *ngFor="let qh of listQuanHuyen" [value]="qh.id">{{ qh.name }}</option>
+                                </select>
+                                <div *ngIf="submitted && suKienForm.controls['quanHuyenId'].errors">
+                                    <small class="text-danger">Quận huyện không được để trống</small>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- Commune Dropdown -->
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                <label for="phuongXaSelect">Chọn phường xã</label>
+                                <select class="form-control" id="phuongXaSelect" formControlName="phuongXaId">
+                                    <option value="" selected>Tất cả</option>
+                                    <option *ngFor="let px of listPhuongXa" [value]="px.id">{{ px.name }}</option>
+                                </select>
+                                <div *ngIf="submitted && suKienForm.controls['phuongXaId'].errors">
+                                    <small class="text-danger">Phường xã không được để trống</small>
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label" >Địa chỉ chi tiết</label>
+                                <input type="text" class="form-control" id="address"  formControlName="address">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="suKienForm.controls['address'].errors && suKienForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cost" class="form-label" >Giá vé (nghìn đồng)</label>
+                                <input type="number" class="form-control" id="cost"  formControlName="cost">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="suKienForm.controls['cost'].errors && suKienForm.controls['cost'].errors['required']">Giá vé để trống</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
                                 <input type="text" id="startDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="startDateTime"/>
                                 <div *ngIf="submitted">
@@ -100,6 +156,63 @@
                                         <small class="text-danger" *ngIf="suKienForm.controls['eventName'].errors && suKienForm.controls['eventName'].errors['required']">Tên sự kiện không được để trống</small>
                                     </div>
                                 </div>
+
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                      <label for="tinhThanhSelect">Chọn tỉnh thành</label>
+                                      <select class="form-control" id="tinhThanhSelect" formControlName="tinhThanhId" (change)="onTinhThanhChange($event)">
+                                        <option value="">Tất cả</option>
+                                        <option *ngFor="let tt of listTinhThanh" [value]="tt.id">{{ tt.name }}</option>
+                                      </select>
+                                      <div *ngIf="submitted && suKienForm.controls['tinhThanhId'].errors">
+                                        <small class="text-danger">Tỉnh thành không được để trống</small>
+                                      </div>
+                                    </div>
+                                  </div>
+                                 <!-- District Dropdown -->
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                    <label for="quanHuyenSelect">Chọn quận huyện</label>
+                                    <select class="form-control" id="quanHuyenSelect" formControlName="quanHuyenId" (change)="onQuanHuyenChange($event)">
+                                        <option value="">Tất cả</option>
+                                        <option *ngFor="let qh of listQuanHuyen" [value]="qh.id">{{ qh.name }}</option>
+                                    </select>
+                                    <div *ngIf="submitted && suKienForm.controls['quanHuyenId'].errors">
+                                        <small class="text-danger">Quận huyện không được để trống</small>
+                                    </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Commune Dropdown -->
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                    <label for="phuongXaSelect">Chọn phường xã</label>
+                                    <select class="form-control" id="phuongXaSelect" formControlName="phuongXaId">
+                                        <option value="">Tất cả</option>
+                                        <option *ngFor="let px of listPhuongXa" [value]="px.id" >{{ px.name }}</option>
+                                    </select>
+                                    <div *ngIf="submitted && suKienForm.controls['phuongXaId'].errors">
+                                        <small class="text-danger">Phường xã không được để trống</small>
+                                    </div>
+                                    </div>
+                                </div>
+    
+                                <div class="mb-3">
+                                    <label for="address" class="form-label" >Địa chỉ chi tiết</label>
+                                    <input type="text" class="form-control" id="address"  formControlName="address">
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger" *ngIf="suKienForm.controls['address'].errors && suKienForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                    </div>
+                                </div>
+    
+                                <div class="mb-3">
+                                    <label for="cost" class="form-label" >Giá vé (nghìn đồng)</label>
+                                    <input type="number" class="form-control" id="cost"  formControlName="cost">
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger" *ngIf="suKienForm.controls['cost'].errors && suKienForm.controls['cost'].errors['required']">Giá vé để trống</small>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
                                     
@@ -180,7 +293,7 @@
                     <!-- end Form Edit -->
                 </div>
                 <div class="col-sm-12 col-xl-12 mb-3">
-                    <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
+                    <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Danh sách sự kiện ({{listSuKien.length}} sự kiện)</h6>
                             <!-- <a href="">Show All</a> -->
@@ -190,9 +303,11 @@
                         <div class="table-responsive">
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
-                                    <tr class="text-white" >
+                                    <tr>
                                         <th scope="col" >STT</th>
                                         <th scope="col">Tên sự kiện</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Giá vé</th>
                                         <th scope="col">Bắt đầu</th>
                                         <th scope="col">Kết thúc</th>
                                         <th scope="col">Mô tả</th>
@@ -210,6 +325,8 @@
                                         
                                         <td>{{i+1}}</td>
                                         <td>{{s.eventName}}</td>
+                                        <td>{{s.fullAddress}}</td>
+                                        <td>{{s.cost | number}}đ</td>
                                         <td>{{s.startDateTime | date: 'HH:mm dd/MM/yyyy'}}</td>
                                         <td>{{s.endDateTime | date: 'HH:mm dd/MM/yyyy'}}</td>
                                         <td>{{s.description}}</td>

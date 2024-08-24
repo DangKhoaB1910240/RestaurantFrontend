@@ -3,7 +3,7 @@
     --primary: #EB1616;
     --secondary: #191C24;
     --light: #6C7293;
-    --dark: #000000;
+    --dark: #d2d6da;
 }
 
 .back-to-top {
@@ -131,7 +131,7 @@
 .sidebar .navbar .navbar-nav .nav-link:hover,
 .sidebar .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
-    background: var(--dark);
+    background: burlywood;
     border-color: var(--primary);
 }
 
@@ -292,7 +292,7 @@
     color: #EB1616;
 }
 .bg-seconday {
-    background-color: #191C24 !important;
+    background-color: #DEB887 !important;
 }
 .container-fluid {
     
@@ -301,8 +301,8 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #6C7293;
-    background-color: #000;
+    color: black;
+    background-color: #f5f6f7;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 
@@ -363,9 +363,9 @@
     font-weight: 400;
     line-height: 1.5;
     color: #6C7293;
-    background-color: #000;
+    background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #000;
+    border: 1px solid #d2d6da;
     appearance: none;
     border-radius: 5px;
     transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
@@ -373,4 +373,10 @@
 .form-control:focus {
     border-color: #dc3545;
     box-shadow: 0 0 10px #EB1616; /* Thay đổi giá trị để điều chỉnh hiệu ứng ánh sáng */
+}
+
+h6 {
+    font-size: 1rem;
+    color: black;
+    font-weight: bold;
 }

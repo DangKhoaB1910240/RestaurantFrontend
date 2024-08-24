@@ -17,6 +17,11 @@ export class KhachDatAdminComponent implements OnInit{
   listDangKy: Registration[] = [];
   eventId: number | string = '';
   userFullname: string = '';
+  status: number | null = null;
+  monthYear: string | null = null;
+  dayMonthYear: string | null = null;
+  filterByMonth: boolean = false;
+  selectedDate: string = '';
   constructor(
     private registrationService: RegistrationService
   ) { }
@@ -27,7 +32,7 @@ export class KhachDatAdminComponent implements OnInit{
     this.isSidebarOpen = !this.isSidebarOpen;
   }
   getAllRegistrations() {
-    this.registrationService.getAllRegistrationByFilter(this.eventId,this.userFullname).subscribe({
+    this.registrationService.getAllRegistrationByFilter(this.eventId,this.userFullname,this.status,this.monthYear,this.dayMonthYear).subscribe({
       next: (response: Registration[]) => {
         this.listDangKy = response;
       },
@@ -50,4 +55,48 @@ export class KhachDatAdminComponent implements OnInit{
       }
     })
   }
+  onStatusChange(value: string) {
+    this.status = value ? Number(value) : null;
+    this.getAllRegistrations();
+}
+
+onFilterByMonthChange(event: any) {
+    // Khi checkbox được chọn
+    if (this.filterByMonth && this.selectedDate) {
+        const [year, month] = this.selectedDate.split('-');
+        this.monthYear = `${month}/${year}`;
+        this.dayMonthYear = null;
+        console.log(this.dayMonthYear)
+    } else if (this.selectedDate) {
+        // Khi checkbox không được chọn
+        const [year, month, day] = this.selectedDate.split('-');
+        this.dayMonthYear = `${day}/${month}/${year}`;this.selectedDate;
+        this.monthYear = null;
+    }
+    this.getAllRegistrations();
+}
+
+onDateChange(event: any) {
+  console.log(this.selectedDate);
+    if (this.filterByMonth && this.selectedDate) {
+        const [year, month] = this.selectedDate.split('-');
+        this.monthYear = `${month}/${year}`;
+        this.dayMonthYear = null;
+    } else {
+      const [year, month, day] = this.selectedDate.split('-');
+      this.dayMonthYear = `${day}/${month}/${year}`;this.selectedDate;
+        this.monthYear = null;
+    }
+    this.getAllRegistrations();
+}
+
+resetFilters() {
+    this.userFullname = '';
+    this.status = null;
+    this.monthYear = null;
+    this.dayMonthYear = null;
+    this.filterByMonth = false;
+    this.selectedDate = '';
+    this.getAllRegistrations();
+}
 }
