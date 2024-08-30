@@ -177,7 +177,7 @@ export class ChiTietSuKienComponent implements OnInit {
     } else {
       this.registrationService.getRegistrationByUserIdAndEventId(this.userId,this.eventId).subscribe({
         next: (response: Registration) => {
-          this.registrationService.updateById(response.id, this.userId, {"refuseMessage": this.refuseMessage}).subscribe({
+          this.registrationService.updateById2(response.id, this.userId, {"refuseMessage": this.refuseMessage}).subscribe({
             next: (response) => {
               alert("Gửi lý do không tham dự sự kiện thành công.");
               this.refuseMessage = '';

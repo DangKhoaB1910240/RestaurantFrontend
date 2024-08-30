@@ -36,6 +36,9 @@ export class RegistrationService {
   updateById(id: number,userId:number, r: any) :Observable<any> {
     return this.http.patch<void>(this.getFullUrl(`api/v1/registration/${id}/user/${userId}`),r);
   }
+  updateById2(id: number,userId:number, r: any) :Observable<any> {
+    return this.http.patch<void>(this.getFullUrl(`api/v1/registration/${id}/user2/${userId}`),r);
+  }
   getAllRegistrationByFilter(
     eventId: number | string, 
     userFullname: string | null, 
