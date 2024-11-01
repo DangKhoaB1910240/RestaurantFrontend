@@ -13,6 +13,7 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
                 <div class="d-flex align-items-center justify-content-between mb-4">
+                    
                     <h6 class="mb-0">Danh sách khách đặt vé sự kiện <br />(Số lượng : {{listDangKy.length}})</h6>
                     <!-- <a href="">Show All</a> -->
                 </div>
@@ -49,6 +50,7 @@
                                 <th scope="col">Tài khoản</th>
                                 <th scope="col">Sự kiện</th>
                                 <th scope="col">Ngày đặt vé</th>
+                                <th scope="col">Loại ghế</th>
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Lý do không tham dự (nếu có)</th>
                                 <th scope="col">Thao tác</th>
@@ -61,6 +63,7 @@
                                 <td>{{l.users.username}}</td>
                                 <td>{{l.event.eventName}}</td>
                                 <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
+                                <td >{{l.loaiGhe == 0 ? 'Ghế thường' : 'Ghế vip'}}</td>
                                 <td>
                                     <span *ngIf="l.status ==0">Chưa xử lý</span>
                                     <span *ngIf="l.status ==-1">Đã thanh toán</span>

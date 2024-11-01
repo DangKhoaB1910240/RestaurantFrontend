@@ -13,6 +13,8 @@ import { datetimeFormatValidator } from '../validators/datetime-format.validator
 import { TinhThanhService } from '../Services/tinh-thanh/tinh-thanh.service';
 import { TinhThanh } from '../Models/tinhThanh/tinh-thanh';
 import { TinhThanhChiTiet } from '../Models/tinhThanh/tinh-thanh-chi-tiet';
+import { GheService } from '../Services/ghe/ghe.service';
+import { Ghe } from '../Models/ghe/ghe';
 
 @Component({
   selector: 'app-su-kien-admin',
@@ -43,7 +45,8 @@ export class SuKienAdminComponent implements OnInit {
   listQuanHuyen: TinhThanh[] = [];
   listPhuongXa: TinhThanh[] = [];
   chiTiet!: TinhThanhChiTiet;
-  constructor(private formBuilder: FormBuilder, private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router:Router, private tinhThanhService: TinhThanhService) { 
+  giaGhe: number = 0;
+  constructor(private gheService: GheService ,private formBuilder: FormBuilder, private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router:Router, private tinhThanhService: TinhThanhService) { 
     this.suKienForm = this.formBuilder.group({
         eventName: ['', Validators.required],
         startDateTime: ['', [Validators.required, datetimeFormatValidator()]],
@@ -65,6 +68,27 @@ export class SuKienAdminComponent implements OnInit {
     this.getNhaToChuc();
     this.getSuKien();
     this.getTinhThanh();
+    this.getGheById();
+  }
+  getGheById() {
+    this.gheService
+      .getById(1)
+      .subscribe({
+        next: (response: Ghe) => {
+          this.giaGhe = response.giaGhe;
+        },
+        error: (error) => {},
+      });
+  }
+  updateGia(id: number) {
+    this.gheService.updateById(id, this.giaGhe).subscribe({
+      next: (response: void) => {
+        alert("Cập nhật giá ghế vip thành công");
+      },
+      error: (error) => {
+        alert(error.error.message);
+      }
+    })
   }
   getSuKien() {
     this.suKienService.getSuKien().subscribe({

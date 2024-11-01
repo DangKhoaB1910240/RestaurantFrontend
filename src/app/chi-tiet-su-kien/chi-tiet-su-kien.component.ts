@@ -13,6 +13,8 @@ import { Registration } from '../Models/registration/registration';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TinhThanhService } from '../Services/tinh-thanh/tinh-thanh.service';
 import { TinhThanhChiTiet } from '../Models/tinhThanh/tinh-thanh-chi-tiet';
+import { GheService } from '../Services/ghe/ghe.service';
+import { Ghe } from '../Models/ghe/ghe';
 
 @Component({
   selector: 'app-chi-tiet-su-kien',
@@ -25,6 +27,7 @@ export class ChiTietSuKienComponent implements OnInit {
   userId!: number;
   event!: SuKien;
   hoatDong: HoatDong[] = [];
+  ghe!: Ghe;
   constructor(
     private tinhThanhService: TinhThanhService,
     private spinner: NgxSpinnerService,
@@ -34,7 +37,8 @@ export class ChiTietSuKienComponent implements OnInit {
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private suKienService: SuKienService,
-    private hoatDongService: HoatDongService
+    private hoatDongService: HoatDongService,
+    private gheService: GheService,
   ) {}
   eventDays: string[] = [];
   relatedEvents: SuKien[] = [];
@@ -42,6 +46,7 @@ export class ChiTietSuKienComponent implements OnInit {
   hanDangKy!: Date;
   registration: Registration | null = null;
   paymentMethod: number = 1;
+  loaiGhe: number = 0;
   refuseMessage: string = '';
   tinhThanhChiTiet!: TinhThanhChiTiet;
   ngOnInit() {
@@ -54,6 +59,7 @@ export class ChiTietSuKienComponent implements OnInit {
     this.getEventId();
     this.fetchEventDetails();
     this.checkExistByUserIdAndEventId();
+    this.getGheById();
   }
   checkExistByUserIdAndEventId() {
     this.userService
@@ -77,6 +83,16 @@ export class ChiTietSuKienComponent implements OnInit {
         error: (error) => {
           console.log(error);
         },
+      });
+  }
+  getGheById() {
+    this.gheService
+      .getById(1)
+      .subscribe({
+        next: (response: Ghe) => {
+          this.ghe = response;
+        },
+        error: (error) => {},
       });
   }
   getRegistrationByUserIdAndEventId() {
@@ -107,6 +123,7 @@ export class ChiTietSuKienComponent implements OnInit {
           event: {
             id: this.eventId,
           },
+          loaiGhe: this.loaiGhe,
           paymentMethod: this.paymentMethod,
         })
         .subscribe({

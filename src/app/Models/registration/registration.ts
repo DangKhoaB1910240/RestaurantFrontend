@@ -9,7 +9,8 @@ export class Registration {
         public status: number,
         public users: User,
         public paymentMethod: number,
-        public refuseMessage: string
+        public refuseMessage: string,
+        public loaiGhe: number
     ) {
 
     }

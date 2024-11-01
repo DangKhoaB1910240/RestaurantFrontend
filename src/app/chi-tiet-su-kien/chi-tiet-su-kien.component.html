@@ -72,7 +72,21 @@
                                                 </div>
                                         </div>
                                     </div>
-                                    <div class="css-qmrpdk">Giá vé: {{event.cost | number}}đ</div>
+                                    <div class="css-qmrpdk" *ngIf="!thamGiaChua;">
+                                        Giá vé: 
+                                        {{ loaiGhe == 0 
+                                          ? (event.cost | number) + 'đ' 
+                                          : (event.cost | number) + 'đ + ' + (ghe.giaGhe | number)+'đ (Phí ghế vip) = ' + ((event.cost + ghe.giaGhe) | number) + 'đ' }} 
+                                    </div>
+
+                                    <div class="css-qmrpdk" *ngIf="thamGiaChua;">
+                                        Giá vé: 
+                                        {{ (registration && registration.loaiGhe == 0 )
+                                          ? (event.cost | number) + 'đ' 
+                                          : (event.cost | number) + 'đ + ' + (ghe.giaGhe | number)+'đ (Phí ghế vip) = ' + ((event.cost + ghe.giaGhe) | number) + 'đ' }} 
+                                    </div>
+                                    
+                                      
                                     <div class="css-2zf5gn">
                                         <div type="title" class="att-product-detail-latest-price css-roachw"
                                             color="primary500">Còn trống: {{event.maxQuantity - event.totalRegistered}} chỗ</div>
@@ -86,6 +100,11 @@
                                         <div width="100%" color="divider" class="css-1fm9yfq"></div>
                                     </div>
                                     <div *ngIf="!thamGiaChua;">
+                                        <label for="" style="font-weight: bold;">Chọn loại ghế</label>
+                                        <select class="form-control mb-3" name="" id="" [(ngModel)]="loaiGhe">
+                                            <option value="0">Ghế thường</option>
+                                            <option value="1">Ghế vip</option>
+                                        </select>
                                         <label for="" style="font-weight: bold;">Phương thức thanh toán</label>
                                         <select class="form-control" name="" id="" [(ngModel)]="paymentMethod">
                                             <option value="1">Thanh toán bằng VNPay</option>
