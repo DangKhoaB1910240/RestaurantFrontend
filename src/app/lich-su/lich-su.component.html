@@ -274,25 +274,31 @@
                   [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('TATCA')">Best seller</div>
+                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('TATCA')">Tất cả</div>
                 </div>
                 <div
-                [ngClass]="eventStatus == 'TRUOC' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                  [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('TRUOC')">Yêu thích nhất</div>
+                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('BESTSELLER')">Best seller</div>
                 </div>
                 <div
-                [ngClass]="eventStatus == 'DANG' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                [ngClass]="eventStatus == 'BESTSELLER' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('DANG')">Món mới nhất</div>
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('YEUTHICHNHAT')">Yêu thích nhất</div>
                 </div>
                 <div
-                  [ngClass]="eventStatus == 'SAU' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                [ngClass]="eventStatus == 'MONMOINHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('SAU')">Món chay</div>
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONMOINHAT')">Món mới nhất</div>
+                </div>
+                <div
+                  [ngClass]="eventStatus == 'MONCHAY' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                  style="padding: 0.5rem; margin-right: 1rem"
+                >
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONCHAY')">Món chay</div>
                 </div>
               </div>
             </div>

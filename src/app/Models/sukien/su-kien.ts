@@ -10,5 +10,9 @@ export class Item {
       public img: string,
       public cost: number,
       public category: Category, // Sử dụng class Organizer hoặc thay thế bằng dữ liệu tương ứng
+      public bestSeller: boolean,
+      public yeuThichNhat: boolean,
+      public monMoiNhat: boolean,
+      public monChay: boolean,
     ) {}
   }
