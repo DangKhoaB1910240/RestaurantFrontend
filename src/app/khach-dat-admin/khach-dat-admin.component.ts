@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggerService } from '../Services/logger/logger.service';
-import { Logger } from '../Models/logger/logger';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
-import { SuKienService } from '../Services/sukien/su-kien.service';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
-import { SuKien } from '../Models/sukien/su-kien';
 import { Registration } from '../Models/registration/registration';
 import { RegistrationService } from '../Services/registration/registration.service';
 @Component({

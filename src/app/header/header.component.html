@@ -7,15 +7,15 @@
       <div id="logo" class="pull-left">
         <!-- Uncomment below if you prefer to use a text logo -->
         <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
-        <a href="#intro" class="scrollto"><img src="../../assets/img/logo.png" alt="" title=""></a>
+        <a href="#intro" class="scrollto"><img src="../../assets/img/logo_res.jpg" alt="" title=""></a>
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li [class.menu-active]="isRouteActive('/trangchu')"><a routerLink="/trangchu">Trang chủ</a></li>
-          <li [class.menu-active]="isRouteActive('/nhatochuc')"><a routerLink="/nhatochuc">Nhà tổ chức</a></li>
-          <li [class.menu-active]="isRouteActive('/sukien')"><a routerLink="/sukien">Sự kiện</a></li>
-          <li [class.menu-active]="isRouteActive('/lichsu')"><a routerLink="/lichsu">Lịch sử tham gia</a></li>
+          <li [class.menu-active]="isRouteActive('/Category')"><a routerLink="/Category">Danh mục</a></li>
+          <li [class.menu-active]="isRouteActive('/Item')"><a routerLink="/Item">Món ăn</a></li>
+          <li [class.menu-active]="isRouteActive('/lichsu')"><a routerLink="/lichsu">Lịch sử đặt bàn</a></li>
           <li [class.menu-active]="isRouteActive('/dangnhap')"><a *ngIf="!token" routerLink="/dangnhap">Đăng nhập</a><a *ngIf="token" (click)="dangXuat()">Đăng xuất</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->

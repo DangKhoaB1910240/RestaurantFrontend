@@ -5,30 +5,30 @@ import { Event, Router } from '@angular/router';
 import { User } from '../Models/user/user';
 import { RoleService } from '../Services/role/role.service';
 import { Role } from '../Models/role/role';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
+import { CategoryService } from '../Services/category/category.service';
+import { Category } from '../Models/category/category';
 
 @Component({
   selector: 'app-nha-to-chuc-admin',
   templateUrl: './nha-to-chuc-admin.component.html',
   styleUrls: ['./nha-to-chuc-admin.component.css']
 })
-export class NhaToChucAdminComponent implements OnInit {
+export class CategoryAdminComponent implements OnInit {
   isSidebarOpen: boolean = false;
-  nhaToChucForm!: FormGroup;
+  CategoryForm!: FormGroup;
   submitted = false; //Kiểm tra bấm nút submitted chưa
   isCheckSuccess: boolean = false; //Kiểm tra đăng ký thành công không
   successMessage: string = ''; //Thêm thông điệp thành công khi đăng ký
   alreadyExistAccount: string = '';
   errorMessage: string = '';
-  listNhaToChuc: NhaToChuc[] = [];
-  searchOrganizerName: string = '';
+  listCategory: Category[] = [];
+  searchname: string = '';
 
   isEditForm: Boolean = false; //Biến kiểm tra nếu true thì form thêm ngược lại thì form edit
-  idNhaToChuc!: number;
-  constructor(private formBuilder: FormBuilder,private nhaToChucService: NhaToChucService,private router:Router) { 
-    this.nhaToChucForm = this.formBuilder.group({
-      organizerName: ['', Validators.required],
+  idCategory!: number;
+  constructor(private formBuilder: FormBuilder,private CategoryService: CategoryService,private router:Router) { 
+    this.CategoryForm = this.formBuilder.group({
+      name: ['', Validators.required],
         img: ['', Validators.required],
         address: ['', Validators.required],
         phone: ['', Validators.required],
@@ -36,31 +36,31 @@ export class NhaToChucAdminComponent implements OnInit {
       });
   }    
   ngOnInit(): void {
-    this.getNhaToChuc();
+    this.getCategory();
   }
-  getNhaToChuc() {
-    this.nhaToChucService.getNhaToChuc(this.searchOrganizerName).subscribe({
-      next: (response: NhaToChuc[]) => {
-        this.listNhaToChuc = response;
+  getCategory() {
+    this.CategoryService.getCategory(this.searchname).subscribe({
+      next: (response: Category[]) => {
+        this.listCategory = response;
       },
       error: (error) => {
 
       }
     })
   }
-  searchOByOrganizerName() {
-    this.getNhaToChuc();
+  searchOByname() {
+    this.getCategory();
   }
-  themNhaToChuc() {
+  themCategory() {
     this.submitted = true;
-    console.log(this.nhaToChucForm.value);
-    if(this.nhaToChucForm.valid == true) {
-      this.nhaToChucService.addNhaToChuc(JSON.parse(localStorage.getItem("userId")!),this.nhaToChucForm.value).subscribe({
+    console.log(this.CategoryForm.value);
+    if(this.CategoryForm.valid == true) {
+      this.CategoryService.addCategory(JSON.parse(localStorage.getItem("userId")!),this.CategoryForm.value).subscribe({
         next: (response: any) => {
             this.cancel();
             this.isCheckSuccess = true;
             this.successMessage = "Thêm nhà tổ chức thành công";
-            this.getNhaToChuc();
+            this.getCategory();
         },
         error: (error) => {
         }
@@ -68,14 +68,14 @@ export class NhaToChucAdminComponent implements OnInit {
     }
   }
   // Chỉnh sửa nhà tổ chức
-  suaNhaToChuc() {
+  suaCategory() {
     this.submitted = true;
-    this.nhaToChucService.updateById(this.idNhaToChuc,JSON.parse(localStorage.getItem('userId')!),this.nhaToChucForm.value).subscribe({
+    this.CategoryService.updateById(this.idCategory,JSON.parse(localStorage.getItem('userId')!),this.CategoryForm.value).subscribe({
       next: (response: void) => {
         this.cancel();
         this.isCheckSuccess = true;
         this.successMessage = "Chỉnh sửa nhà tổ chức thành công";
-        this.getNhaToChuc();
+        this.getCategory();
       },
       error: (error) => {
 
@@ -84,16 +84,12 @@ export class NhaToChucAdminComponent implements OnInit {
   }
   // Lấy thông tin nhà tổ chức theo ID
   getInfoById(id: number) {
-    this.idNhaToChuc = id;
-    this.nhaToChucService.getInfoById(id).subscribe({
-      next: (response: NhaToChuc) => {
+    this.idCategory = id;
+    this.CategoryService.getInfoById(id).subscribe({
+      next: (response: Category) => {
         this.isEditForm = true;
-        this.nhaToChucForm.patchValue({
-          organizerName: response.organizerName,
-          img: response.img,
-          address: response.address,
-          phone: response.phone,
-          email: response.email
+        this.CategoryForm.patchValue({
+          name: response.name,
         });
         // Cuộn trang lên đầu
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -104,7 +100,7 @@ export class NhaToChucAdminComponent implements OnInit {
     })
   }
   cancel() {
-    this.nhaToChucForm.reset();
+    this.CategoryForm.reset();
     this.submitted = false;
     this.isCheckSuccess = false;
     this.alreadyExistAccount = '';
@@ -116,13 +112,13 @@ export class NhaToChucAdminComponent implements OnInit {
     console.log(this.isSidebarOpen);
   }
   
-  deleteNhaToChuc(id: number) {
+  deleteCategory(id: number) {
     if(confirm('Bạn có chắc chắn muốn xóa nhà tổ chức này')) {
-      this.nhaToChucService.deleteNhaToChuc(id,JSON.parse(localStorage.getItem('userId')!)).subscribe({
+      this.CategoryService.deleteCategory(id,JSON.parse(localStorage.getItem('userId')!)).subscribe({
         next: (response: void) => {
           alert('Xóa nhà tổ chức thành công');
           this.cancel();
-          this.getNhaToChuc();
+          this.getCategory();
         },
         error: (error) => {
           alert(error.error.message);

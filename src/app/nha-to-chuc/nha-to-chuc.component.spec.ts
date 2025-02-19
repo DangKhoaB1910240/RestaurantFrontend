@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NhaToChucComponent } from './nha-to-chuc.component';
+import { CategoryComponent } from './nha-to-chuc.component';
 
-describe('NhaToChucComponent', () => {
-  let component: NhaToChucComponent;
-  let fixture: ComponentFixture<NhaToChucComponent>;
+describe('CategoryComponent', () => {
+  let component: CategoryComponent;
+  let fixture: ComponentFixture<CategoryComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NhaToChucComponent]
+      declarations: [CategoryComponent]
     });
-    fixture = TestBed.createComponent(NhaToChucComponent);
+    fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,9 +19,6 @@ export class RoomType {
   getName(): string {
     return this.name;
   }
-  getMaxQuantity(): number {
-    return this.maxQuantity;
-  }
   getPrice(): number {
     return this.price;
   }

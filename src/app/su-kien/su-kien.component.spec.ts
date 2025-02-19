@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuKienComponent } from './su-kien.component';
+import { ItemComponent } from './su-kien.component';
 
-describe('SuKienComponent', () => {
-  let component: SuKienComponent;
-  let fixture: ComponentFixture<SuKienComponent>;
+describe('ItemComponent', () => {
+  let component: ItemComponent;
+  let fixture: ComponentFixture<ItemComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SuKienComponent]
+      declarations: [ItemComponent]
     });
-    fixture = TestBed.createComponent(SuKienComponent);
+    fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

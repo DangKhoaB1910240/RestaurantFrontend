@@ -83,7 +83,7 @@
       customEvent = document.createEventObject();
       customEvent.eventType = event;
     } else {
-      customEvent.eventName = event;
+      customEvent.itemName = event;
     }
 
     return customEvent;

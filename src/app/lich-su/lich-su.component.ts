@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { SuKienService } from '../Services/sukien/su-kien.service';
-import { SuKien } from '../Models/sukien/su-kien';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
+import { CategoryService } from '../Services/category/category.service';
+import { Category } from '../Models/category/category';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from '../Models/user/user';
@@ -10,6 +8,7 @@ import { UserService } from '../Services/user/user.service';
 import { RegisterService } from '../Models/register-service/register-service';
 import { RegistrationService } from '../Services/registration/registration.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Item } from '../Models/sukien/su-kien';
 @Component({
   selector: 'app-lich-su',
   templateUrl: './lich-su.component.html',
@@ -17,7 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class LichSuComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder,private userService: UserService,private spinner: NgxSpinnerService,private registrationService: RegistrationService,private nhaToChucService: NhaToChucService,private router: Router,private route: ActivatedRoute){
+  constructor(private formBuilder: FormBuilder,private userService: UserService,private spinner: NgxSpinnerService,private registrationService: RegistrationService,private CategoryService: CategoryService,private router: Router,private route: ActivatedRoute){
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       newPassword: ['',Validators.required],
@@ -76,9 +75,9 @@ export class LichSuComponent implements OnInit {
   }
   changePasswordForm!: FormGroup;
   soLuong: number = 0;
-  suKien: SuKien[] = [];
-  nhaToChuc: NhaToChuc[] = [];
-  tenSuKien: string = '';
+  Item: Item[] = [];
+  Category: Category[] = [];
+  tenItem: string = '';
   eventStatus: string = '';
   organizerId: number | string = '';
   userId!: number;
@@ -111,18 +110,18 @@ export class LichSuComponent implements OnInit {
     this.isCheckSuccess = false;
     this.errorMessage = '';
   }
-  navigateToSuKien(id?: number) {
+  navigateToItem(id?: number) {
     if(id===undefined) {
       this.organizerId = '';
-      this.updateSuKienByStatusAndEventNameAndOrganizerId();
+      this.updateItemByStatusAnditemNameAndOrganizerId();
       // Tạo NavigationExtras để xóa query parameter organizerId
       const navigationExtras: NavigationExtras = {
         replaceUrl: true,  // Thay thế URL hiện tại, không tạo lịch sử duyệt web
       };
 
-      this.router.navigate(['/sukien'], navigationExtras);
+      this.router.navigate(['/Item'], navigationExtras);
     } else {
-      this.router.navigate(['/sukien'], { queryParams: { organizerId: id } });
+      this.router.navigate(['/Item'], { queryParams: { organizerId: id } });
     }
     
   } 
@@ -132,27 +131,27 @@ export class LichSuComponent implements OnInit {
       next:(response: User) => {
         this.userId = response.id;
         this.user = response; 
-        this.updateSuKienByStatusAndEventNameAndOrganizerId();
+        // this.updateItemByStatusAnditemNameAndOrganizerId();
       },
       error: (error) => {
         console.log(error);
       }
     })
   }
-  updateSuKienByStatus(status: string) {
+  updateItemByStatus(status: string) {
     this.eventStatus = status;
-    this.updateSuKienByStatusAndEventNameAndOrganizerId();
+    this.updateItemByStatusAnditemNameAndOrganizerId();
   }
-  updateSuKienByStatusAndEventNameAndOrganizerId() {
+  updateItemByStatusAnditemNameAndOrganizerId() {
     console.log(this.userId);
     this.spinner.show();
-    this.registrationService.getEventsByUserIdAndStatusAndOrganizerIdAndName(this.userId,this.eventStatus,this.tenSuKien,this.organizerId).subscribe({
-      next:(response: SuKien[]) => {
-        this.spinner.hide();
-        this.suKien = response;
-        console.log(this.suKien);
-      }
-    })
+    // this.registrationService.getEventsByUserIdAndStatusAndOrganizerIdAndName(this.userId,this.eventStatus,this.tenItem,this.organizerId).subscribe({
+    //   next:(response: Item[]) => {
+    //     this.spinner.hide();
+    //     this.Item = response;
+    //     console.log(this.Item);
+    //   }
+    // })
   }
 
 }

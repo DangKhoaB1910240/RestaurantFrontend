@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NhaToChucAdminComponent } from './nha-to-chuc-admin.component';
+import { CategoryAdminComponent } from './nha-to-chuc-admin.component';
 
-describe('NhaToChucAdminComponent', () => {
-  let component: NhaToChucAdminComponent;
-  let fixture: ComponentFixture<NhaToChucAdminComponent>;
+describe('CategoryAdminComponent', () => {
+  let component: CategoryAdminComponent;
+  let fixture: ComponentFixture<CategoryAdminComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NhaToChucAdminComponent]
+      declarations: [CategoryAdminComponent]
     });
-    fixture = TestBed.createComponent(NhaToChucAdminComponent);
+    fixture = TestBed.createComponent(CategoryAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

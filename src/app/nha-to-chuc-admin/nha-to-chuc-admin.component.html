@@ -16,42 +16,42 @@
                     <!-- Form thêm -->
                     <div class="bg-secondary1 rounded h-100 p-4" *ngIf="!isEditForm ; else edit">
                         <h6 class="mb-4">Thêm nhà tổ chức</h6>
-                        <form [formGroup]="nhaToChucForm" (ngSubmit)="themNhaToChuc()">
+                        <form [formGroup]="CategoryForm" (ngSubmit)="themCategory()">
                             <div class="mb-3">
-                                <label for="organizerName" class="form-label">Tên nhà tổ chức</label>
-                                <input type="text" class="form-control" id="organizerName" formControlName="organizerName" 
+                                <label for="name" class="form-label">Tên nhà tổ chức</label>
+                                <input type="text" class="form-control" id="name" formControlName="name" 
                                     aria-describedby="emailHelp">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['organizerName'].errors && nhaToChucForm.controls['organizerName'].errors['required']">Tên nhà tổ chức không được để trống</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['name'].errors && CategoryForm.controls['name'].errors['required']">Tên nhà tổ chức không được để trống</small>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label"  >Số điện thoại</label>
                                 <input type="text" class="form-control" id="phone" formControlName="phone">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['phone'].errors && nhaToChucForm.controls['phone'].errors['required']">Số điện thoại không được để trống</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['phone'].errors && CategoryForm.controls['phone'].errors['required']">Số điện thoại không được để trống</small>
                                   </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label" >Email</label>
                                 <input type="text" class="form-control" id="email" formControlName="email">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['email'].errors && nhaToChucForm.controls['email'].errors['required']">Email không được để trống</small>
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['email'].errors && nhaToChucForm.controls['email'].errors['email']">Email cần nhập đúng định dạng</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['email'].errors && CategoryForm.controls['email'].errors['required']">Email không được để trống</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['email'].errors && CategoryForm.controls['email'].errors['email']">Email cần nhập đúng định dạng</small>
                                   </div>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label" >Địa chỉ</label>
                                 <input type="text" class="form-control" id="address"  formControlName="address" >
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['address'].errors && nhaToChucForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['address'].errors && CategoryForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="img" class="form-label" >Hình ảnh</label>
                                 <input type="text" class="form-control" id="img"  formControlName="img" >
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="nhaToChucForm.controls['img'].errors && nhaToChucForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
+                                    <small class="text-danger" *ngIf="CategoryForm.controls['img'].errors && CategoryForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
                                 </div>
                             </div>
                             <div *ngIf="isCheckSuccess" class="text-center mb-2">
@@ -66,42 +66,42 @@
                     <ng-template #edit>
                         <div class="bg-secondary1 rounded h-100 p-4" >
                             <h6 class="mb-4">Sửa nhà tổ chức</h6>
-                            <form [formGroup]="nhaToChucForm" (ngSubmit)="suaNhaToChuc()">
+                            <form [formGroup]="CategoryForm" (ngSubmit)="suaCategory()">
                                 <div class="mb-3">
-                                    <label for="organizerName" class="form-label">Tên nhà tổ chức</label>
-                                    <input type="text" class="form-control" id="organizerName" formControlName="organizerName" 
+                                    <label for="name" class="form-label">Tên nhà tổ chức</label>
+                                    <input type="text" class="form-control" id="name" formControlName="name" 
                                         aria-describedby="emailHelp">
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['organizerName'].errors && nhaToChucForm.controls['organizerName'].errors['required']">Tên nhà tổ chức không được để trống</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['name'].errors && CategoryForm.controls['name'].errors['required']">Tên nhà tổ chức không được để trống</small>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="phone" class="form-label"  >Số điện thoại</label>
                                     <input type="text" class="form-control" id="phone" formControlName="phone" >
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['phone'].errors && nhaToChucForm.controls['phone'].errors['required']">Số điện thoại không được để trống</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['phone'].errors && CategoryForm.controls['phone'].errors['required']">Số điện thoại không được để trống</small>
                                       </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label" >Email</label>
                                     <input type="text" class="form-control" id="email" formControlName="email" >
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['email'].errors && nhaToChucForm.controls['email'].errors['required']">Email không được để trống</small>
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['email'].errors && nhaToChucForm.controls['email'].errors['email']">Email cần nhập đúng định dạng</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['email'].errors && CategoryForm.controls['email'].errors['required']">Email không được để trống</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['email'].errors && CategoryForm.controls['email'].errors['email']">Email cần nhập đúng định dạng</small>
                                       </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="address" class="form-label" >Địa chỉ</label>
                                     <input type="text" class="form-control" id="address"  formControlName="address" >
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['address'].errors && nhaToChucForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['address'].errors && CategoryForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="img" class="form-label" >Hình ảnh</label>
                                     <input type="text" class="form-control" id="img"  formControlName="img" >
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="nhaToChucForm.controls['img'].errors && nhaToChucForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
+                                        <small class="text-danger" *ngIf="CategoryForm.controls['img'].errors && CategoryForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
                                     </div>
                                 </div>
                                 <div *ngIf="isCheckSuccess" class="text-center mb-2">
@@ -118,37 +118,27 @@
                 <div class="col-sm-12 col-xl-12 mb-3" >
                     <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Danh sách nhà tổ chức sự kiện ({{listNhaToChuc.length}} nhà tổ chức)</h6>
+                            <h6 class="mb-0">Danh sách nhà tổ chức món ăn ({{listCategory.length}} nhà tổ chức)</h6>
                             <!-- <a href="">Show All</a> -->
                         </div>
-                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="searchOrganizerName" (input)="searchOByOrganizerName()">
+                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="searchname" (input)="searchOByname()">
                         <div class="table-responsive">
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr >
                                         <th scope="col">STT</th>
-                                        <th scope="col">Tên nhà tổ chức</th>
-                                        <th scope="col">Địa chỉ</th>
-                                        <th scope="col">SĐT</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Tên danh mục</th>
                                         <th scope="col">Thao tác</th>
                                         <!-- <th scope="col">Thao tác</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let n of listNhaToChuc;index as i">
+                                    <tr *ngFor="let n of listCategory;index as i">
                                         
                                         <td>{{i+1}}</td>
-                                        <td>{{n.organizerName}}</td>
-                                        <td>{{n.address}}</td>
-                                        <td>{{n.phone}}</td>
-                                        <td>{{n.email}}</td>
+                                        <td>{{n.name}}</td>
                                         <td>
-                                            <img [src]="n.img" style="width: 100%;" alt="">
-                                        </td>
-                                        <td>
-                                            <div><a class="btn btn-sm btn-primary" (click)="deleteNhaToChuc(n.id)"  >Xóa</a></div>
+                                            <div><a class="btn btn-sm btn-primary" (click)="deleteCategory(n.id)"  >Xóa</a></div>
                                             <div><a class="btn btn-sm btn-light login"  (click)="getInfoById(n.id)">Sửa</a></div>
                                             
                                         </td>

@@ -14,7 +14,7 @@
             <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     
-                    <h6 class="mb-0">Danh sách khách đặt vé sự kiện <br />(Số lượng : {{listDangKy.length}})</h6>
+                    <h6 class="mb-0">Danh sách khách đặt vé món ăn <br />(Số lượng : {{listDangKy.length}})</h6>
                     <!-- <a href="">Show All</a> -->
                 </div>
                 <div style="display: flex;">
@@ -48,7 +48,7 @@
                                 <th scope="col">STT</th>
                                 <th scope="col">Khách hàng</th>
                                 <th scope="col">Tài khoản</th>
-                                <th scope="col">Sự kiện</th>
+                                <th scope="col">món ăn</th>
                                 <th scope="col">Ngày đặt vé</th>
                                 <th scope="col">Loại ghế</th>
                                 <th scope="col">Trạng thái</th>
@@ -61,7 +61,7 @@
                                 <td>{{i+1}}</td>
                                 <td>{{l.users.fullname}}</td>
                                 <td>{{l.users.username}}</td>
-                                <td>{{l.event.eventName}}</td>
+                                <td>{{l.event.itemName}}</td>
                                 <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
                                 <td >{{l.loaiGhe == 0 ? 'Ghế thường' : 'Ghế vip'}}</td>
                                 <td>

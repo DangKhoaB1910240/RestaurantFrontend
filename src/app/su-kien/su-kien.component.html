@@ -52,7 +52,7 @@
         </div>
         <a href="#" disabled class="breadcrumb-item css-4jp5hh">
           <div type="body" color="#000" class="css-joh11t">
-            Nhiều sự kiện hot mỗi ngày
+            Nhiều món ăn hot mỗi ngày
           </div>
         </a>
       </div>
@@ -96,10 +96,10 @@
                     >
                       <input
                         class="search-input css-7jjcju"
-                        placeholder="Nhập tên sự kiện cần tìm"
+                        placeholder="Nhập tên món ăn cần tìm"
                         role="searchbox"
-                        aria-label="Search" [(ngModel)]="tenSuKien"
-                        (input) ="updateSuKienByStatusAndEventNameAndOrganizerId()"
+                        aria-label="Search" [(ngModel)]="tenItem"
+                        (input) ="updateItemByStatusAnditemNameAndOrganizerId()"
                       />
                     </div>
                     <div
@@ -156,19 +156,19 @@
                       data-testid="TekoLink" 
                       class="css-1f61m89"
                       style="color: #f82249; cursor: pointer;"
-                      (click)="navigateToSuKien()"
+                      (click)="navigateToItem()"
                       [ngStyle]="{'color': organizerId != '' ? '#f82249' : '#494D5F', 'font-weight': organizerId == '' ? 'bold' : 'normal', 'cursor': 'pointer'}"
                       >Tất cả</a
                     >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
-                  <span *ngFor="let n of nhaToChuc">
+                  <span *ngFor="let n of Category">
                     <a
-                      data-testid="TekoLink" (click)="navigateToSuKien(n.id)"
+                      data-testid="TekoLink" (click)="navigateToItem(n.id)"
                       class="css-1f61m89"
                       
                       [ngStyle]="{'color': n.id != organizerId ? '#f82249' : '#494D5F', 'font-weight': n.id == organizerId ? 'bold' : 'normal', 'cursor': 'pointer'}"
                       
-                      >{{n.organizerName}}</a
+                      >{{n.name}}</a
                     >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
                   
@@ -184,44 +184,44 @@
         >
           <div class="teko-row teko-row-start teko-row-baseline css-17jbfbn">
             <h1 class="css-7nrxrf">
-              Danh sách các sự kiện
+              Danh sách các món ăn
             </h1>
             <div type="title" color="textSecondary" class="css-18xfrv">
-              ({{suKien.length}} sự kiện)
+              ({{Item.length}} món ăn)
             </div>
           </div>
           <div width="100%" class="css-qc5ueq">
             <div class="css-v6thbz" direction="row">
               <div height="100%" direction="row" class="css-1k985bk">
-                <div type="subtitle" class="css-1ew3940">Lọc sự kiện</div>
+                <div type="subtitle" class="css-1ew3940">Lọc món ăn</div>
                 <div
                   [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw"  (click)="updateSuKienByStatus('TATCA')">Tất cả</div>
+                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('TATCA')">Best seller</div>
                 </div>
                 <div
                 [ngClass]="eventStatus == 'TRUOC' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateSuKienByStatus('TRUOC')">Đã qua</div>
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('TRUOC')">Yêu thích nhất</div>
                 </div>
                 <div
                 [ngClass]="eventStatus == 'DANG' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateSuKienByStatus('DANG')">Đang diễn ra</div>
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('DANG')">Món mới nhất</div>
                 </div>
                 <div
                   [ngClass]="eventStatus == 'SAU' ? 'css-1ss9yju' : 'css-1w3mv8m'"
                   style="padding: 0.5rem; margin-right: 1rem"
                 >
-                  <div type="body" class="css-1lchwqw" (click)="updateSuKienByStatus('SAU')">Sắp diễn ra</div>
+                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('SAU')">Món chay</div>
                 </div>
               </div>
             </div>
-            <div class="css-1y2krk0" *ngIf="suKien && suKien.length>0;else noEvent">
-              <div type="grid" class="css-13w7uog pb-1" *ngFor="let s of suKien" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
+            <div class="css-1y2krk0" *ngIf="Item && Item.length>0;else noEvent">
+              <div type="grid" class="css-13w7uog pb-1" *ngFor="let s of Item" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
                 <div
                   class="product-card css-1msrncq"
                   data-content-region-name="itemProductResult"
@@ -233,7 +233,7 @@
                   <a
                     target="_self"
                     class="css-pxdb0j" [ngStyle]="{'pointer-events': !s.status ? 'none' : ''}"
-                    [routerLink]="['/chitietsukien', s.id]"
+                    [routerLink]="['/chitietItem', s.id]"
                   >
                     <div class="css-4rhdrh">
                       <div class="css-1v97aik">
@@ -271,7 +271,7 @@
                           class="product-brand-name css-90n0z6"
                           style="text-transform: uppercase; display: inline;font-weight: bold; color: #E32636"
                         >
-                          {{s.organizer.organizerName}}
+                         
                         </div>
                       </div>
                       <div class="css-1ybkowq">
@@ -282,19 +282,11 @@
                           style="text-transform: uppercase;"
                         >
                           <h3 title="iPhone 15 Pro 128GB" class="css-1xdyrhj" style="font-weight: bold;">
-                            {{s.eventName}}
+                            {{s.itemName}}
                           </h3>
                         </div>
                         
-                        <div
-                          type="caption"
-                          class="att-product-card-title css-1uunp2d"
-                          color="textPrimary"
-                        >
-                          <p title="iPhone 15 Pro 128GB" class="css-1xdyrhj">
-                            {{s.startDateTime| date: 'HH:mm dd/MM/yyyy'}} - {{s.endDateTime| date: 'HH:mm dd/MM/yyyy'}} 
-                          </p>
-                        </div>
+                        
                       </div>
                       <div class="css-kgkvir">
                         <div class="css-1co26wt">
@@ -305,23 +297,7 @@
                           >
                            
                           </div>
-                          <div >
-                            
-                            <div
-                              type="caption"
-                              class=""
-                              color="textSecondary"
-                            >
-                              Số lượng hiện tại: {{s.totalRegistered}}
-                            </div>
-                            <div
-                              type="caption"
-                              color="primary500"
-                              class="css-2rwx6s"
-                            >
-                              Số lượng tối đa: {{s.maxQuantity}}
-                            </div>
-                          </div>
+                          
                           <div >
                             
                             Giá vé: {{s.cost | number}}đ
@@ -338,7 +314,7 @@
             <ng-template #noEvent >
               <div class="text-center text-danger">
                 
-                  Chưa có sự kiện phù hợp với điều kiện lọc của bạn
+                  Chưa có món ăn phù hợp với điều kiện lọc của bạn
                  
               </div>
           </ng-template>

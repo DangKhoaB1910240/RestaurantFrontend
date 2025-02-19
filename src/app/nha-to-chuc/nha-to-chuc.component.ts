@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
+import { Category } from '../Models/category/category';
+import { CategoryService } from '../Services/category/category.service';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -9,9 +9,9 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./nha-to-chuc.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class NhaToChucComponent implements OnInit {
-  nhaToChuc: NhaToChuc[] = [];
-  constructor(private nhaToChucService: NhaToChucService,private router: Router){}
+export class CategoryComponent implements OnInit {
+  Category: Category[] = [];
+  constructor(private CategoryService: CategoryService,private router: Router){}
   ngOnInit(): void {
       this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd) {
@@ -19,16 +19,16 @@ export class NhaToChucComponent implements OnInit {
             window.scrollTo(0, 0);
           }
         });
-      this.getNhaToChuc();
+      this.getCategory();
   }
-  getNhaToChuc() {
-    this.nhaToChucService.getNhaToChuc('').subscribe({
-      next:(response: NhaToChuc[]) => {
-        this.nhaToChuc = response;
+  getCategory() {
+    this.CategoryService.getCategory('').subscribe({
+      next:(response: Category[]) => {
+        this.Category = response;
       }
     })
   }
-  navigateToSuKien(id: number) {
-    this.router.navigate(['/sukien'], { queryParams: { organizerId: id } });
+  navigateToItem(id: number) {
+    this.router.navigate(['/Item'], { queryParams: { organizerId: id } });
   } 
 }

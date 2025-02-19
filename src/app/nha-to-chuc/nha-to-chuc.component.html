@@ -15,14 +15,12 @@
           </div>
   
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-3" *ngFor="let n of nhaToChuc" >
+            <div class="col-lg-4 col-md-6 mb-3" *ngFor="let n of Category" >
               <div class="speaker">
                 <img [src]="n.img" alt="Speaker 1" class="img-fluid">
                 <div class="details">
-                  <h3 class="text-center"><a  style="color: #f82249; cursor: pointer;" (click)="navigateToSuKien(n.id)">{{n.organizerName}}</a></h3>
-                  <p style="text-align: justify;"><span style="font-weight: bold;">Trụ sở chính: </span>{{n.address}}</p>
-                  <div><span style="font-weight: bold;">Email: </span>{{n.email}}</div>
-                  <div><span style="font-weight: bold;">Số điện thoại: </span>{{n.phone}}</div>
+                  <h3 class="text-center"><a  style="color: #f82249; cursor: pointer;" (click)="navigateToItem(n.id)">{{n.name}}</a></h3>
+
                   <div class="social">
                     <a href=""><i class="fa fa-twitter"></i></a>
                     <a href=""><i class="fa fa-facebook"></i></a>

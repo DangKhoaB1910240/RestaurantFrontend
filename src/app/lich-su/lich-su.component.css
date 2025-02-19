@@ -1,6 +1,6 @@
 /*
-  Theme Name: TheEvent
-  Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
+  Theme Name: nhà hàng TamTam
+  Theme URL: https://bootstrapmade.com/nhà hàng TamTam-conference-event-bootstrap-template/
   Author: BootstrapMade.com
   License: https://bootstrapmade.com/license/
 */
@@ -1420,7 +1420,7 @@ body {
   }
 
 
-  /* Phần design dành riêng cho cái sự kiện */
+  /* Phần design dành riêng cho cái món ăn */
   .css-rf24tk {
         padding-right: 16px;
         padding-left: 16px;
@@ -2207,7 +2207,7 @@ body {
         min-width: unset;
         transition: color 0.3s ease 0s;
     }
-    .css-nhatochuc {
+    .css-Category {
       color: #494D5F;
       font-weight: bold;
     }

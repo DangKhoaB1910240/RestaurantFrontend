@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from '../Services/logger/logger.service';
 import { Logger } from '../Models/logger/logger';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
-import { SuKienService } from '../Services/sukien/su-kien.service';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
-import { SuKien } from '../Models/sukien/su-kien';
+import { CategoryService } from '../Services/category/category.service';
+import { ItemService } from '../Services/item/item.service';
+import { Category } from '../Models/category/category';
+import { Item } from '../Models/sukien/su-kien';
 
 @Component({
   selector: 'app-trang-chu-admin',
@@ -14,17 +14,17 @@ import { SuKien } from '../Models/sukien/su-kien';
 export class TrangChuAdminComponent implements OnInit{
   isSidebarOpen: boolean = false; 
   loggers: Logger[] = [];
-  listNhaToChuc: NhaToChuc[] = [];
-  listSuKien: SuKien[] = [];
+  listCategory: Category[] = [];
+  listItem: Item[] = [];
   constructor(
     private loggerService: LoggerService,
-    private nhaToChucService: NhaToChucService,
-    private suKienService: SuKienService
+    private CategoryService: CategoryService,
+    private ItemService: ItemService
   ) { }
   ngOnInit(): void {
     this.getAllLoggers();
-    this.getAllNhaToChuc();
-    this.getAllSuKien();
+    this.getAllCategory();
+    this.getAllItem();
   }
   getAllLoggers() {
     this.loggerService.getAllLoggers().subscribe({
@@ -37,20 +37,20 @@ export class TrangChuAdminComponent implements OnInit{
       }
     })
   }
-  getAllNhaToChuc() {
-    this.nhaToChucService.getNhaToChuc('').subscribe({
-      next: (response : NhaToChuc[]) => {
-        this.listNhaToChuc = response;
+  getAllCategory() {
+    this.CategoryService.getCategory('').subscribe({
+      next: (response : Category[]) => {
+        this.listCategory = response;
       },
       error: (error) => {
 
       }
     })
   }
-  getAllSuKien() {
-    this.suKienService.getSuKien().subscribe({
-      next: (response : SuKien[]) => {
-        this.listSuKien = response;
+  getAllItem() {
+    this.ItemService.getItem().subscribe({
+      next: (response : Item[]) => {
+        this.listItem = response;
       },
       error: (error) => {
 

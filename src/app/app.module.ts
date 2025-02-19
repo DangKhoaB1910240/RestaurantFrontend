@@ -11,10 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { NhaToChucComponent } from './nha-to-chuc/nha-to-chuc.component';
-import { SuKienComponent } from './su-kien/su-kien.component';
+import { ItemComponent } from './su-kien/su-kien.component';
 import { TrangChuComponent } from './trang-chu/trang-chu.component';
-import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
 import { DatePipe } from '@angular/common';
 import { LichSuComponent } from './lich-su/lich-su.component';
 import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.component';
@@ -24,10 +22,11 @@ import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { PhanQuyenAdminComponent } from './phan-quyen-admin/phan-quyen-admin.component';
 import { InfoAdminComponent } from './info-admin/info-admin.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
-import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
-import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
+import { CategoryAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
+import { ItemAdminComponent } from './su-kien-admin/su-kien-admin.component';
 import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
-import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-hoat-dong-admin.component';
+import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +34,9 @@ import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    NhaToChucComponent,
-    SuKienComponent,
+    CategoryComponent,
+    ItemComponent,
     TrangChuComponent,
-    ChiTietSuKienComponent,
     LichSuComponent,
     TrangChuAdminComponent,
     HeaderAdminComponent,
@@ -47,10 +45,9 @@ import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-
     PhanQuyenAdminComponent,
     InfoAdminComponent,
     LoginAdminComponent,
-    NhaToChucAdminComponent,
-    SuKienAdminComponent,
+    CategoryAdminComponent,
+    ItemAdminComponent,
     KhachDatAdminComponent,
-    QuanLyHoatDongAdminComponent
   ],
   imports: [
     BrowserModule,

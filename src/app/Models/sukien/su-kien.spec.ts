@@ -1,7 +1,7 @@
-import { SuKien } from './su-kien';
+import { Item } from './su-kien';
 
-describe('SuKien', () => {
+describe('Item', () => {
   it('should create an instance', () => {
-    expect(new SuKien()).toBeTruthy();
+    expect(new Item()).toBeTruthy();
   });
 });

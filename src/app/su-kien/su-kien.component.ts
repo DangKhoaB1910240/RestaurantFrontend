@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { SuKienService } from '../Services/sukien/su-kien.service';
-import { SuKien } from '../Models/sukien/su-kien';
-import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
-import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
+import { ItemService } from '../Services/item/item.service';
+import { CategoryService } from '../Services/category/category.service';
+import { Category } from '../Models/category/category';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Item } from '../Models/sukien/su-kien';
 
 @Component({
   selector: 'app-su-kien',
@@ -12,11 +12,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./su-kien.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SuKienComponent implements OnInit {
-  constructor(private spinner: NgxSpinnerService,private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router: Router,private route: ActivatedRoute){}
+export class ItemComponent implements OnInit {
+  constructor(private spinner: NgxSpinnerService,private ItemService: ItemService,private CategoryService: CategoryService,private router: Router,private route: ActivatedRoute){}
   ngOnInit(): void {
-    this.getSuKien();
-    this.getNhaToChuc();
+    this.getItem();
+    this.getCategory();
 
     // Lấy giá trị của organizerId từ query parameter
     this.route.queryParams.subscribe(params => {
@@ -25,73 +25,74 @@ export class SuKienComponent implements OnInit {
       if (organizerId) {
         this.organizerId = organizerId;
         // Gọi API hoặc xử lý theo organizerId
-        // this.updateSuKienByOrganizerId(organizerId);
-        this.updateSuKienByStatusAndEventNameAndOrganizerId();
+        // this.updateItemByOrganizerId(organizerId);
+        this.updateItemByStatusAnditemNameAndOrganizerId();
       }
     });
   }
   soLuong: number = 0;
-  suKien: SuKien[] = [];
-  nhaToChuc: NhaToChuc[] = [];
-  tenSuKien: string = '';
+  Item: Item[] = [];
+  Category: Category[] = [];
+  tenItem: string = '';
   eventStatus: string = '';
   organizerId: number | string = '';
-  getNhaToChuc() {
+  getCategory() {
     this.spinner.show();
-    this.nhaToChucService.getNhaToChuc('').subscribe({
-      next: (response: NhaToChuc[]) => {
+    this.CategoryService.getCategory('').subscribe({
+      next: (response: Category[]) => {
         this.spinner.hide();
-        this.nhaToChuc = response;
+        this.Category = response;
       }
     })
   }
-  getSuKien() {
+  getItem() {
     this.spinner.show();
-    this.suKienService.getSuKien().subscribe({
-      next:(response: SuKien[]) => {
+    this.ItemService.getItem().subscribe({
+      next:(response: Item[]) => {
+        console.log(response)
         this.spinner.hide();
-        this.suKien = response;
+        this.Item = response;
       }
     })
   }
-  navigateToSuKien(id?: number) {
+  navigateToItem(id?: number) {
     if(id===undefined) {
       this.organizerId = '';
-      this.getSuKien();
+      this.getItem();
       // Tạo NavigationExtras để xóa query parameter organizerId
       const navigationExtras: NavigationExtras = {
         replaceUrl: true,  // Thay thế URL hiện tại, không tạo lịch sử duyệt web
       };
 
-      this.router.navigate(['/sukien'], navigationExtras);
+      this.router.navigate(['/Item'], navigationExtras);
     } else {
-      this.router.navigate(['/sukien'], { queryParams: { organizerId: id } });
+      this.router.navigate(['/Item'], { queryParams: { organizerId: id } });
     }
     
   } 
-  updateSuKienByOrganizerId(organizerId: number) {
+  updateItemByOrganizerId(organizerId: number) {
 
-    this.suKienService.getSuKienByOrganizerId(organizerId).subscribe({
-      next: (response: SuKien[]) => {
+    this.ItemService.getItemByOrganizerId(organizerId).subscribe({
+      next: (response: Item[]) => {
         this.spinner.hide();
-        this.suKien = response;
+        this.Item = response;
       },
       error: (error) => {
         // Xử lý lỗi nếu cần
       }
     });
   }
-  updateSuKienByStatus(status: string) {
+  updateItemByStatus(status: string) {
     this.eventStatus = status;
-    this.updateSuKienByStatusAndEventNameAndOrganizerId();
+    this.updateItemByStatusAnditemNameAndOrganizerId();
   }
-  updateSuKienByStatusAndEventNameAndOrganizerId() {
+  updateItemByStatusAnditemNameAndOrganizerId() {
     this.spinner.show();
-    this.suKienService.getEventsByStatusAndOrganizerIdAndName(this.eventStatus,this.tenSuKien,this.organizerId).subscribe({
-      next:(response: SuKien[]) => {
+    this.ItemService.getEventsByStatusAndOrganizerIdAndName(this.eventStatus,this.tenItem,this.organizerId).subscribe({
+      next:(response: Item[]) => {
         this.spinner.hide();
-        this.suKien = response;
-        console.log(this.suKien);
+        this.Item = response;
+        console.log(this.Item);
       }
     })
   }

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuKienAdminComponent } from './su-kien-admin.component';
+import { ItemAdminComponent } from './su-kien-admin.component';
 
-describe('SuKienAdminComponent', () => {
-  let component: SuKienAdminComponent;
-  let fixture: ComponentFixture<SuKienAdminComponent>;
+describe('ItemAdminComponent', () => {
+  let component: ItemAdminComponent;
+  let fixture: ComponentFixture<ItemAdminComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SuKienAdminComponent]
+      declarations: [ItemAdminComponent]
     });
-    fixture = TestBed.createComponent(SuKienAdminComponent);
+    fixture = TestBed.createComponent(ItemAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
