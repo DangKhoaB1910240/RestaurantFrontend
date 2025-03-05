@@ -2,10 +2,11 @@
 <!--==========================
     Intro Section
   ============================-->
-  <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff"  type="ball-scale-multiple" [fullScreen] = "true">
-    <p style="color: white" > Loading... </p>
-  </ngx-spinner>
-<main id="main" style="margin: 130px" >
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
+  type="ball-scale-multiple" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<main id="main" style="margin: 130px">
   <!-- Start profile -->
   <section style="background-color: #eee;">
     <div class="container py-5">
@@ -13,27 +14,31 @@
         <div class="col">
           <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item active" aria-current="page">Thông tin cá nhân</li>
+              <li class="breadcrumb-item active" aria-current="page">Thông tin
+                cá nhân</li>
             </ol>
           </nav>
         </div>
       </div>
-  
-      <div class="row" >
+
+      <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="../../assets/images/istockphoto-1300845620-612x612 (1).jpg" alt="avatar"
+              <img
+                src="../../assets/images/istockphoto-1300845620-612x612 (1).jpg"
+                alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3" *ngIf="user">{{user.fullname}}</h5>
               <p class="text-muted mb-1">Khách hàng</p>
               <p class="text-muted mb-4"></p>
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-primary login">Đổi mật khẩu</button>
+                <button type="button" class="btn btn-primary login">Đổi mật
+                  khẩu</button>
               </div>
             </div>
           </div>
-          
+
         </div>
         <div class="col-lg-8">
           <div class="card mb-4">
@@ -61,7 +66,8 @@
                   <p class="mb-0">SĐT</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0" *ngIf="user">{{user.phoneNumber}}</p>
+                  <p class="text-muted mb-0"
+                    *ngIf="user">{{user.phoneNumber}}</p>
                 </div>
               </div>
               <hr>
@@ -78,9 +84,10 @@
                   <p class="mb-0">Trạng thái tài khoản</p>
                 </div>
                 <div class="col-sm-9" *ngIf="user">
-                  <p class="text-muted mb-0" *ngIf="user.status; else noActive">Còn hoạt động</p>
+                  <p class="text-muted mb-0"
+                    *ngIf="user.status; else noActive">Còn hoạt động</p>
                   <ng-template #noActive>
-                    <p class="text-muted mb-0" >Đã bị khóa</p>
+                    <p class="text-muted mb-0">Đã bị khóa</p>
                   </ng-template>
                 </div>
               </div>
@@ -89,17 +96,18 @@
                 <div class="col-sm-3">
                   <p class="mb-0">Lý do khóa tài khoản</p>
                 </div>
-                <div class="col-sm-9" >
-                  <p class="text-muted mb-0" >Đăng ký món ăn nhưng không tham dự</p>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">Đăng ký món ăn nhưng không tham
+                    dự</p>
                 </div>
               </div>
             </div>
           </div>
-         
+
         </div>
       </div>
     </div>
-  </section>  
+  </section>
   <!-- End profile-->
   <div>
     <div class="css-rf24tk">
@@ -114,14 +122,12 @@
               color="placeholder"
               height="24"
               width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M11.512 1.43055C11.7928 1.18982 12.2073 1.18982 12.4881 1.43055L21.4881 9.14455C21.7264 9.3488 21.8123 9.67984 21.7035 9.9742C21.5946 10.2686 21.3139 10.464 21 10.464H20.75V19.18C20.75 20.1852 19.9665 21 19 21H15V16.1776C15 15.6001 14.7542 15.0462 14.3166 14.6378C13.879 14.2294 13.2856 14 12.6667 14H11.3333C10.7144 14 10.121 14.2294 9.6834 14.6378C9.24583 15.0462 9 15.6001 9 16.1776V21H5C4.0335 21 3.25 20.1852 3.25 19.18V10.464H3.00004C2.68618 10.464 2.40551 10.2686 2.29662 9.9742C2.18773 9.67984 2.27365 9.3488 2.51195 9.14455L11.512 1.43055Z"
-                fill="currentColor"
-              ></path>
+                fill="currentColor"></path>
             </svg>
           </div>
         </a>
@@ -134,318 +140,139 @@
             color="placeholder"
             height="16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8.49976 19.0001L15.4998 12.0001L8.49976 5.00012"
               stroke="currentColor"
               stroke-width="1.5"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
+              stroke-linejoin="round"></path>
           </svg>
         </div>
-        <a href="#" disabled class="breadcrumb-item css-4jp5hh">
-          <div type="body" color="#000" class="css-joh11t">
-            Nhiều món ăn hot mỗi ngày
-          </div>
-        </a>
       </div>
     </div>
     <div class="css-rf24tk">
       <div
         class="teko-row css-ezmamy"
-        style="margin-left: -8px; margin-right: -8px; row-gap: 16px"
-      >
+        style="margin-left: -8px; margin-right: -8px; row-gap: 16px">
         <!-- .... -->
-        <div id="mainNavigationBar" class="css-1g0llvg">
-          <div class="teko-row teko-row-center css-1h5fc3t">
-            <div
-              class="teko-row teko-row-no-wrap teko-row-middle css-1qrgscw"
-              style="
-                margin-left: -8px;
-                margin-right: -8px;
-                height: 112px;
-                min-width: 0px;
-                width: 75rem;
-              "
-            >
-              
-              <div
-                class="teko-col css-17ajfcv"
-                style="
-                  padding-left: 8px;
-                  padding-right: 8px;
-                  padding-top: 1.75rem;
-                  min-width: 0px;
-                  flex: 1 1 auto;
-                "
-              >
-                <div class="css-cssveg">
-                  <div class="css-17xgviv">
-                    <div
-                      data-content-region-name="headerBar"
-                      data-track-content="true"
-                      data-content-name="searchBox"
-                      class="css-7wh3a0"
-                    >
-                      <input
-                        class="search-input css-7jjcju"
-                        placeholder="Nhập tên món ăn cần tìm"
-                        role="searchbox"
-                        aria-label="Search" [(ngModel)]="tenItem"
-                        (input) ="updateItemByStatusAnditemNameAndOrganizerId()"
-                      />
-                    </div>
-                    <div
-                      data-content-region-name="headerBar"
-                      data-track-content="true"
-                      data-content-name="searchButton"
-                      class="css-7kp13n"
-                    >
-                      <button
-                        class="search-icon css-193nd6m"
-                        aria-label="Search"
-                      >
-                        <span
-                          size="26"
-                          color="#616161"
-                          class="css-1dn5jdn"
-                        ></span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="css-1nb0ewh">
-                    <div class="css-1f38okd">
-                      <div font-weight="500" color="#82869E" class="css-ox2ez2">
-                        Lịch sử tìm kiếm
-                      </div>
-                      <div
-                        data-content-region-name="recentSearch"
-                        data-track-content="true"
-                        data-content-name="clearHistorySearch"
-                        data-content-target="searchProduct"
-                        class="css-haljq6"
-                      >
-                        Xóa lịch sử
-                      </div>
-                    </div>
-                    <div
-                      data-content-region-name="recentSearch"
-                      data-track-content="true"
-                      data-content-name="bàn"
-                      data-content-target="searchProductResult"
-                      data-content-payload='{"screenName":"searchProduct","index":0}'
-                      class="css-ww6ncj"
-                    >
-                      <span size="20" class="css-c1lbeq"></span>
-                      <div style="margin: 0px 0.6rem">
-                        <div class="css-1488rru">bàn</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <p class="css-6qpo60">
-                  
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <!-- ... -->
         <div
           class="teko-col teko-col-10 css-17ajfcv"
-          style="padding-left: 8px; padding-right: 8px"
-        >
-          <div class="teko-row teko-row-start teko-row-baseline css-17jbfbn">
-            <h1 class="css-7nrxrf">
-              Lịch sử đặt
-            </h1>
-            <div type="title" color="textSecondary" class="css-18xfrv">
-              <!-- ({{Item.length}} món ăn) -->
+          style="padding-left: 8px; padding-right: 8px">
+
+          <div class="container mt-4">
+            <h1 class="mb-4">Lịch sử đặt bàn</h1>
+            <div *ngFor="let reservation of reservations; let i = index"
+              class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Lịch sử đặt bàn #{{ i+1 }}</h5>
+                <p><strong>Ngày đặt:</strong> {{ reservation.ngayTao |
+                  date:'dd/MM/yyyy HH:mm' }}</p>
+                <p><strong>Thời gian nhận bàn:</strong> {{
+                  reservation.reservationTime | date:'dd/MM/yyyy HH:mm' }}</p>
+                <p><strong>Tiền cọc:</strong> {{ reservation.depositFee |
+                  currency:'VND' }}</p>
+                <p><strong>Trạng thái:</strong> {{ getStatus(reservation.status)
+                  }}</p>
+                <p><strong>Loại đơn hàng:</strong> {{ reservation.orderType == 0
+                  ? 'Ăn tại chỗ' : 'Mang đi' }}</p>
+
+                <p *ngIf="reservation.table">
+                  <strong>Bạn số:</strong> {{ reservation.table.tableNumber }} -
+                  <span
+                    [ngClass]="reservation.table.type === 'VIP' ? 'text-danger fw-bold' : 'text-success'">
+                    {{ reservation.table.type == '1' ? 'VIP' : 'Thường' }}
+                  </span>
+                </p>
+
+                <div *ngIf="reservation.items.length > 0">
+                  <h6 class="mt-3">Món ăn đã đặt:</h6>
+                  <ul class="list-group">
+                    <li *ngFor="let item of reservation.items"
+                      class="list-group-item d-flex align-items-center">
+                      <img [src]="item.item.img" alt="{{ item.item.itemName }}"
+                        class="img-thumbnail"
+                        style="width: 80px; height: 80px; object-fit: cover;">
+                      <div class="ms-2">
+                        <strong>{{ item.item.itemName }}</strong>
+                        <p class="mb-0 text-muted">Giá: {{ item.item.cost |
+                          currency:'VND' }} - SL: {{ item.quantity }}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
-          <div width="100%" class="css-qc5ueq">
-            <div class="css-v6thbz" direction="row">
-              <div height="100%" direction="row" class="css-1k985bk">
-                <div type="subtitle" class="css-1ew3940">Lọc món ăn</div>
-                <div
-                  [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('TATCA')">Tất cả</div>
-                </div>
-                <div
-                  [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('BESTSELLER')">Best seller</div>
-                </div>
-                <div
-                [ngClass]="eventStatus == 'BESTSELLER' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('YEUTHICHNHAT')">Yêu thích nhất</div>
-                </div>
-                <div
-                [ngClass]="eventStatus == 'MONMOINHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONMOINHAT')">Món mới nhất</div>
-                </div>
-                <div
-                  [ngClass]="eventStatus == 'MONCHAY' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONCHAY')">Món chay</div>
-                </div>
-              </div>
-            </div>
-            <div class="css-1y2krk0" *ngIf="Item && Item.length>0;else noEvent">
-              <div type="grid" class="css-13w7uog" *ngFor="let s of Item" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
-                <div
-                  class="product-card css-1msrncq"
-                  data-content-region-name="itemProductResult"
-                  data-track-content="true"
-                  data-content-name="230900698"
-                  data-content-index="0"
-                  data-content-target="productDetail"
-                >
-                  <a
-                    target="_self"
-                    class="css-pxdb0j" [ngStyle]="{'pointer-events': !s.status ? 'none' : ''}"
-                    [routerLink]="['/chitietItem', s.id]"
-                  >
-                    <div class="css-4rhdrh">
-                      <div class="css-1v97aik">
-                        <div class="css-798fc">
-                          <div height="100%" width="100%" class="css-1uzm8bv">
-                            <img
-                              [src]="s.img"
-                              loading="lazy"
-                              hover="zoom"
-                              decoding="async"
-                              alt="iPhone 15 Pro 128GB"
-                              style="
-                                width: 100%;
-                                height: 100%;
-                                object-fit: contain;
-                                position: absolute;
-                                top: 0px;
-                                left: 0px;
-                              "
-                            />
-                          </div>
-                        </div>
-                        <div class="css-14q2k9d">
-                          <div class="css-zb7zul">
-                            <div class="css-1bqeu8f">Trạng thái</div>
-                            <div class="css-1rdv2qd" *ngIf="s.status">Còn chỗ</div>
-                            <div class="css-1rdv2qd" *ngIf="!s.status">Hết tiếp nhận</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="css-68cx5s">
-                        <div
-                          type="body"
-                          
-                          class="product-brand-name css-90n0z6"
-                          style="text-transform: uppercase; display: inline;font-weight: bold; color: #E32636"
-                        >
-                        </div>
-                      </div>
-                      <div class="css-1ybkowq">
-                        <div
-                          type="caption"
-                          class="att-product-card-title css-1uunp2d"
-                          color="textSecondary"
-                          style="text-transform: uppercase;"
-                        >
-                          <h3 title="iPhone 15 Pro 128GB" class="css-1xdyrhj" style="font-weight: bold;">
-                            {{s.itemName}}
-                          </h3>
-                        </div>
-                        
-                        <div
-                          type="caption"
-                          class="att-product-card-title css-1uunp2d"
-                          color="textPrimary"
-                        >
-                          <p title="iPhone 15 Pro 128GB" class="css-1xdyrhj">
-                            
-                          </p>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </a>
-                </div>
-              </div>
-              
-              
-            </div>
-            <ng-template #noEvent >
-              <div class="text-center text-danger">
-                
-                  Chưa có món ăn phù hợp với điều kiện lọc của bạn
-                 
-              </div>
-          </ng-template>
-          </div>
-          
+
         </div>
       </div>
     </div>
   </div>
   <div class="containerx">
     <div class="form">
-        <span id="closex" title="Close form" (click)="cancel()">&times;</span>
-        <form class="form-login" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-            <!-- <div class="image"> -->
-                <!-- <img src="/thuc-hanh/images/fade-xuka-avatar.jpg" alt="xuka" /> -->
-            <!-- </div> -->
-            <div class="div">
-              <label for="input1">Mật khẩu cũ</label>
-              <input class="input" formControlName="oldPassword" id="input1" type="password" placeholder="Nhập mật khẩu cũ" />
-              <div *ngIf="submitted">
-                <small class="text-danger" *ngIf="changePasswordForm.controls['oldPassword'].errors && changePasswordForm.controls['oldPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
-                <small class="text-danger" *ngIf="errorMessage">Mật khẩu cũ không đúng</small>
-              </div>
+      <span id="closex" title="Close form" (click)="cancel()">&times;</span>
+      <form class="form-login" [formGroup]="changePasswordForm"
+        (ngSubmit)="changePassword()">
+        <!-- <div class="image"> -->
+        <!-- <img src="/thuc-hanh/images/fade-xuka-avatar.jpg" alt="xuka" /> -->
+        <!-- </div> -->
+        <div class="div">
+          <label for="input1">Mật khẩu cũ</label>
+          <input class="input" formControlName="oldPassword" id="input1"
+            type="password" placeholder="Nhập mật khẩu cũ" />
+          <div *ngIf="submitted">
+            <small class="text-danger"
+              *ngIf="changePasswordForm.controls['oldPassword'].errors && changePasswordForm.controls['oldPassword'].errors['required']">Vui
+              lòng nhập mật khẩu cũ</small>
+            <small class="text-danger" *ngIf="errorMessage">Mật khẩu cũ không
+              đúng</small>
           </div>
-            <div class="div">
-                <label for="input2">Mật khẩu mới</label>
-                <input class="input" formControlName="newPassword" id="input2" type="password" placeholder="Nhập mật khẩu" />
-                <div *ngIf="submitted">
-                  <small class="text-danger" *ngIf="changePasswordForm.controls['newPassword'].errors && changePasswordForm.controls['newPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
+        </div>
+        <div class="div">
+          <label for="input2">Mật khẩu mới</label>
+          <input class="input" formControlName="newPassword" id="input2"
+            type="password" placeholder="Nhập mật khẩu" />
+          <div *ngIf="submitted">
+            <small class="text-danger"
+              *ngIf="changePasswordForm.controls['newPassword'].errors && changePasswordForm.controls['newPassword'].errors['required']">Vui
+              lòng nhập mật khẩu cũ</small>
 
-                </div>
-            </div>
-            <div class="div">
-              <label for="input3">Nhập lại mật khẩu mới</label>
-              <input class="input" formControlName="confirmPassword" id="input3" type="password" placeholder="Nhập mật khẩu lần 2" />
-              <div *ngIf="submitted">
-                <small class="text-danger" *ngIf="changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].errors['required']">Xác nhận lại mật khẩu lần 2</small>
-                <small class="text-danger" *ngIf="!changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].value != changePasswordForm.controls['newPassword'].value">Mật khẩu nhập lại chưa giống mật khẩu trên</small>
-              </div>
-            </div>
-            <div class="mt-3">
-              <div *ngIf="isCheckSuccess" class="text-center">
-                <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
-              </div>
-                <button type="submit" class="button">Lưu</button>
-            </div>
-            <!-- <div class="check">
+          </div>
+        </div>
+        <div class="div">
+          <label for="input3">Nhập lại mật khẩu mới</label>
+          <input class="input" formControlName="confirmPassword" id="input3"
+            type="password" placeholder="Nhập mật khẩu lần 2" />
+          <div *ngIf="submitted">
+            <small class="text-danger"
+              *ngIf="changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].errors['required']">Xác
+              nhận lại mật khẩu lần 2</small>
+            <small class="text-danger"
+              *ngIf="!changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].value != changePasswordForm.controls['newPassword'].value">Mật
+              khẩu nhập lại chưa giống mật khẩu trên</small>
+          </div>
+        </div>
+        <div class="mt-3">
+          <div *ngIf="isCheckSuccess" class="text-center">
+            <span class="text-success"
+              style="font-weight: bold;">{{successMessage}}</span>
+          </div>
+          <button type="submit" class="button">Lưu</button>
+        </div>
+        <!-- <div class="check">
                 <input type="checkbox" checked="checked" /> <span>Remember me</span>
             </div> -->
-            <div class="foot">
-                <button type="button" class="cancelbtn" (click)="cancel()">Hủy bỏ</button>
-                <!-- <span>Forgot <a href="#">password?</a></span> -->
-            </div>
-        </form>
+        <div class="foot">
+          <button type="button" class="cancelbtn" (click)="cancel()">Hủy
+            bỏ</button>
+          <!-- <span>Forgot <a href="#">password?</a></span> -->
+        </div>
+      </form>
     </div>
   </div>
 </main>
 
 <app-footer></app-footer>
-

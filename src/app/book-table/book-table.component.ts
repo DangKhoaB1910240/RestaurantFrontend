@@ -33,7 +33,7 @@ export class BookTableComponent implements OnInit {
     private userService: UserService
   ) {
     this.reservationForm = this.fb.group({
-      tableId: ['', Validators.required],
+      tableId: [''],
       reservationTime: ['', Validators.required],
       depositFee: ['200000', [Validators.required, Validators.min(0)]],
       orderType: ['1', Validators.required],
@@ -91,15 +91,54 @@ export class BookTableComponent implements OnInit {
   }
 
   submitForm(): void {
-    // if (this.reservationForm.valid) {
-    //   const reservationData = this.reservationForm.getRawValue();
-    //   this.reservationService.createReservation(reservationData).subscribe(response => {
-    //     alert('Đặt bàn thành công!');
-    //     this.reservationForm.reset();
-    //   }, error => {
-    //     alert('Có lỗi xảy ra!');
-    //   });
-    // }
+    console.log(this.reservationForm.invalid);
+    if (this.reservationForm.invalid) {
+      return;
+    }
+
+    // Lấy dữ liệu từ form
+    const formData = this.reservationForm.value;
+
+    // Chuẩn bị request body
+    const reservationData = {
+      userId: this.userId,
+      tableId: formData.tableId,
+      reservationTime: formData.reservationTime,
+      depositFee: formData.depositFee,
+      orderType: formData.orderType,
+    };
+
+    // Hiển thị loading
+    this.spinner.show();
+
+    // Gửi request API
+    this.reservationService.bookTable(reservationData).subscribe({
+      next: (response: any) => {
+        // Ẩn loading
+        this.spinner.hide();
+
+        // Hiển thị thông báo thành công
+        alert('Đặt bàn thành công!');
+
+        // Reset form về trạng thái ban đầu
+        this.reservationForm.reset({
+          tableId: '',
+          reservationTime: '',
+          depositFee: '200000',
+          orderType: '1',
+        });
+        this.loadCart();
+        window.location.href = response;
+      },
+      error: (error) => {
+        // Ẩn loading
+        this.spinner.hide();
+
+        // Hiển thị lỗi
+        console.error('Lỗi đặt bàn:', error);
+        alert('Đặt bàn thất bại. Vui lòng thử lại!');
+      },
+    });
   }
 
   loadCart() {
