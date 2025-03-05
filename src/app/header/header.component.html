@@ -1,23 +1,32 @@
 <!--==========================
     Header
   ============================-->
-  <header id="header">
-    <div class="container">
+<header id="header">
+  <div class="container">
 
-      <div id="logo" class="pull-left">
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
-        <a href="#intro" class="scrollto"><img src="../../assets/img/logo_res.jpg" alt="" title=""></a>
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li [class.menu-active]="isRouteActive('/trangchu')"><a routerLink="/trangchu">Trang chủ</a></li>
-          <li [class.menu-active]="isRouteActive('/Category')"><a routerLink="/Category">Danh mục</a></li>
-          <li [class.menu-active]="isRouteActive('/Item')"><a routerLink="/Item">Món ăn</a></li>
-          <li [class.menu-active]="isRouteActive('/lichsu')"><a routerLink="/lichsu">Lịch sử đặt bàn</a></li>
-          <li [class.menu-active]="isRouteActive('/dangnhap')"><a *ngIf="!token" routerLink="/dangnhap">Đăng nhập</a><a *ngIf="token" (click)="dangXuat()">Đăng xuất</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
+    <div id="logo" class="pull-left">
+      <!-- Uncomment below if you prefer to use a text logo -->
+      <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
+      <a href="#intro" class="scrollto"><img src="../../assets/img/logo_res.jpg"
+          alt title></a>
     </div>
-  </header><!-- #header -->
+
+    <nav id="nav-menu-container">
+      <ul class="nav-menu">
+        <li [class.menu-active]="isRouteActive('/trangchu')"><a
+            routerLink="/trangchu">Trang chủ</a></li>
+        <li [class.menu-active]="isRouteActive('/Category')"><a
+            routerLink="/Category">Danh mục</a></li>
+        <li [class.menu-active]="isRouteActive('/Item')"><a
+            routerLink="/Item">Món ăn</a></li>
+        <li [class.menu-active]="isRouteActive('/lichsu')"><a
+            routerLink="/lichsu">Lịch sử đặt bàn</a></li>
+        <li [class.menu-active]="isRouteActive('/dat-ban')"><a
+            routerLink="/dat-ban">Đặt bàn</a></li>
+        <li [class.menu-active]="isRouteActive('/dangnhap')"><a *ngIf="!token"
+            routerLink="/dangnhap">Đăng nhập</a><a *ngIf="token"
+            (click)="dangXuat()">Đăng xuất</a></li>
+      </ul>
+    </nav><!-- #nav-menu-container -->
+  </div>
+</header><!-- #header -->

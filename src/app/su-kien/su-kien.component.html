@@ -2,10 +2,11 @@
 <!--==========================
     Intro Section
   ============================-->
-  <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff"  type="ball-scale-multiple" [fullScreen] = "true">
-    <p style="color: white" > Loading... </p>
-  </ngx-spinner>
-<main id="main" style="margin: 130px" >
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff"
+  type="ball-scale-multiple" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<main id="main" style="margin: 130px">
   <div>
     <div class="css-rf24tk">
       <div class="css-x1k8pn">
@@ -19,14 +20,12 @@
               color="placeholder"
               height="24"
               width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M11.512 1.43055C11.7928 1.18982 12.2073 1.18982 12.4881 1.43055L21.4881 9.14455C21.7264 9.3488 21.8123 9.67984 21.7035 9.9742C21.5946 10.2686 21.3139 10.464 21 10.464H20.75V19.18C20.75 20.1852 19.9665 21 19 21H15V16.1776C15 15.6001 14.7542 15.0462 14.3166 14.6378C13.879 14.2294 13.2856 14 12.6667 14H11.3333C10.7144 14 10.121 14.2294 9.6834 14.6378C9.24583 15.0462 9 15.6001 9 16.1776V21H5C4.0335 21 3.25 20.1852 3.25 19.18V10.464H3.00004C2.68618 10.464 2.40551 10.2686 2.29662 9.9742C2.18773 9.67984 2.27365 9.3488 2.51195 9.14455L11.512 1.43055Z"
-                fill="currentColor"
-              ></path>
+                fill="currentColor"></path>
             </svg>
           </div>
         </a>
@@ -39,15 +38,13 @@
             color="placeholder"
             height="16"
             width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8.49976 19.0001L15.4998 12.0001L8.49976 5.00012"
               stroke="currentColor"
               stroke-width="1.5"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
+              stroke-linejoin="round"></path>
           </svg>
         </div>
         <a href="#" disabled class="breadcrumb-item css-4jp5hh">
@@ -60,8 +57,7 @@
     <div class="css-rf24tk">
       <div
         class="teko-row css-ezmamy"
-        style="margin-left: -8px; margin-right: -8px; row-gap: 16px"
-      >
+        style="margin-left: -8px; margin-right: -8px; row-gap: 16px">
         <!-- .... -->
         <div id="mainNavigationBar" class="css-1g0llvg">
           <div class="teko-row teko-row-center css-1h5fc3t">
@@ -73,9 +69,8 @@
                 height: 112px;
                 min-width: 0px;
                 width: 75rem;
-              "
-            >
-              
+              ">
+
               <div
                 class="teko-col css-17ajfcv"
                 style="
@@ -84,39 +79,33 @@
                   padding-top: 1.75rem;
                   min-width: 0px;
                   flex: 1 1 auto;
-                "
-              >
+                ">
                 <div class="css-cssveg">
                   <div class="css-17xgviv">
                     <div
                       data-content-region-name="headerBar"
                       data-track-content="true"
                       data-content-name="searchBox"
-                      class="css-7wh3a0"
-                    >
+                      class="css-7wh3a0">
                       <input
                         class="search-input css-7jjcju"
                         placeholder="Nhập tên món ăn cần tìm"
                         role="searchbox"
                         aria-label="Search" [(ngModel)]="tenItem"
-                        (input) ="updateItemByStatusAnditemNameAndOrganizerId()"
-                      />
+                        (input)="updateItemByStatusAnditemNameAndOrganizerId()" />
                     </div>
                     <div
                       data-content-region-name="headerBar"
                       data-track-content="true"
                       data-content-name="searchButton"
-                      class="css-7kp13n"
-                    >
+                      class="css-7kp13n">
                       <button
                         class="search-icon css-193nd6m"
-                        aria-label="Search"
-                      >
+                        aria-label="Search">
                         <span
                           size="26"
                           color="#616161"
-                          class="css-1dn5jdn"
-                        ></span>
+                          class="css-1dn5jdn"></span>
                       </button>
                     </div>
                   </div>
@@ -130,8 +119,7 @@
                         data-track-content="true"
                         data-content-name="clearHistorySearch"
                         data-content-target="searchProduct"
-                        class="css-haljq6"
-                      >
+                        class="css-haljq6">
                         Xóa lịch sử
                       </div>
                     </div>
@@ -141,8 +129,7 @@
                       data-content-name="bàn"
                       data-content-target="searchProductResult"
                       data-content-payload='{"screenName":"searchProduct","index":0}'
-                      class="css-ww6ncj"
-                    >
+                      class="css-ww6ncj">
                       <span size="20" class="css-c1lbeq"></span>
                       <div style="margin: 0px 0.6rem">
                         <div class="css-1488rru">bàn</div>
@@ -153,25 +140,20 @@
                 <p class="css-6qpo60">
                   <span>
                     <a
-                      data-testid="TekoLink" 
+                      data-testid="TekoLink"
                       class="css-1f61m89"
                       style="color: #f82249; cursor: pointer;"
                       (click)="navigateToItem()"
-                      [ngStyle]="{'color': organizerId != '' ? '#f82249' : '#494D5F', 'font-weight': organizerId == '' ? 'bold' : 'normal', 'cursor': 'pointer'}"
-                      >Tất cả</a
-                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      [ngStyle]="{'color': organizerId != '' ? '#f82249' : '#494D5F', 'font-weight': organizerId == '' ? 'bold' : 'normal', 'cursor': 'pointer'}">Tất
+                      cả</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
                   <span *ngFor="let n of Category">
                     <a
                       data-testid="TekoLink" (click)="navigateToItem(n.id)"
                       class="css-1f61m89"
-                      
-                      [ngStyle]="{'color': n.id != organizerId ? '#f82249' : '#494D5F', 'font-weight': n.id == organizerId ? 'bold' : 'normal', 'cursor': 'pointer'}"
-                      
-                      >{{n.name}}</a
-                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      [ngStyle]="{'color': n.id != organizerId ? '#f82249' : '#494D5F', 'font-weight': n.id == organizerId ? 'bold' : 'normal', 'cursor': 'pointer'}">{{n.name}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </span>
-                  
+
                 </p>
               </div>
             </div>
@@ -180,8 +162,7 @@
         <!-- ... -->
         <div
           class="teko-col teko-col-10 css-17ajfcv"
-          style="padding-left: 8px; padding-right: 8px"
-        >
+          style="padding-left: 8px; padding-right: 8px">
           <div class="teko-row teko-row-start teko-row-baseline css-17jbfbn">
             <h1 class="css-7nrxrf">
               Danh sách các món ăn
@@ -196,51 +177,52 @@
                 <div type="subtitle" class="css-1ew3940">Lọc món ăn</div>
                 <div
                   [ngClass]="eventStatus == 'TATCA' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('TATCA')">Tất cả</div>
+                  style="padding: 0.5rem; margin-right: 1rem">
+                  <div type="body" class="css-1lchwqw"
+                    (click)="updateItemByStatus('TATCA')">Tất cả</div>
                 </div>
                 <div
                   [ngClass]="eventStatus == 'BESTSELLER' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw"  (click)="updateItemByStatus('BESTSELLER')">Best seller</div>
+                  style="padding: 0.5rem; margin-right: 1rem">
+                  <div type="body" class="css-1lchwqw"
+                    (click)="updateItemByStatus('BESTSELLER')">Best seller</div>
                 </div>
                 <div
-                [ngClass]="eventStatus == 'YEUTHICHNHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('YEUTHICHNHAT')">Yêu thích nhất</div>
+                  [ngClass]="eventStatus == 'YEUTHICHNHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                  style="padding: 0.5rem; margin-right: 1rem">
+                  <div type="body" class="css-1lchwqw"
+                    (click)="updateItemByStatus('YEUTHICHNHAT')">Yêu thích
+                    nhất</div>
                 </div>
                 <div
-                [ngClass]="eventStatus == 'MONMOINHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONMOINHAT')">Món mới nhất</div>
+                  [ngClass]="eventStatus == 'MONMOINHAT' ? 'css-1ss9yju' : 'css-1w3mv8m'"
+                  style="padding: 0.5rem; margin-right: 1rem">
+                  <div type="body" class="css-1lchwqw"
+                    (click)="updateItemByStatus('MONMOINHAT')">Món mới
+                    nhất</div>
                 </div>
                 <div
                   [ngClass]="eventStatus == 'MONCHAY' ? 'css-1ss9yju' : 'css-1w3mv8m'"
-                  style="padding: 0.5rem; margin-right: 1rem"
-                >
-                  <div type="body" class="css-1lchwqw" (click)="updateItemByStatus('MONCHAY')">Món chay</div>
+                  style="padding: 0.5rem; margin-right: 1rem">
+                  <div type="body" class="css-1lchwqw"
+                    (click)="updateItemByStatus('MONCHAY')">Món chay</div>
                 </div>
               </div>
             </div>
             <div class="css-1y2krk0" *ngIf="Item && Item.length>0;else noEvent">
-              <div type="grid" class="css-13w7uog pb-1" *ngFor="let s of Item" [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
+              <div type="grid" class="css-13w7uog pb-1" *ngFor="let s of Item"
+                [ngStyle]="{'opacity': !s.status ? '0.4' : ''}">
                 <div
                   class="product-card css-1msrncq"
                   data-content-region-name="itemProductResult"
                   data-track-content="true"
                   data-content-name="230900698"
                   data-content-index="0"
-                  data-content-target="productDetail"
-                >
+                  data-content-target="productDetail">
                   <a
                     target="_self"
-                    class="css-pxdb0j" [ngStyle]="{'pointer-events': !s.status ? 'none' : ''}"
-                    [routerLink]="['/chitietItem', s.id]"
-                  >
+                    class="css-pxdb0j"
+                    [ngStyle]="{'pointer-events': !s.status ? 'none' : ''}">
                     <div class="css-4rhdrh">
                       <div class="css-1v97aik">
                         <div class="css-798fc">
@@ -258,26 +240,25 @@
                                 position: absolute;
                                 top: 0px;
                                 left: 0px;
-                              "
-                            />
+                              " />
                           </div>
                         </div>
                         <div class="css-14q2k9d">
                           <div class="css-zb7zul">
                             <div class="css-1bqeu8f">Trạng thái</div>
-                            <div class="css-1rdv2qd" *ngIf="s.status">Còn món</div>
-                            <div class="css-1rdv2qd" *ngIf="!s.status">Hết món</div>
+                            <div class="css-1rdv2qd" *ngIf="s.status">Còn
+                              món</div>
+                            <div class="css-1rdv2qd" *ngIf="!s.status">Hết
+                              món</div>
                           </div>
                         </div>
                       </div>
                       <div class="css-68cx5s">
                         <div
                           type="body"
-                          
                           class="product-brand-name css-90n0z6"
-                          style="text-transform: uppercase; display: inline;font-weight: bold; color: #E32636"
-                        >
-                         
+                          style="text-transform: uppercase; display: inline;font-weight: bold; color: #E32636">
+
                         </div>
                       </div>
                       <div class="css-1ybkowq">
@@ -285,47 +266,56 @@
                           type="caption"
                           class="att-product-card-title css-1uunp2d"
                           color="textSecondary"
-                          style="text-transform: uppercase;"
-                        >
-                          <h3 title="iPhone 15 Pro 128GB" class="css-1xdyrhj" style="font-weight: bold;">
+                          style="text-transform: uppercase;">
+                          <h3 title="iPhone 15 Pro 128GB" class="css-1xdyrhj"
+                            style="font-weight: bold;">
                             {{s.itemName}}
                           </h3>
                         </div>
-                        
-                        
+
                       </div>
                       <div class="css-kgkvir">
                         <div class="css-1co26wt">
                           <div
                             type="subtitle"
                             color="primary500"
-                            class="css-1nlwixl"
-                          >
-                           
+                            class="css-1nlwixl">
+
                           </div>
-                          
-                          <div >
-                            
+
+                          <div>
+
                             Giá: {{s.cost | number}}đ
                           </div>
                         </div>
                       </div>
+                      <div class="cart-icon-container text-center"
+                        style="margin: 0 auto;">
+                        <button class="btn btn-primary" (click)="addToCart(s)">
+                          Thêm món<i class="fa fa-shopping-cart"></i>
+                        </button>
+                        <span class="cart-quantity"
+                          *ngIf="getCartQuantity(s.id) > 0">
+                          {{ getCartQuantity(s.id) }}
+                        </span>
+
+                      </div>
+
                     </div>
                   </a>
                 </div>
               </div>
-              
-              
+
             </div>
-            <ng-template #noEvent >
+            <ng-template #noEvent>
               <div class="text-center text-danger">
-                
-                  Chưa có món ăn phù hợp với điều kiện lọc của bạn
-                 
+
+                Chưa có món ăn phù hợp với điều kiện lọc của bạn
+
               </div>
-          </ng-template>
+            </ng-template>
           </div>
-          
+
         </div>
       </div>
     </div>

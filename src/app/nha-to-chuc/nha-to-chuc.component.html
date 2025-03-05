@@ -2,38 +2,40 @@
 <!--==========================
     Intro Section
   ============================-->
-  
+
 <main id="main" style="margin: 130px;">
-<!--==========================
+  <!--==========================
       Speakers Section
     ============================-->
-    <section id="speakers" class="wow fadeInUp">
-        <div class="container">
-          <div class="section-header">
-            <h2>Nhà tổ chức</h2>
-            <p>Một số nhà tổ chức nổi tiếng</p>
-          </div>
-  
-          <div class="row">
-            <div class="col-lg-4 col-md-6 mb-3" *ngFor="let n of Category" >
-              <div class="speaker">
-                <img [src]="n.img" alt="Speaker 1" class="img-fluid">
-                <div class="details">
-                  <h3 class="text-center"><a  style="color: #f82249; cursor: pointer;" (click)="navigateToItem(n.id)">{{n.name}}</a></h3>
+  <section id="speakers" class="wow fadeInUp">
+    <div class="container">
+      <div class="section-header">
+        <h2>Danh mục món ăn</h2>
+        <p>Một số món ăn hot</p>
+      </div>
 
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-3" *ngFor="let n of Category">
+          <div class="speaker">
+            <img [src]="n.img" alt="Speaker 1" class="img-fluid">
+            <div class="details">
+              <h3 class="text-center"><a
+                  style="color: #f82249; cursor: pointer;"
+                  (click)="navigateToItem(n.id)">{{n.name}}</a></h3>
+
+              <div class="social">
+                <a href><i class="fa fa-twitter"></i></a>
+                <a href><i class="fa fa-facebook"></i></a>
+                <a href><i class="fa fa-google-plus"></i></a>
+                <a href><i class="fa fa-linkedin"></i></a>
               </div>
             </div>
           </div>
         </div>
-  
-      </section>
+      </div>
+    </div>
+
+  </section>
 </main>
 
 <app-footer></app-footer>

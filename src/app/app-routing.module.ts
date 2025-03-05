@@ -13,23 +13,24 @@ import { ItemAdminComponent } from './su-kien-admin/su-kien-admin.component';
 import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
 import { CategoryAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
 import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
-
+import { BookTableComponent } from './book-table/book-table.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
-    { path: 'trangchu',component: TrangChuComponent},
-    { path: 'dangnhap',component: LoginComponent},
-    { path: 'Category',component: CategoryComponent},
-    { path: 'Item',component: ItemComponent},
-    { path: 'lichsu',component: LichSuComponent},
-    { path: 'trangchu-admin',component: TrangChuAdminComponent},
-    { path: 'phanquyen-admin',component: PhanQuyenAdminComponent},
-    { path: 'info-admin',component: InfoAdminComponent},
-    { path: 'dangnhap-admin',component: LoginAdminComponent},
-    { path: 'nha-to-chuc-admin',component: CategoryAdminComponent},
-    { path: 'su-kien-admin',component: ItemAdminComponent},
-    { path: 'datve',component: KhachDatAdminComponent},
-    { path: '**', component: NotFoundComponent },
+  { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
+  { path: 'trangchu', component: TrangChuComponent },
+  { path: 'dangnhap', component: LoginComponent },
+  { path: 'Category', component: CategoryComponent },
+  { path: 'Item', component: ItemComponent },
+  { path: 'lichsu', component: LichSuComponent },
+  { path: 'trangchu-admin', component: TrangChuAdminComponent },
+  { path: 'phanquyen-admin', component: PhanQuyenAdminComponent },
+  { path: 'info-admin', component: InfoAdminComponent },
+  { path: 'dangnhap-admin', component: LoginAdminComponent },
+  { path: 'nha-to-chuc-admin', component: CategoryAdminComponent },
+  { path: 'su-kien-admin', component: ItemAdminComponent },
+  { path: 'datve', component: KhachDatAdminComponent },
+  { path: 'dat-ban', component: BookTableComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

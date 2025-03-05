@@ -1,0 +1,106 @@
+
+<app-header></app-header>
+<!--==========================
+    Intro Section
+  ============================-->
+<main id="main" style="margin: 130px">
+    <section id="book-a-table" class="book-a-table section">
+
+        <!-- Section Title -->
+        <div class="container section-title aos-init aos-animate"
+            data-aos="fade-up">
+            <h2>ĐẶT BÀN</h2>
+            <!-- <p>Điền thông tin</p> -->
+        </div><!-- End Section Title -->
+
+        <div class="container aos-init aos-animate" data-aos="fade-up"
+            data-aos-delay="100">
+
+            <form [formGroup]="reservationForm" (ngSubmit)="submitForm()"
+                class="php-email-form">
+                <div class="row gy-4">
+                    <div class="col-lg-4 col-md-6">
+                        <label for="tableId" style="font-weight: bold;">Chọn
+                            bàn</label>
+                        <select id="tableId" class="form-control"
+                            formControlName="tableId"
+                            (change)="onTableChange($event)">
+                            <option value>Không đặt bàn</option>
+                            <option *ngFor="let table of tables"
+                                [value]="table.id">
+                                Bàn {{ table.tableNumber }} - Loại {{ table.type
+                                == 0 ? 'Thường' : 'Vip' }} ({{ table.capacity }}
+                                chỗ ngồi)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <label for="reservationTime"
+                            style="font-weight: bold;">Thời gian đặt bàn</label>
+                        <input id="reservationTime" type="datetime-local"
+                            class="form-control"
+                            formControlName="reservationTime" required
+                            [min]="minDateTime">
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <label for="depositFee" style="font-weight: bold;">Tiền
+                            cọc</label>
+                        <input id="depositFee" type="number"
+                            class="form-control" formControlName="depositFee"
+                            placeholder="Tiền cọc" readonly required>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <label for="orderType" style="font-weight: bold;">Loại
+                            đơn hàng</label>
+                        <select id="orderType" class="form-control"
+                            formControlName="orderType">
+                            <option value="0">Ăn tại chỗ</option>
+                            <option value="1">Mang đi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cart mt-4" *ngIf="cartItems.length > 0">
+                    <h4>🛒 Món ăn bạn đã chọn</h4>
+                    <div *ngFor="let cartItem of cartItems"
+                        class="cart-item d-flex align-items-center border p-2 mb-2 justify-content-between">
+                        <!-- Hình ảnh -->
+                        <div class="d-flex align-items-center">
+                            <img [src]="cartItem.item.img"
+                                alt="{{ cartItem.item.itemName }}"
+                                class="img-thumbnail"
+                                style="width: 120px; height: 120px; object-fit: cover;">
+
+                            <div class="ms-2">
+                                <strong>{{ cartItem.item.itemName }}</strong>
+                                <p class="mb-0 text-muted">{{
+                                    cartItem.item.cost*cartItem.quantity |
+                                    currency:'VND' }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Điều chỉnh số lượng -->
+                        <div class="ms-auto d-flex align-items-center">
+                            <button class="btn btn-outline-secondary btn-sm"
+                                (click)="decreaseQuantity(cartItem)">➖</button>
+                            <span class="mx-2">{{ cartItem.quantity }}</span>
+                            <button class="btn btn-outline-secondary btn-sm"
+                                (click)="increaseQuantity(cartItem)">➕</button>
+
+                            <!-- Nút Xóa -->
+                            <button class="btn btn-danger btn-sm ms-2"
+                                (click)="removeFromCart(cartItem.id)">🗑️</button></div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Đặt
+                        Bàn</button>
+                </div>
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+<app-footer></app-footer>
