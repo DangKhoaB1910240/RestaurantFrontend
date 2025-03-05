@@ -1,43 +1,64 @@
 <!-- Spinner Start -->
-<div id="spinner" style="opacity: 0;" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+<div id="spinner" style="opacity: 0;"
+    class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"
+        role="status">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
 <!-- Spinner End -->
 
-
 <!-- Sidebar Start -->
 <div class="sidebar pe-4 pb-3" [class.open]="isSidebarOpen" style="background:
 #fb6340">
     <nav class="navbar bg-secondarys navbar-dark">
-        <a routerLink="/trangchu-admin" class="navbar-brand mx-4 mb-3" >
+        <a routerLink="/trangchu-admin" class="navbar-brand mx-4 mb-3">
             <!-- <h3 class="text-red"><i class="fa fa-user-edit me-2"></i>nhà hàng TamTam</h3> -->
-            <img src="../../assets/img/logo_res.jpg" alt="" style="width: 100%;">
+            <img src="../../assets/img/logo_res.jpg" alt style="width: 100%;">
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
             <div class="position-relative mr-4">
                 <!-- <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;"> -->
-                <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                <div
+                    class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
-            <div class="ms-3" *ngIf="user" style="color: #fff; font-weight: bold;">
-                <h6 class="mb-0" style="font-weight: bold;">{{user.fullname}}</h6>
+            <div class="ms-3" *ngIf="user"
+                style="color: #fff; font-weight: bold;">
+                <h6 class="mb-0"
+                    style="font-weight: bold;">{{user.fullname}}</h6>
                 <span *ngFor="let r of user.roles">{{r.name}}</span>
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a [class.active]="isRouteActive('/trangchu-admin')" routerLink="/trangchu-admin" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2" style="background-color: white;"></i>Tổng quan</a>
-            <div class="nav-item dropdown" [ngClass]="{ 'show': isDropdownOpen }">
-                <a class="nav-link dropdown-toggle" (click)="toggleDropdown('user')" [class.active]="isRouteActive('/datve') || isRouteActive('/phanquyen-admin')">
-                  <i class="fa fa-user me-2" style="background-color: white;"></i>Người dùng
+            <a [class.active]="isRouteActive('/trangchu-admin')"
+                routerLink="/trangchu-admin" class="nav-item nav-link"><i
+                    class="fa fa-tachometer-alt me-2"
+                    style="background-color: white;"></i>Nhật ký thao tác</a>
+            <div class="nav-item dropdown"
+                [ngClass]="{ 'show': isDropdownOpen }">
+                <a class="nav-link dropdown-toggle"
+                    (click)="toggleDropdown('user')"
+                    [class.active]="isRouteActive('/datve') || isRouteActive('/phanquyen-admin')">
+                    <i class="fa fa-user me-2"
+                        style="background-color: white;"></i>Người dùng
                 </a>
-                <div class="dropdown-menu bg-transparent border-0" [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'user' }">
-                  <a routerLink="/datve" class="dropdown-item">Khách đặt vé</a>
-                  <a routerLink="/phanquyen-admin"  class="dropdown-item">Phân quyền</a>
+                <div class="dropdown-menu bg-transparent border-0"
+                    [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'user' }">
+                    <!-- <a routerLink="/datve" class="dropdown-item">Khách đặt
+                        vé</a> -->
+                    <a routerLink="/phanquyen-admin" class="dropdown-item">Phân
+                        quyền</a>
                 </div>
-              </div>
-            <a routerLink="/nha-to-chuc-admin" class="nav-item nav-link" [class.active]="isRouteActive('/nha-to-chuc-admin')"><i class="fa fa-th me-2" style="background-color: white;"></i>Nhà tổ chức</a>
-            <a routerLink="/su-kien-admin" class="nav-item nav-link" [class.active]="isRouteActive('/su-kien-admin')"><i class="fa fa-keyboard me-2" style="background-color: white;"></i>món ăn</a>
+            </div>
+            <a routerLink="/nha-to-chuc-admin" class="nav-item nav-link"
+                [class.active]="isRouteActive('/nha-to-chuc-admin')"><i
+                    class="fa fa-th me-2"
+                    style="background-color: white;"></i>Danh mục món ăn</a>
+            <!-- <a routerLink="/su-kien-admin" class="nav-item nav-link"
+                [class.active]="isRouteActive('/su-kien-admin')"><i
+                    class="fa fa-keyboard me-2"
+                    style="background-color: white;"></i>món ăn</a> -->
+
             <!-- <a href="table.html" class="nav-item nav-link"><i class="fa fa-diary me-2"></i>Nhật ký</a> -->
             <!-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Nhật ký</a> -->
             <!-- <div class="nav-item dropdown">
@@ -49,7 +70,7 @@
                     <a href="blank.html" class="dropdown-item">Blank Page</a>
                 </div>
             </div> -->
-            
+
             <!-- <div class="nav-item dropdown">
                 <a  class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true"><i class="far fa-file-alt me-2"></i>Cá nhân</a>
                 <div class="dropdown-menu bg-transparent border-0 show" data-bs-popper="none">
@@ -59,16 +80,22 @@
                     <a href="blank.html" class="dropdown-item">Blank Page</a>
                 </div>
             </div> -->
-            <div class="nav-item dropdown" [ngClass]="{ 'show': isDropdownOpen }">
-                <a class="nav-link dropdown-toggle" (click)="toggleDropdown('personal')" [class.active]="isRouteActive('/info-admin')">
-                  <i class="far fa-file-alt me-2" style="background-color: white;"></i>Cá nhân
+            <div class="nav-item dropdown"
+                [ngClass]="{ 'show': isDropdownOpen }">
+                <a class="nav-link dropdown-toggle"
+                    (click)="toggleDropdown('personal')"
+                    [class.active]="isRouteActive('/info-admin')">
+                    <i class="far fa-file-alt me-2"
+                        style="background-color: white;"></i>Cá nhân
                 </a>
-                <div class="dropdown-menu bg-transparent border-0" [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'personal' }">
-                  <a routerLink="/info-admin" class="dropdown-item">Thông tin cá nhân</a>
-                  <a (click)="dangXuat()" class="dropdown-item">Đăng xuất</a>
-                  <!-- <a href="blank.html" class="dropdown-item">Blank Page</a> -->
+                <div class="dropdown-menu bg-transparent border-0"
+                    [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'personal' }">
+                    <a routerLink="/info-admin" class="dropdown-item">Thông tin
+                        cá nhân</a>
+                    <a (click)="dangXuat()" class="dropdown-item">Đăng xuất</a>
+                    <!-- <a href="blank.html" class="dropdown-item">Blank Page</a> -->
                 </div>
-              </div>
+            </div>
         </div>
     </nav>
 </div>
