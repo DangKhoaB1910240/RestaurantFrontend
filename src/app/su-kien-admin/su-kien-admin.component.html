@@ -1,354 +1,405 @@
 <div class="container-fluid position-relative d-flex p-0">
     <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
 
-
     <!-- Content Start -->
     <div class="content" [class.open]="isSidebarOpen">
         <!-- Navbar Start -->
         <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
         <!-- Navbar End -->
 
-
         <!-- Form Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-12 mb-3">
                     <!-- Form thêm -->
-                    <div class="bg-secondary1 rounded h-100 p-4" *ngIf="!isEditForm ; else edit">
+                    <div class="bg-secondary1 rounded h-100 p-4"
+                        *ngIf="!isEditForm ; else edit">
                         <h6 class="mb-4">Thêm món ăn</h6>
                         <form [formGroup]="ItemForm" (ngSubmit)="themItem()">
                             <div class="mb-3">
-                                <label for="itemName" class="form-label">Tên món ăn</label>
-                                <input type="text" class="form-control" id="itemName" formControlName="itemName" 
+                                <label for="itemName" class="form-label">Tên món
+                                    ăn</label>
+                                <input type="text" class="form-control"
+                                    id="itemName" formControlName="itemName"
                                     aria-describedby="emailHelp">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['itemName'].errors && ItemForm.controls['itemName'].errors['required']">Tên món ăn không được để trống</small>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-floating">
-                                  <label for="tinhThanhSelect">Chọn tỉnh thành</label>
-                                  <select class="form-control" id="tinhThanhSelect" formControlName="tinhThanhId" (change)="onTinhThanhChange($event)">
-                                    <option value="" selected>Tất cả</option>
-                                    <option *ngFor="let tt of listTinhThanh" [value]="tt.id">{{ tt.name }}</option>
-                                  </select>
-                                  <div *ngIf="submitted && ItemForm.controls['tinhThanhId'].errors">
-                                    <small class="text-danger">Tỉnh thành không được để trống</small>
-                                  </div>
-                                </div>
-                              </div>
-                             <!-- District Dropdown -->
-                            <div class="mb-3">
-                                <div class="form-floating">
-                                <label for="quanHuyenSelect">Chọn quận huyện</label>
-                                <select class="form-control" id="quanHuyenSelect" formControlName="quanHuyenId" (change)="onQuanHuyenChange($event)">
-                                    <option value="" selected>Tất cả</option>
-                                    <option *ngFor="let qh of listQuanHuyen" [value]="qh.id">{{ qh.name }}</option>
-                                </select>
-                                <div *ngIf="submitted && ItemForm.controls['quanHuyenId'].errors">
-                                    <small class="text-danger">Quận huyện không được để trống</small>
-                                </div>
-                                </div>
-                            </div>
-
-                            <!-- Commune Dropdown -->
-                            <div class="mb-3">
-                                <div class="form-floating">
-                                <label for="phuongXaSelect">Chọn phường xã</label>
-                                <select class="form-control" id="phuongXaSelect" formControlName="phuongXaId">
-                                    <option value="" selected>Tất cả</option>
-                                    <option *ngFor="let px of listPhuongXa" [value]="px.id">{{ px.name }}</option>
-                                </select>
-                                <div *ngIf="submitted && ItemForm.controls['phuongXaId'].errors">
-                                    <small class="text-danger">Phường xã không được để trống</small>
-                                </div>
+                                    <small class="text-danger"
+                                        *ngIf="ItemForm.controls['itemName'].errors && ItemForm.controls['itemName'].errors['required']">Tên
+                                        món ăn không được để trống</small>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="address" class="form-label" >Địa chỉ chi tiết</label>
-                                <input type="text" class="form-control" id="address"  formControlName="address">
+                                <label for="cost" class="form-label">Giá món
+                                    (nghìn đồng)</label>
+                                <input type="number" class="form-control"
+                                    id="cost" formControlName="cost">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['address'].errors && ItemForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                    <small class="text-danger"
+                                        *ngIf="ItemForm.controls['cost'].errors && ItemForm.controls['cost'].errors['required']">Giá
+                                        vé để trống</small>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="cost" class="form-label" >Giá vé (nghìn đồng)</label>
-                                <input type="number" class="form-control" id="cost"  formControlName="cost">
+                                <label for="img" class="form-label">Hình
+                                    ảnh</label>
+                                <input type="text" class="form-control" id="img"
+                                    formControlName="img">
                                 <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['cost'].errors && ItemForm.controls['cost'].errors['required']">Giá vé để trống</small>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
-                                <input type="text" id="startDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="startDateTime"/>
-                                <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['startDateTime'].errors && ItemForm.controls['startDateTime'].errors['required']">Ngày bắt đầu không được để trống</small>
-                                    <small class="text-danger" *ngIf="ItemForm.controls['startDateTime'].errors && !ItemForm.controls['startDateTime'].errors['required'] && ItemForm.controls['startDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
-                                  </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="endDateTime" class="form-label"  >Ngày kết thúc</label>
-                                <input type="text" id="endDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="endDateTime"/>
-                                <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['endDateTime'].errors && ItemForm.controls['endDateTime'].errors['required']">Ngày kết thúc không được để trống</small>
-                                    <small class="text-danger" *ngIf="ItemForm.controls['endDateTime'].errors && !ItemForm.controls['endDateTime'].errors['required'] && ItemForm.controls['endDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
-                                  </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="maxQuantity" class="form-label" >Số lượng tối đa</label>
-                                <input type="number" class="form-control" id="maxQuantity"  formControlName="maxQuantity" min="1" >
-                                <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['maxQuantity'].errors && ItemForm.controls['maxQuantity'].errors['required']">Số lượng không được để trống</small>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="img" class="form-label" >Hình ảnh</label>
-                                <input type="text" class="form-control" id="img"  formControlName="img" >
-                                <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="ItemForm.controls['img'].errors && ItemForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
+                                    <small class="text-danger"
+                                        *ngIf="ItemForm.controls['img'].errors && ItemForm.controls['img'].errors['required']">Hình
+                                        ảnh không được để trống</small>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Viết mô tả tại đây" formControlName="description"
-                                        id="floatingTextarea" style="height: 150px;"></textarea>
+                                    <textarea class="form-control"
+                                        placeholder="Viết mô tả tại đây"
+                                        formControlName="description"
+                                        id="floatingTextarea"
+                                        style="height: 150px;"></textarea>
                                     <label for="floatingTextarea">Mô tả</label>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-3">
-                                <div class="form-floating">
-                                    <select class="form-control" id="floatingSelect" formControlName="organizerId" aria-label="Floating label select example">
-                                        <option value="" selected>Tất cả</option>
-                                        <option *ngFor="let organizer of listCategory" [value]="organizer.id">{{ organizer.name }}</option>
-                                    </select>
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['organizerId'].errors && ItemForm.controls['organizerId'].errors['required']">Nhà tổ chức không được để trống</small>
-                                    </div>
-                                    <label for="floatingSelect">Chọn tổ chức</label>
+                                <label class="form-label">Best Seller</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        formControlName="bestSeller">
+                                    <label class="form-check-label"
+                                        style="margin-left: 5%;"> {{
+                                        ItemForm.get('bestSeller')?.value ? 'Có'
+                                        : 'Không' }} </label>
                                 </div>
                             </div>
-                            
-                            
-                            <div *ngIf="isCheckSuccess" class="text-center mb-2">
-                                <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
+
+                            <div class="mb-3">
+                                <label class="form-label">Yêu Thích Nhất</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        formControlName="yeuThichNhat">
+                                    <label class="form-check-label"
+                                        style="margin-left: 5%;"
+                                        style="margin-left: 5%;"> {{
+                                        ItemForm.get('yeuThichNhat')?.value ?
+                                        'Có' : 'Không' }} </label>
+                                </div>
                             </div>
-                            <button type="reset" class="btn btn-warning mr-3" (click)="cancel()">Làm mới</button>
-                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+
+                            <div class="mb-3">
+                                <label class="form-label">Món Mới Nhất</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        formControlName="monMoiNhat">
+                                    <label class="form-check-label"
+                                        style="margin-left: 5%;"> {{
+                                        ItemForm.get('monMoiNhat')?.value ? 'Có'
+                                        : 'Không' }} </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Món Chay</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        formControlName="monChay">
+                                    <label class="form-check-label"
+                                        style="margin-left: 5%;"> {{
+                                        ItemForm.get('monChay')?.value ? 'Có' :
+                                        'Không' }} </label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <select class="form-control"
+                                        id="floatingSelect"
+                                        formControlName="categoryId"
+                                        aria-label="Floating label select example">
+                                        <option value selected>Tất cả</option>
+                                        <option
+                                            *ngFor="let organizer of listCategory"
+                                            [value]="organizer.id">{{
+                                            organizer.name }}</option>
+                                    </select>
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger"
+                                            *ngIf="ItemForm.controls['categoryId'].errors && ItemForm.controls['categoryId'].errors['required']">Danh
+                                            mục không được để trống</small>
+                                    </div>
+                                    <label for="floatingSelect">Chọn tổ
+                                        chức</label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isCheckSuccess"
+                                class="text-center mb-2">
+                                <span class="text-success"
+                                    style="font-weight: bold;">{{successMessage}}</span>
+                            </div>
+                            <button type="reset" class="btn btn-warning mr-3"
+                                (click)="cancel()">Làm mới</button>
+                            <button type="submit" class="btn btn-primary">Xác
+                                nhận</button>
                         </form>
                     </div>
                     <!-- End add -->
-                    
+
                     <!-- Form edit -->
                     <ng-template #edit>
-                        <div class="bg-secondary1 rounded h-100 p-4" >
+                        <div class="bg-secondary1 rounded h-100 p-4">
                             <h6 class="mb-4">Sửa món ăn</h6>
                             <form [formGroup]="ItemForm" (ngSubmit)="suaItem()">
                                 <div class="mb-3">
-                                    <label for="itemName" class="form-label">Tên món ăn</label>
-                                    <input type="text" class="form-control" id="itemName" formControlName="itemName" 
+                                    <label for="itemName" class="form-label">Tên
+                                        món ăn</label>
+                                    <input type="text" class="form-control"
+                                        id="itemName" formControlName="itemName"
                                         aria-describedby="emailHelp">
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['itemName'].errors && ItemForm.controls['itemName'].errors['required']">Tên món ăn không được để trống</small>
+                                        <small class="text-danger"
+                                            *ngIf="ItemForm.controls['itemName'].errors && ItemForm.controls['itemName'].errors['required']">Tên
+                                            món ăn không được để trống</small>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <div class="form-floating">
-                                      <label for="tinhThanhSelect">Chọn tỉnh thành</label>
-                                      <select class="form-control" id="tinhThanhSelect" formControlName="tinhThanhId" (change)="onTinhThanhChange($event)">
-                                        <option value="">Tất cả</option>
-                                        <option *ngFor="let tt of listTinhThanh" [value]="tt.id">{{ tt.name }}</option>
-                                      </select>
-                                      <div *ngIf="submitted && ItemForm.controls['tinhThanhId'].errors">
-                                        <small class="text-danger">Tỉnh thành không được để trống</small>
-                                      </div>
-                                    </div>
-                                  </div>
-                                 <!-- District Dropdown -->
-                                <div class="mb-3">
-                                    <div class="form-floating">
-                                    <label for="quanHuyenSelect">Chọn quận huyện</label>
-                                    <select class="form-control" id="quanHuyenSelect" formControlName="quanHuyenId" (change)="onQuanHuyenChange($event)">
-                                        <option value="">Tất cả</option>
-                                        <option *ngFor="let qh of listQuanHuyen" [value]="qh.id">{{ qh.name }}</option>
-                                    </select>
-                                    <div *ngIf="submitted && ItemForm.controls['quanHuyenId'].errors">
-                                        <small class="text-danger">Quận huyện không được để trống</small>
-                                    </div>
-                                    </div>
-                                </div>
-    
-                                <!-- Commune Dropdown -->
-                                <div class="mb-3">
-                                    <div class="form-floating">
-                                    <label for="phuongXaSelect">Chọn phường xã</label>
-                                    <select class="form-control" id="phuongXaSelect" formControlName="phuongXaId">
-                                        <option value="">Tất cả</option>
-                                        <option *ngFor="let px of listPhuongXa" [value]="px.id" >{{ px.name }}</option>
-                                    </select>
-                                    <div *ngIf="submitted && ItemForm.controls['phuongXaId'].errors">
-                                        <small class="text-danger">Phường xã không được để trống</small>
-                                    </div>
-                                    </div>
-                                </div>
-    
-                                <div class="mb-3">
-                                    <label for="address" class="form-label" >Địa chỉ chi tiết</label>
-                                    <input type="text" class="form-control" id="address"  formControlName="address">
+                                    <label for="cost" class="form-label">Giá món
+                                        (nghìn đồng)</label>
+                                    <input type="number" class="form-control"
+                                        id="cost" formControlName="cost">
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['address'].errors && ItemForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
-                                    </div>
-                                </div>
-    
-                                <div class="mb-3">
-                                    <label for="cost" class="form-label" >Giá vé (nghìn đồng)</label>
-                                    <input type="number" class="form-control" id="cost"  formControlName="cost">
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['cost'].errors && ItemForm.controls['cost'].errors['required']">Giá vé để trống</small>
+                                        <small class="text-danger"
+                                            *ngIf="ItemForm.controls['cost'].errors && ItemForm.controls['cost'].errors['required']">Giá
+                                            vé để trống</small>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
-                                    
-                                    <input type="text" id="startDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="startDateTime"/>
+                                    <label for="img" class="form-label">Hình
+                                        ảnh</label>
+                                    <input type="text" class="form-control"
+                                        id="img" formControlName="img">
                                     <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['startDateTime'].errors && ItemForm.controls['startDateTime'].errors['required']">Ngày bắt đầu không được để trống</small>
-                                        <small class="text-danger" *ngIf="ItemForm.controls['startDateTime'].errors && !ItemForm.controls['startDateTime'].errors['required'] && ItemForm.controls['startDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
-                                      </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="endDateTime" class="form-label"  >Ngày kết thúc</label>
-                                    
-                                    <input type="text" id="endDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="endDateTime"/>
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['endDateTime'].errors && ItemForm.controls['endDateTime'].errors['required']">Ngày kết thúc không được để trống</small>
-                                        <small class="text-danger" *ngIf="ItemForm.controls['endDateTime'].errors && !ItemForm.controls['endDateTime'].errors['required'] && ItemForm.controls['endDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
-                                      </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="maxQuantity" class="form-label" >Số lượng tối đa</label>
-                                    <input type="number" class="form-control" id="maxQuantity"  formControlName="maxQuantity" min="1" >
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['maxQuantity'].errors && ItemForm.controls['maxQuantity'].errors['required']">Số lượng không được để trống</small>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="img" class="form-label" >Hình ảnh</label>
-                                    <input type="text" class="form-control" id="img"  formControlName="img" >
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="ItemForm.controls['img'].errors && ItemForm.controls['img'].errors['required']">Hình ảnh không được để trống</small>
+                                        <small class="text-danger"
+                                            *ngIf="ItemForm.controls['img'].errors && ItemForm.controls['img'].errors['required']">Hình
+                                            ảnh không được để trống</small>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Viết mô tả tại đây" formControlName="description"
-                                            id="floatingTextarea" style="height: 150px;"></textarea>
-                                        <label for="floatingTextarea">Mô tả</label>
+                                        <textarea class="form-control"
+                                            placeholder="Viết mô tả tại đây"
+                                            formControlName="description"
+                                            id="floatingTextarea"
+                                            style="height: 150px;"></textarea>
+                                        <label for="floatingTextarea">Mô
+                                            tả</label>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-floating">
-                                        <select class="form-control" id="floatingSelect2" formControlName="status" aria-label="Floating label select example">
-                                            <option value="" selected>Tất cả</option>
-                                            <option value="true">Hoạt động</option>
+                                        <select class="form-control"
+                                            id="floatingSelect2"
+                                            formControlName="status"
+                                            aria-label="Floating label select example">
+                                            <option value selected>Tất
+                                                cả</option>
+                                            <option value="true">Hoạt
+                                                động</option>
                                             <option value="false">Đóng</option>
                                         </select>
                                         <div *ngIf="submitted">
-                                            <small class="text-danger" *ngIf="ItemForm.controls['organizerId'].errors && ItemForm.controls['organizerId'].errors['required']">Nhà tổ chức không được để trống</small>
+                                            <small class="text-danger"
+                                                *ngIf="ItemForm.controls['categoryId'].errors && ItemForm.controls['categoryId'].errors['required']">Nhà
+                                                tổ chức không được để
+                                                trống</small>
                                         </div>
-                                        <label for="floatingSelect">Trạng thái</label>
+                                        <label for="floatingSelect">Trạng
+                                            thái</label>
                                     </div>
                                 </div>
-                                
+
+                                <div class="mb-3">
+                                    <label class="form-label">Best
+                                        Seller</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                            type="checkbox"
+                                            formControlName="bestSeller">
+                                        <label class="form-check-label"
+                                            style="margin-left: 5%;"> {{
+                                            ItemForm.get('bestSeller')?.value ?
+                                            'Có'
+                                            : 'Không' }} </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Yêu Thích
+                                        Nhất</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                            type="checkbox"
+                                            formControlName="yeuThichNhat">
+                                        <label class="form-check-label"
+                                            style="margin-left: 5%;"
+                                            style="margin-left: 5%;"> {{
+                                            ItemForm.get('yeuThichNhat')?.value
+                                            ?
+                                            'Có' : 'Không' }} </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Món Mới
+                                        Nhất</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                            type="checkbox"
+                                            formControlName="monMoiNhat">
+                                        <label class="form-check-label"
+                                            style="margin-left: 5%;"> {{
+                                            ItemForm.get('monMoiNhat')?.value ?
+                                            'Có'
+                                            : 'Không' }} </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Món Chay</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                            type="checkbox"
+                                            formControlName="monChay">
+                                        <label class="form-check-label"
+                                            style="margin-left: 5%;"> {{
+                                            ItemForm.get('monChay')?.value ?
+                                            'Có' :
+                                            'Không' }} </label>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <div class="form-floating">
-                                        <select class="form-control" id="floatingSelect" formControlName="organizerId" aria-label="Floating label select example">
-                                            <option value="" selected>Tất cả</option>
-                                            <option *ngFor="let organizer of listCategory" [value]="organizer.id">{{ organizer.name }}</option>
+                                        <select class="form-control"
+                                            id="floatingSelect"
+                                            formControlName="categoryId"
+                                            aria-label="Floating label select example">
+                                            <option value selected>Tất
+                                                cả</option>
+                                            <option
+                                                *ngFor="let organizer of listCategory"
+                                                [value]="organizer.id">{{
+                                                organizer.name }}</option>
                                         </select>
                                         <div *ngIf="submitted">
-                                            <small class="text-danger" *ngIf="ItemForm.controls['organizerId'].errors && ItemForm.controls['organizerId'].errors['required']">Nhà tổ chức không được để trống</small>
+                                            <small class="text-danger"
+                                                *ngIf="ItemForm.controls['categoryId'].errors && ItemForm.controls['categoryId'].errors['required']">Nhà
+                                                tổ chức không được để
+                                                trống</small>
                                         </div>
-                                        <label for="floatingSelect">Chọn tổ chức</label>
+                                        <label for="floatingSelect">Chọn tổ
+                                            chức</label>
                                     </div>
                                 </div>
-                                
-                                
-                                <div *ngIf="isCheckSuccess" class="text-center mb-2">
-                                    <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
+
+                                <div *ngIf="isCheckSuccess"
+                                    class="text-center mb-2">
+                                    <span class="text-success"
+                                        style="font-weight: bold;">{{successMessage}}</span>
                                 </div>
-                                <button type="reset" class="btn btn-warning mr-3" (click)="cancel()">Làm mới</button>
-                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="reset"
+                                    class="btn btn-warning mr-3"
+                                    (click)="cancel()">Làm mới</button>
+                                <button type="submit"
+                                    class="btn btn-primary">Cập nhật</button>
                             </form>
                         </div>
                     </ng-template>
-                    
+
                     <!-- end Form Edit -->
                 </div>
                 <div class="col-sm-12 col-xl-12 mb-3">
-                    <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
-                        
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Cập nhật lại giá ghế vip</h6>
-                            
-                            <!-- <a href="">Show All</a> -->
-                        </div><input type="number" class="form-control mb-3" id="search" style="width: 20%;" [(ngModel)]="giaGhe"/>
-                        <div class="text-left mb-3"><button class="btn btn-primary" (click)="updateGia(1)">Cập nhật</button></div>
-                        
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Danh sách món ăn ({{listItem.length}} món ăn)</h6>
+                    <div class="bg-secondary text-center rounded p-4"
+                        style="background-color: #fff !important;">
+
+                        <div
+                            class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Danh sách món ăn
+                                ({{listItem.length}} món ăn)</h6>
                             <!-- <a href="">Show All</a> -->
                         </div>
-                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="tenItem"
-                        (input) ="updateItemByStatusAnditemNameAndOrganizerId()">
+                        <input type="search" class="form-control mb-3"
+                            id="search" style="width: 50%;"
+                            placeholder="Tìm kiếm bằng tên..."
+                            [(ngModel)]="tenItem"
+                            (input)="updateItemByStatusAnditemNameAndCategoryId()">
                         <div class="table-responsive">
-                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <table
+                                class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr>
-                                        <th scope="col" >STT</th>
+                                        <th scope="col">STT</th>
                                         <th scope="col">Tên món ăn</th>
-                                        <th scope="col">Giá vé</th>
+                                        <th scope="col">Giá món</th>
                                         <th scope="col">Mô tả</th>
                                         <th scope="col">Hình ảnh</th>
                                         <th scope="col">Trạng thái</th>
+                                        <th scope="col">Best Seller</th>
+                                        <th scope="col">Yêu Thích Nhất</th>
+                                        <th scope="col">Món Mới Nhất</th>
+                                        <th scope="col">Món Chay</th>
                                         <th scope="col">Thao tác</th>
-                                        <!-- <th scope="col">Thao tác</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let s of listItem;index as i">
-                                        
+                                    <tr *ngFor="let s of listItem; index as i">
                                         <td>{{i+1}}</td>
                                         <td>{{s.itemName}}</td>
                                         <td>{{s.cost | number}}đ</td>
                                         <td>{{s.description}}</td>
-                                        
                                         <td>
-                                            <img [src]="s.img" style="width: 100%;" alt="">
+                                            <img [src]="s.img"
+                                                style="width: 100%;" alt>
                                         </td>
-                                        <td><span *ngIf="s.status;else noStatus">Đang hoạt động</span><ng-template #noStatus><span>Đã đóng</span></ng-template></td>
                                         <td>
-                                            <div><a class="btn btn-sm btn-primary" (click)="deleteItem(s.id)"  >Xóa</a></div>
-                                            <div><a class="btn btn-sm btn-light" (click)="getInfoById(s.id)" >Sửa</a></div>
-                                            <div><a class="btn btn-sm btn-dark" style="color: #fff;" [routerLink]="['/quan-ly-su-kien-admin', s.id]">Chi tiết</a></div>
-                                            
+                                            <span
+                                                *ngIf="s.status; else noStatus">Còn
+                                                món</span>
+                                            <ng-template #noStatus><span>Hết
+                                                    món</span></ng-template>
+                                        </td>
+                                        <td>{{ s.bestSeller ? 'Có' : 'Không'
+                                            }}</td>
+                                        <td>{{ s.yeuThichNhat ? 'Có' : 'Không'
+                                            }}</td>
+                                        <td>{{ s.monMoiNhat ? 'Có' : 'Không'
+                                            }}</td>
+                                        <td>{{ s.monChay ? 'Có' : 'Không'
+                                            }}</td>
+                                        <td>
+                                            <div><a
+                                                    class="btn btn-sm btn-primary"
+                                                    (click)="deleteItem(s.id)">Xóa</a></div>
+                                            <div><a class="btn btn-sm btn-light"
+                                                    (click)="getInfoById(s.id)">Sửa</a></div>
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
-                
-                
-                
+
                 <!-- <div class="col-sm-12 col-xl-6 mb-3">
                     <div class="bg-secondary1 rounded h-100 p-4">
                         <h6 class="mb-4">Floating Label</h6>
@@ -384,14 +435,13 @@
         </div>
         <!-- Form End -->
 
-
         <!-- Footer Start -->
         <app-footer-admin></app-footer-admin>
         <!-- Footer End -->
     </div>
     <!-- Content End -->
 
-
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
 </div>

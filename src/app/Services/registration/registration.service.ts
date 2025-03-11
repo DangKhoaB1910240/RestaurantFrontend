@@ -7,11 +7,10 @@ import { Item } from 'src/app/Models/sukien/su-kien';
 import { AppConfig } from 'src/app/config/AppConfig';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegistrationService {
-
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   //lấy full đường dẫn
   private getFullUrl(endpoint: string): string {
@@ -19,37 +18,60 @@ export class RegistrationService {
   }
   registerEvent(registration: any): Observable<string> {
     return this.http.post(
-      this.getFullUrl(`api/v1/registration`),registration, { responseType: 'text' }
+      this.getFullUrl(`api/v1/registration`),
+      registration,
+      { responseType: 'text' }
     );
   }
-  checkExist(userId: number, eventId: number) : Observable<Boolean> {
-    return this.http.get<Boolean>(this.getFullUrl(`api/v1/registration/check-exist?userId=${userId}&eventId=${eventId}`))
-  };
-  getEventsByUserIdAndStatusAndOrganizerIdAndName(userId: number | string,eventStatus: string | null, itemName?: string | null, organizerId?: number | string): Observable<Item[]> {
+  checkExist(userId: number, eventId: number): Observable<Boolean> {
+    return this.http.get<Boolean>(
+      this.getFullUrl(
+        `api/v1/registration/check-exist?userId=${userId}&eventId=${eventId}`
+      )
+    );
+  }
+  getEventsByUserIdAndStatusAndOrganizerIdAndName(
+    userId: number | string,
+    eventStatus: string | null,
+    itemName?: string | null,
+    organizerId?: number | string
+  ): Observable<Item[]> {
     return this.http.get<Item[]>(
-      this.getFullUrl(`api/v1/registration/user/${userId}?eventStatus=${eventStatus}&itemName=${itemName}&organizerId=${organizerId}`)
+      this.getFullUrl(
+        `api/v1/registration/user/${userId}?eventStatus=${eventStatus}&itemName=${itemName}&organizerId=${organizerId}`
+      )
     );
   }
-  getRegistrationByUserIdAndEventId(userId: number,eventId:number) :Observable<Registration> {
-    return this.http.get<Registration>(this.getFullUrl(`api/v1/registration/user/${userId}/event/${eventId}`));
+  getRegistrationByUserIdAndEventId(
+    userId: number,
+    eventId: number
+  ): Observable<Registration> {
+    return this.http.get<Registration>(
+      this.getFullUrl(`api/v1/registration/user/${userId}/event/${eventId}`)
+    );
   }
-  updateById(id: number,userId:number, r: any) :Observable<any> {
-    return this.http.patch<void>(this.getFullUrl(`api/v1/registration/${id}/user/${userId}`),r);
+  updateById(id: number, userId: number, r: any): Observable<any> {
+    return this.http.patch<void>(
+      this.getFullUrl(`api/v1/reservation/${id}/user/${userId}`),
+      r
+    );
   }
-  updateById2(id: number,userId:number, r: any) :Observable<any> {
-    return this.http.patch<void>(this.getFullUrl(`api/v1/registration/${id}/user2/${userId}`),r);
+  updateById2(id: number, userId: number, r: any): Observable<any> {
+    return this.http.patch<void>(
+      this.getFullUrl(`api/v1/registration/${id}/user2/${userId}`),
+      r
+    );
   }
   getAllRegistrationByFilter(
-    eventId: number | string, 
-    userFullname: string | null, 
-    status: number | null, 
-    monthYear: string | null, 
+    tableId: number | string,
+    userFullname: string | null,
+    status: number | null,
+    monthYear: string | null,
     dayMonthYear: string | null
   ): Observable<Registration[]> {
-    
     let params: any = {};
 
-    if (eventId) params.eventId = eventId;
+    if (tableId) params.tableId = tableId;
     if (userFullname) params.userFullname = userFullname;
     if (status !== null) params.status = status;
     if (monthYear) params.monthYear = monthYear;
@@ -57,8 +79,32 @@ export class RegistrationService {
 
     const queryParams = new HttpParams({ fromObject: params });
 
-    console.log(`api/v1/registration/order-by-registration-date/filter`, queryParams.toString());
+    return this.http.get<Registration[]>(
+      this.getFullUrl(`api/v1/reservation/filter`),
+      { params: queryParams }
+    );
+  }
 
-    return this.http.get<Registration[]>(this.getFullUrl(`api/v1/registration/order-by-registration-date/filter`), { params: queryParams });
+  exportToExcel(
+    tableId: number | string,
+    userFullname: string | null,
+    status: number | null,
+    monthYear: string | null,
+    dayMonthYear: string | null
+  ) {
+    let params: any = {};
+
+    if (tableId) params.tableId = tableId;
+    if (userFullname) params.userFullname = userFullname;
+    if (status !== null) params.status = status;
+    if (monthYear) params.monthYear = monthYear;
+    if (dayMonthYear) params.dayMonthYear = dayMonthYear;
+
+    const queryParams = new HttpParams({ fromObject: params });
+
+    return this.http.get(this.getFullUrl(`api/v1/reservation/export-excel`), {
+      params: queryParams,
+      responseType: 'blob', // Quan trọng để nhận file nhị phân
+    });
   }
 }

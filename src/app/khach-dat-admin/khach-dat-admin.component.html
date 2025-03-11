@@ -1,6 +1,6 @@
-<div class="container-fluid position-relative d-flex p-0" style="background-color: #f5f6f7;">
+<div class="container-fluid position-relative d-flex p-0"
+    style="background-color: #f5f6f7;">
     <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
-
 
     <!-- Content Start -->
     <div class="content" [class.open]="isSidebarOpen">
@@ -8,83 +8,205 @@
         <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
         <!-- Navbar End -->
 
-
         <!-- Recent Sales Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-secondary text-center rounded p-4"  style="background-color: #fff !important;">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    
-                    <h6 class="mb-0">Danh sách khách đặt vé món ăn <br />(Số lượng : {{listDangKy.length}})</h6>
+            <div class="bg-secondary text-center rounded p-4"
+                style="background-color: #fff !important;">
+                <div
+                    class="d-flex align-items-center justify-content-between mb-4">
+
+                    <h6 class="mb-0">Danh sách khách đặt món <br />(Số lượng :
+                        {{listDangKy.length}})</h6>
                     <!-- <a href="">Show All</a> -->
                 </div>
                 <div style="display: flex;">
-                    <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="userFullname" (input)="getAllRegistrations()">
+                    <input type="search" class="form-control mb-3" id="search"
+                        style="width: 50%;"
+                        placeholder="Tìm kiếm bằng tên khách hàng..."
+                        [(ngModel)]="userFullname"
+                        (input)="getAllRegistrations()">
                     <div style="width: 1%;"></div>
-                    <select name="" class="form-control mb-3" id="" style="width: 15%;" [(ngModel)]="status" (ngModelChange)="onStatusChange($event)">
-                        <option value="-1">Đã thanh toán</option>
-                        <option value="0">Chưa xác nhận</option>
-                        <option value="2">Không tham dự đúng hẹn</option>
+                    <select name class="form-control mb-3" id
+                        style="width: 15%;" [(ngModel)]="status"
+                        (ngModelChange)="onStatusChange($event)">
+                        <option value="0">Chưa xử lý</option>
+                        <option value="1">Đã cọc</option>
+                        <option value="2">Đã nhận bàn</option>
+                        <option value="3">Đã hủy bỏ</option>
                     </select>
+
                     <div style="width: 1%;"></div>
                     <div style="width: 10%;">
-                        Chỉ lọc theo tháng <input type="checkbox" [(ngModel)]="filterByMonth" (change)="onFilterByMonthChange($event)">
+                        Chỉ lọc theo tháng <input type="checkbox"
+                            [(ngModel)]="filterByMonth"
+                            (change)="onFilterByMonthChange($event)">
                     </div>
                     <div style="width: 1%;"></div>
-                    <input style="width: 15%;" class="form-control mb-3" type="date" style="width: 15%;" [(ngModel)]="selectedDate" (change)="onDateChange($event)"><div style="width: 1%;"></div>
-                    <button (click)="resetFilters()" class="btn btn-warning mb-3">Reset</button>
+                    <input style="width: 15%;" class="form-control mb-3"
+                        type="date" style="width: 15%;"
+                        [(ngModel)]="selectedDate"
+                        (change)="onDateChange($event)"><div
+                        style="width: 1%;"></div>
+                    <button (click)="resetFilters()"
+                        class="btn btn-warning mb-3">Reset</button>
                 </div>
-                
+                <button (click)="exportToExcel()" class="btn-excel">
+                    <i class="fa fa-file-excel"></i> Xuất Excel
+                </button>
 
                 <!-- <div style="display: flex;">
 
                     <div style="width: 80%;"></div>
                     <input style="width: 20%;" class="form-control mb-3" type="date">
                 </div> -->
-                
+
                 <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <table
+                        class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
-                            <tr >
+                            <tr>
                                 <th scope="col">STT</th>
                                 <th scope="col">Khách hàng</th>
                                 <th scope="col">Tài khoản</th>
-                                <th scope="col">món ăn</th>
-                                <th scope="col">Ngày đặt vé</th>
-                                <th scope="col">Loại ghế</th>
+                                <th scope="col">Loại đơn hàng</th>
+                                <th scope="col">Bàn số</th>
+                                <th scope="col">Loại bàn</th>
+                                <th scope="col">Ngày đặt bàn</th>
+                                <th scope="col">Ngày nhận bàn</th>
+                                <th scope="col">Danh sách món ăn</th>
+                                <th scope="col">Tiền cọc</th>
+                                <th scope="col">Tổng tiền</th>
                                 <th scope="col">Trạng thái</th>
-                                <th scope="col">Lý do không tham dự (nếu có)</th>
                                 <th scope="col">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <tr *ngFor="let l of listDangKy;index as i">
                                 <td>{{i+1}}</td>
-                                <td>{{l.users.fullname}}</td>
-                                <td>{{l.users.username}}</td>
-                                <td>{{l.event.itemName}}</td>
-                                <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
-                                <td >{{l.loaiGhe == 0 ? 'Ghế thường' : 'Ghế vip'}}</td>
+                                <td>{{l.user.fullname}}</td>
+                                <td>{{l.user.username}}</td>
+                                <td>{{l.orderType == 1 ? "Mang đi" :
+                                    "Ăn tại chỗ"}}</td>
+                                <td>{{l.table ? (l.table.tableNumber) :
+                                    ''}}</td>
+
+                                <td>{{ l.table ? (l.table.type === 0 ?
+                                    'Bàn thường' : 'Bàn VIP') : '' }}</td>
+                                <td>{{l.ngayTao | date:
+                                    'dd-MM-yyyy HH:mm'
+                                    }}</td>
+                                <td>{{l.reservationTime | date:
+                                    'dd-MM-yyyy HH:mm'
+                                    }}</td>
                                 <td>
+                                    <button class="btn btn-sm btn-info"
+                                        data-bs-target="#detailModal"
+                                        data-bs-toggle="modal"
+                                        (click)="openDetailModal(l)">Chi
+                                        tiết</button></td>
+                                <td>{{ l.depositFee | number }}đ</td>
+                                <td>{{ l.totalAmount | number }}đ</td>
+                                <td>
+
                                     <span *ngIf="l.status ==0">Chưa xử lý</span>
-                                    <span *ngIf="l.status ==-1">Đã thanh toán</span>
-                                    <span *ngIf="l.status ==2">Không tham gia đúng hẹn</span>
+                                    <span *ngIf="l.status ==1">Đã cọc</span>
+                                    <span *ngIf="l.status ==2">Đã nhận
+                                        bàn</span>
+                                    <span *ngIf="l.status ==3">Đã hủy bỏ</span>
                                 </td>
-                                <td>{{l.refuseMessage  }}</td>
+                                <!-- // Trạng thái đặt bàn 0: Chưa xử lý, 1: Đã cọc, 2: Đã nhận bàn, 3: Đã hủy bỏ -->
                                 <td>
-                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,-1)"  >Xác nhận thanh toán</a></div>
-                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,2)">Không tham dự</a></div>
-                                            <div *ngIf="l.status != 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,0)">Hoàn tác</a></div>
+                                    <!-- <div *ngIf="l.status == 0"><a
+                                            class="btn btn-sm btn-primary"
+                                            (click)="updateRegistration(l.id,0)">Chưa xử lý</a></div> -->
+                                    <div *ngIf="l.status == 0"><a
+                                            class="btn btn-sm btn-light "
+                                            (click)="updateRegistration(l.id,1)">Đã
+                                            cọc</a></div>
+                                    <div *ngIf="l.status == 0"><a
+                                            class="btn btn-sm btn-light "
+                                            (click)="updateRegistration(l.id,2)">Đã
+                                            nhận bàn</a></div>
+                                    <div *ngIf="l.status == 0"><a
+                                            class="btn btn-sm btn-light "
+                                            (click)="updateRegistration(l.id,3)">
+                                            Hủy bỏ</a></div>
+                                    <div *ngIf="l.status != 0"><a
+                                            class="btn btn-sm btn-light "
+                                            (click)="updateRegistration(l.id,0)">Hoàn
+                                            tác</a></div>
                                 </td>
-                                
+
                             </tr>
                         </tbody>
                     </table>
+                    <div class="modal fade" id="detailModal" tabindex="-1"
+                        aria-labelledby="detailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <span aria-hidden="true">&times;</span>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="detailModalLabel">Chi tiết đơn đặt
+                                        bàn</h5>
+                                    <button type="button" class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Khách hàng:</strong> {{
+                                        selectedReservation?.user.fullname
+                                        }}</p>
+                                    <p><strong>Tài khoản:</strong> {{
+                                        selectedReservation?.user.username
+                                        }}</p>
+                                    <p><strong>Bàn số:</strong> {{
+                                        selectedReservation?.table?.tableNumber
+                                        }}</p>
+
+                                    <h6>Danh sách món ăn:</h6>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên món</th>
+                                                <th>Hình ảnh</th>
+                                                <th>Số lượng</th>
+                                                <th>Giá</th>
+                                                <th>Tổng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let item of selectedReservation?.items">
+                                                <td>{{ item.item.itemName
+                                                    }}</td>
+                                                <td><img style="width: 100%;"
+                                                        [src]="item.item.img"
+                                                        alt></td>
+                                                <td>{{ item.quantity }}</td>
+                                                <td>{{ item.item.cost | number
+                                                    }}đ</td>
+                                                <td>{{ item.totalPrice | number
+                                                    }}đ</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
         <!-- Recent Sales End -->
         <!-- Widgets End -->
-
 
         <!-- Footer Start -->
         <app-footer-admin></app-footer-admin>
@@ -92,7 +214,7 @@
     </div>
     <!-- Content End -->
 
-
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
 </div>

@@ -290,6 +290,7 @@
                         </div>
                       </div>
                       <div class="cart-icon-container text-center"
+                        *ngIf="s.status "
                         style="margin: 0 auto;">
                         <button class="btn btn-primary" (click)="addToCart(s)">
                           Thêm món<i class="fa fa-shopping-cart"></i>
