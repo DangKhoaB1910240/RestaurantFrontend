@@ -23,6 +23,13 @@ export class ReservationService {
     );
   }
 
+  bookAdmin(reservation: any): Observable<any> {
+    return this.http.post(
+      this.getFullUrl(`api/v1/reservation/admin/book`),
+      reservation
+    );
+  }
+
   getLichSu(userId: number): Observable<any> {
     return this.http.get(this.getFullUrl(`api/v1/reservation/user/${userId}`));
   }

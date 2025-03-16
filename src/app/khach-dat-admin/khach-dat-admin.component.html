@@ -50,15 +50,100 @@
                     <button (click)="resetFilters()"
                         class="btn btn-warning mb-3">Reset</button>
                 </div>
-                <button (click)="exportToExcel()" class="btn-excel">
-                    <i class="fa fa-file-excel"></i> Xuất Excel
-                </button>
+                <div class="button-group mb-3">
 
-                <!-- <div style="display: flex;">
+                    <button (click)="exportToExcel()"
+                        class="btn btn-excel me-2">
+                        <i class="fa fa-file-excel"></i> Xuất Excel
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addOrderModal">
+                        <i class="fa fa-plus"></i> Thêm đơn hàng
+                    </button>
 
-                    <div style="width: 80%;"></div>
-                    <input style="width: 20%;" class="form-control mb-3" type="date">
-                </div> -->
+                </div>
+                <div class="modal fade" id="addOrderModal" tabindex="-1"
+                    aria-labelledby="addOrderModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"
+                                    id="addOrderModalLabel">Thêm đơn hàng
+                                    mới</h5>
+                                <button type="button" class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form #orderForm="ngForm"
+                                    (ngSubmit)="createOrder()">
+                                    <div class="mb-3">
+                                        <label for="tableId"
+                                            class="form-label">Bàn số (không bắt
+                                            buộc)</label>
+                                        <select class="form-select" id="tableId"
+                                            [(ngModel)]="newOrder.tableId"
+                                            name="tableId">
+                                            <option [ngValue]="null">Chọn bàn
+                                                (nếu có)</option>
+                                            <option *ngFor="let table of tables"
+                                                [ngValue]="table.id">Bàn số {{
+                                                table.tableNumber }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <h6>Thêm món ăn</h6>
+                                        <div class="row mb-2"
+                                            *ngFor="let item of newOrder.items; let i = index">
+                                            <div class="col-5">
+                                                <select class="form-select"
+                                                    [(ngModel)]="item.itemId"
+                                                    [name]="'itemId' + i">
+                                                    <option
+                                                        [ngValue]="null">Chọn
+                                                        món</option>
+                                                    <option
+                                                        *ngFor="let menuItem of menuItems"
+                                                        [ngValue]="menuItem.id">{{
+                                                        menuItem.itemName
+                                                        }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="number"
+                                                    class="form-control"
+                                                    [(ngModel)]="item.quantity"
+                                                    [name]="'quantity' + i"
+                                                    placeholder="Số lượng"
+                                                    min="1">
+                                            </div>
+                                            <div class="col-3">
+                                                <button type="button"
+                                                    class="btn btn-danger"
+                                                    (click)="removeItem(i)">Xóa</button>
+                                            </div>
+                                        </div>
+                                        <button type="button"
+                                            class="btn btn-secondary"
+                                            (click)="addItem()">Thêm
+                                            món</button>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                        <button type="submit"
+                                            class="btn btn-primary"
+                                            [disabled]="!orderForm.valid">Tạo
+                                            đơn hàng</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="table-responsive">
                     <table
@@ -77,6 +162,7 @@
                                 <th scope="col">Tiền cọc</th>
                                 <th scope="col">Tổng tiền</th>
                                 <th scope="col">Trạng thái</th>
+                                <th scope="col">Xuất hóa đơn</th>
                                 <th scope="col">Thao tác</th>
                             </tr>
                         </thead>
@@ -84,8 +170,8 @@
 
                             <tr *ngFor="let l of listDangKy;index as i">
                                 <td>{{i+1}}</td>
-                                <td>{{l.user.fullname}}</td>
-                                <td>{{l.user.username}}</td>
+                                <td>{{l.user ? l.user.fullname : ''}}</td>
+                                <td>{{l.user ? l.user.username: ''}}</td>
                                 <td>{{l.orderType == 1 ? "Mang đi" :
                                     "Ăn tại chỗ"}}</td>
                                 <td>{{l.table ? (l.table.tableNumber) :
@@ -115,7 +201,10 @@
                                         bàn</span>
                                     <span *ngIf="l.status ==3">Đã hủy bỏ</span>
                                 </td>
-                                <!-- // Trạng thái đặt bàn 0: Chưa xử lý, 1: Đã cọc, 2: Đã nhận bàn, 3: Đã hủy bỏ -->
+                                <td>
+                                    <button class="btn btn-sm btn-info"
+                                        (click)="exportBill(l)">Tại
+                                        đây</button></td>
                                 <td>
                                     <!-- <div *ngIf="l.status == 0"><a
                                             class="btn btn-sm btn-primary"
@@ -156,13 +245,17 @@
                                 </div>
                                 <div class="modal-body">
                                     <p><strong>Khách hàng:</strong> {{
-                                        selectedReservation?.user.fullname
+                                        selectedReservation?.user ?
+                                        selectedReservation?.user.fullname : ''
                                         }}</p>
                                     <p><strong>Tài khoản:</strong> {{
-                                        selectedReservation?.user.username
+                                        selectedReservation?.user ?
+                                        selectedReservation?.user.username: ''
                                         }}</p>
                                     <p><strong>Bàn số:</strong> {{
-                                        selectedReservation?.table?.tableNumber
+                                        selectedReservation?.table ?
+                                        selectedReservation?.table?.tableNumber:
+                                        ''
                                         }}</p>
 
                                     <h6>Danh sách món ăn:</h6>
@@ -203,6 +296,7 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
         <!-- Recent Sales End -->
