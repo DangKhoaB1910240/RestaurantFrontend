@@ -1,0 +1,259 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12 mb-3">
+                    <!-- Form thêm -->
+                    <!-- Form thêm bàn -->
+                    <div class="bg-secondary1 rounded h-100 p-4"
+                        *ngIf="!isEditForm; else edit">
+                        <h6 class="mb-4">Thêm bàn</h6>
+                        <form [formGroup]="TableForm" (ngSubmit)="themTable()">
+                            <div class="mb-3">
+                                <label for="tableNumber" class="form-label">Mã
+                                    số bàn</label>
+                                <input type="text" class="form-control"
+                                    id="tableNumber"
+                                    formControlName="tableNumber">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger"
+                                        *ngIf="TableForm.controls['tableNumber'].errors?.['required']">
+                                        Mã số bàn không được để trống
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="capacity" class="form-label">Số
+                                    lượng ghế</label>
+                                <input type="number" class="form-control"
+                                    id="capacity" formControlName="capacity">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger"
+                                        *ngIf="TableForm.controls['capacity'].errors?.['required']">
+                                        Số lượng chỗ không được để trống
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Giá bàn
+                                    (VNĐ)</label>
+                                <input type="number" class="form-control"
+                                    id="price" formControlName="price">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger"
+                                        *ngIf="TableForm.controls['price'].errors?.['required']">
+                                        Giá bàn không được để trống
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Loại bàn</label>
+                                <select class="form-control"
+                                    formControlName="type">
+                                    <option value="0">Thường</option>
+                                    <option value="1">VIP</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Trạng thái bàn</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        formControlName="isAvailable">
+                                    <label class="form-check-label"
+                                        style="margin-left: 5%;">
+                                        {{ TableForm.get('isAvailable')?.value ?
+                                        'Còn trống' : 'Đã đặt' }}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isCheckSuccess"
+                                class="text-center mb-2">
+                                <span class="text-success"
+                                    style="font-weight: bold;">{{ successMessage
+                                    }}</span>
+                            </div>
+
+                            <button type="reset" class="btn btn-warning mr-3"
+                                (click)="cancel()">Làm mới</button>
+                            <button type="submit" class="btn btn-primary">Xác
+                                nhận</button>
+                        </form>
+                    </div>
+
+                    <!-- End add -->
+
+                    <!-- Form edit -->
+                    <ng-template #edit>
+                        <div class="bg-secondary1 rounded h-100 p-4">
+                            <h6 class="mb-4">Sửa bàn</h6>
+                            <form [formGroup]="TableForm"
+                                (ngSubmit)="suaTable()">
+
+                                <div class="mb-3">
+                                    <label for="tableNumber"
+                                        class="form-label">Mã
+                                        số bàn</label>
+                                    <input type="text" class="form-control"
+                                        id="tableNumber"
+                                        formControlName="tableNumber">
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger"
+                                            *ngIf="TableForm.controls['tableNumber'].errors?.['required']">
+                                            Mã số bàn không được để trống
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="capacity" class="form-label">Số
+                                        lượng ghế</label>
+                                    <input type="number" class="form-control"
+                                        id="capacity"
+                                        formControlName="capacity">
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger"
+                                            *ngIf="TableForm.controls['capacity'].errors?.['required']">
+                                            Số lượng chỗ không được để trống
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Giá
+                                        bàn
+                                        (VNĐ)</label>
+                                    <input type="number" class="form-control"
+                                        id="price" formControlName="price">
+                                    <div *ngIf="submitted">
+                                        <small class="text-danger"
+                                            *ngIf="TableForm.controls['price'].errors?.['required']">
+                                            Giá bàn không được để trống
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Loại bàn</label>
+                                    <select class="form-control"
+                                        formControlName="type">
+                                        <option value="0">Thường</option>
+                                        <option value="1">VIP</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Trạng thái
+                                        bàn</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input"
+                                            type="checkbox"
+                                            formControlName="isAvailable">
+                                        <label class="form-check-label"
+                                            style="margin-left: 5%;">
+                                            {{
+                                            TableForm.get('isAvailable')?.value
+                                            ?
+                                            'Còn trống' : 'Đã đặt' }}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isCheckSuccess"
+                                    class="text-center mb-2">
+                                    <span class="text-success"
+                                        style="font-weight: bold;">{{successMessage}}</span>
+                                </div>
+                                <button type="reset"
+                                    class="btn btn-warning mr-3"
+                                    (click)="cancel()">Làm mới</button>
+                                <button type="submit"
+                                    class="btn btn-primary">Cập nhật</button>
+                            </form>
+                        </div>
+                    </ng-template>
+
+                    <!-- end Form Edit -->
+                </div>
+                <div class="col-sm-12 col-xl-12 mb-3">
+                    <div class="bg-secondary text-center rounded p-4"
+                        style="background-color: #fff !important;">
+
+                        <div
+                            class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Danh sách bàn
+                                ({{listTable.length}} bàn)</h6>
+                            <!-- <a href="">Show All</a> -->
+                        </div>
+                        <input type="search" class="form-control mb-3"
+                            id="search" style="width: 50%;"
+                            placeholder="Tìm kiếm bằng tên..."
+                            [(ngModel)]="tenItem"
+                            (input)="updateItemByStatusAnditemNameAndCategoryId()">
+                        <div class="table-responsive">
+                            <table
+                                class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Bàn số</th>
+                                        <th scope="col">Số lượng chỗ</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">Loại</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let s of listTable; index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{s.tableNumber}}</td>
+                                        <td>{{s.capacity}}</td>
+                                        <td>{{s.price | number}}đ</td>
+                                        <td>{{ s.type == 0 ? 'Thường' : 'Vip'
+                                            }}</td>
+                                        <td>{{ s.isAvailable ? 'Còn trống' :
+                                            'Đã được đặt'
+                                            }}</td>
+                                        <td>
+                                            <div><a
+                                                    class="btn btn-sm btn-primary"
+                                                    (click)="deleteTable(s.id)">Xóa</a></div>
+                                            <div><a class="btn btn-sm btn-light"
+                                                    (click)="getInfoById(s.id)">Sửa</a></div>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form End -->
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+</div>

@@ -20,6 +20,14 @@ export class TableService {
     return this.http.get<Table[]>(this.getFullUrl(`api/v1/table/available`));
   }
 
+  getAllTable(): Observable<Table[]> {
+    return this.http.get<Table[]>(this.getFullUrl(`api/v1/table/all`));
+  }
+
+  getById(id: number): Observable<Table> {
+    return this.http.get<Table>(this.getFullUrl(`api/v1/table/${id}`));
+  }
+
   // Thêm vào giỏ hàng
   addToTable(table: any): Observable<any> {
     return this.http.post<any>(this.getFullUrl('api/v1/table/add'), table);
@@ -35,7 +43,7 @@ export class TableService {
 
   // Xóa một sản phẩm khỏi giỏ hàng
   removeFromTable(id: number): Observable<void> {
-    return this.http.delete<void>(this.getFullUrl(`api/v1/table/remove/${id}`));
+    return this.http.delete<void>(this.getFullUrl(`api/v1/table/delete/${id}`));
   }
 
   // Xóa toàn bộ giỏ hàng của user

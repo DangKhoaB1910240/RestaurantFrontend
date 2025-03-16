@@ -9,17 +9,18 @@ import { TinhThanh } from '../Models/tinhThanh/tinh-thanh';
 import { TinhThanhChiTiet } from '../Models/tinhThanh/tinh-thanh-chi-tiet';
 import { CategoryService } from '../Services/category/category.service';
 import { GheService } from '../Services/ghe/ghe.service';
-import { ItemService } from '../Services/item/item.service';
 import { TinhThanhService } from '../Services/tinh-thanh/tinh-thanh.service';
+import { TableService } from '../Services/table/table.service';
+import { Table } from '../Models/table/table';
 
 @Component({
-  selector: 'app-su-kien-admin',
-  templateUrl: './su-kien-admin.component.html',
-  styleUrls: ['./su-kien-admin.component.css'],
+  selector: 'app-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.css'],
 })
-export class ItemAdminComponent implements OnInit {
+export class TableComponent implements OnInit {
   isSidebarOpen: boolean = false;
-  ItemForm!: FormGroup;
+  TableForm!: FormGroup;
   submitted = false; //Kiểm tra bấm nút submitted chưa
   isCheckSuccess: boolean = false; //Kiểm tra đăng ký thành công không
   successMessage: string = ''; //Thêm thông điệp thành công khi đăng ký
@@ -34,7 +35,7 @@ export class ItemAdminComponent implements OnInit {
   tenItem: string = '';
   eventStatus: string = '';
   categoryId: number | string = '';
-  listItem: Item[] = [];
+  listTable: any[] = [];
 
   listTinhThanh: TinhThanh[] = [];
   listQuanHuyen: TinhThanh[] = [];
@@ -44,28 +45,23 @@ export class ItemAdminComponent implements OnInit {
   constructor(
     private gheService: GheService,
     private formBuilder: FormBuilder,
-    private ItemService: ItemService,
+    private TableService: TableService,
     private CategoryService: CategoryService,
     private router: Router,
     private tinhThanhService: TinhThanhService
   ) {
-    this.ItemForm = this.formBuilder.group({
-      itemName: ['', Validators.required],
-      description: [''],
-      img: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      cost: ['', Validators.required],
-      status: [''],
-      bestSeller: [false], // Mặc định là false
-      yeuThichNhat: [false], // Mặc định là false
-      monMoiNhat: [false], // Mặc định là false
-      monChay: [false], // Mặc định là false
+    this.TableForm = this.formBuilder.group({
+      tableNumber: ['', Validators.required],
+      capacity: ['', Validators.required],
+      price: ['', Validators.required],
+      type: ['0'], // Mặc định là bàn thường
+      isAvailable: [true], // Mặc định là còn trống
     });
   }
 
   ngOnInit(): void {
     this.getCategory();
-    this.getItem();
+    this.getTable();
     this.getGheById();
   }
   getGheById() {
@@ -86,24 +82,24 @@ export class ItemAdminComponent implements OnInit {
       },
     });
   }
-  getItem() {
-    this.ItemService.getItem().subscribe({
-      next: (response: Item[]) => {
-        this.listItem = response;
+  getTable() {
+    this.TableService.getAllTable().subscribe({
+      next: (response: any[]) => {
+        this.listTable = response;
       },
     });
   }
 
   updateItemByStatusAnditemNameAndCategoryId() {
-    this.ItemService.getEventsByStatusAndOrganizerIdAndName(
-      this.eventStatus,
-      this.tenItem,
-      this.categoryId
-    ).subscribe({
-      next: (response: Item[]) => {
-        this.listItem = response;
-      },
-    });
+    // this.TableService.getEventsByStatusAndOrganizerIdAndName(
+    //   this.eventStatus,
+    //   this.tenItem,
+    //   this.categoryId
+    // ).subscribe({
+    //   next: (response: Item[]) => {
+    //     this.listTable = response;
+    //   },
+    // });
   }
 
   getCategory() {
@@ -117,62 +113,57 @@ export class ItemAdminComponent implements OnInit {
   searchOByname() {
     this.getCategory();
   }
-  themItem() {
+  themTable() {
     this.submitted = true;
-    console.log(this.ItemForm.value);
-    if (this.ItemForm.valid == true) {
-      this.ItemService.addItem(
-        JSON.parse(localStorage.getItem('userId')!),
-        this.ItemForm.value
-      ).subscribe({
+    if (this.TableForm.valid == true) {
+      console.log(this.TableForm.value);
+      this.TableService.addToTable({
+        tableNumber: '23',
+        capacity: 2,
+        price: 20004000,
+        type: '0',
+        isAvailable: true,
+      }).subscribe({
         next: (response: any) => {
           this.cancel();
           this.isCheckSuccess = true;
-          this.successMessage = 'Thêm món ăn thành công';
-          this.getItem();
+          this.successMessage = 'Thêm bàn thành công';
+          this.getTable();
         },
         error: (error) => {
+          console.log(error.error);
           Swal.fire('Có lỗi xảy ra', error.error.message, 'error');
         },
       });
     }
   }
   // Chỉnh sửa nhà tổ chức
-  suaItem() {
+  suaTable() {
     this.submitted = true;
-    console.log(this.ItemForm.value);
-    this.ItemService.updateById(
-      this.idItem,
-      JSON.parse(localStorage.getItem('userId')!),
-      this.ItemForm.value
-    ).subscribe({
-      next: (response: void) => {
+    console.log(this.TableForm.value);
+    this.TableService.updateTable(this.idItem, this.TableForm.value).subscribe({
+      next: (response: any) => {
         this.cancel();
         this.isCheckSuccess = true;
-        this.successMessage = 'Chỉnh sửa món ăn thành công';
-        this.getItem();
+        this.successMessage = 'Chỉnh sửa bàn thành công';
+        this.getTable();
       },
       error: (error) => {},
     });
   }
   getInfoById(id: number) {
     this.idItem = id;
-    this.ItemService.getEventById(id).subscribe({
-      next: (response: Item) => {
+    this.TableService.getById(id).subscribe({
+      next: (response: Table) => {
         this.cancel();
         this.isEditForm = true;
         console.log(response);
-        this.ItemForm.patchValue({
-          itemName: response.itemName,
-          description: response.description,
-          cost: response.cost,
-          img: response.img,
-          categoryId: response.category.id,
-          bestSeller: response.bestSeller,
-          yeuThichNhat: response.yeuThichNhat,
-          monMoiNhat: response.monMoiNhat,
-          monChay: response.monChay,
-          status: response.status,
+        this.TableForm.patchValue({
+          tableNumber: response.tableNumber,
+          capacity: response.capacity,
+          price: response.price,
+          type: response.type,
+          isAvailable: response.isAvailable,
         });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
@@ -180,7 +171,7 @@ export class ItemAdminComponent implements OnInit {
     });
   }
   cancel() {
-    this.ItemForm.reset();
+    this.TableForm.reset();
     this.submitted = false;
     this.isCheckSuccess = false;
     this.alreadyExistAccount = '';
@@ -192,16 +183,13 @@ export class ItemAdminComponent implements OnInit {
     console.log(this.isSidebarOpen);
   }
 
-  deleteItem(id: number) {
-    if (confirm('Bạn có chắc chắn muốn xóa món ăn này')) {
-      this.ItemService.deleteById(
-        id,
-        JSON.parse(localStorage.getItem('userId')!)
-      ).subscribe({
+  deleteTable(id: number) {
+    if (confirm('Bạn có chắc chắn muốn xóa bàn này')) {
+      this.TableService.removeFromTable(id).subscribe({
         next: (response: void) => {
-          alert('Xóa món ăn thành công');
+          alert('Xóa bàn thành công');
           this.cancel();
-          this.getItem();
+          this.getTable();
         },
         error: (error) => {
           alert(error.error.message);

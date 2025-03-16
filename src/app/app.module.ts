@@ -27,6 +27,7 @@ import { ItemAdminComponent } from './su-kien-admin/su-kien-admin.component';
 import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
 import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { BookTableComponent } from './book-table/book-table.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { BookTableComponent } from './book-table/book-table.component';
     ItemAdminComponent,
     KhachDatAdminComponent,
     BookTableComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
