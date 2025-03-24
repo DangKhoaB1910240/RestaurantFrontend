@@ -29,6 +29,7 @@ import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { BookTableComponent } from './book-table/book-table.component';
 import { TableComponent } from './table/table.component';
 import { CommentComponent } from './comment/comment.component';
+import { CommentAdminComponent } from './comment-admin/comment-admin.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CommentComponent } from './comment/comment.component';
     BookTableComponent,
     TableComponent,
     CommentComponent,
+    CommentAdminComponent,
   ],
   imports: [
     BrowserModule,

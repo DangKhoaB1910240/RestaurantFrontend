@@ -1,0 +1,67 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <!-- admin-comment.component.html -->
+                <section class="admin-comment-section">
+                    <div class="container">
+                        <h1>Quản lý bình luận</h1>
+                        <div class="row">
+                            <div class="col-12">
+                                <table
+                                    class="table text-start align-middle table-bordered table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Người dùng</th>
+                                            <th>Nội dung</th>
+                                            <th>Đánh giá</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let review of reviews">
+                                            <td>{{review.user.username}}</td>
+                                            <td>{{review.content}}</td>
+                                            <td>{{review.rating}}/5</td>
+                                            <td>{{review.createdAt |
+                                                date:'dd/MM/yyyy HH:mm'}}</td>
+                                            <td>
+                                                <button
+                                                    class="btn btn-danger btn-sm"
+                                                    (click)="deleteComment(review.id)">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="reviews.length === 0">
+                                            <td colspan="6"
+                                                class="text-center">Chưa có bình
+                                                luận nào</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Form End -->
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+</div>
