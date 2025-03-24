@@ -34,7 +34,15 @@
                 routerLink="/trangchu-admin" class="nav-item nav-link"><i
                     class="fa fa-tachometer-alt me-2"
                     style="background-color: white;"></i>Nhật ký thao tác</a>
-            <div class="nav-item dropdown"
+            <a [class.active]="isRouteActive('/datve')"
+                routerLink="/datve" class="nav-item nav-link"><i
+                    class="fa fa-chart-bar me-2"
+                    style="background-color: white;"></i>Quản lý thống kê</a>
+            <a [class.active]="isRouteActive('/phanquyen-admin')"
+                routerLink="/phanquyen-admin" class="nav-item nav-link"><i
+                    class="fa fa-user me-2"
+                    style="background-color: white;"></i>Quản lý người dùng</a>
+            <!-- <div class="nav-item dropdown"
                 [ngClass]="{ 'show': isDropdownOpen }">
                 <a class="nav-link dropdown-toggle"
                     (click)="toggleDropdown('user')"
@@ -46,10 +54,10 @@
                     [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'user' }">
                     <a routerLink="/datve" class="dropdown-item">Khách đặt
                         bàn</a>
-                    <a routerLink="/phanquyen-admin" class="dropdown-item">Phân
-                        quyền</a>
+                    <a routerLink="/phanquyen-admin" class="dropdown-item">Quản
+                        lý người dùng</a>
                 </div>
-            </div>
+            </div> -->
             <a routerLink="/ban-admin" class="nav-item nav-link"
                 [class.active]="isRouteActive('/nha-to-chuc-admin')"><i
                     class="fa  fa-table me-2"
@@ -57,11 +65,12 @@
             <a routerLink="/nha-to-chuc-admin" class="nav-item nav-link"
                 [class.active]="isRouteActive('/nha-to-chuc-admin')"><i
                     class="fa fa-th me-2"
-                    style="background-color: white;"></i>Danh mục món ăn</a>
+                    style="background-color: white;"></i>Quản lý danh mục
+                món</a>
             <a routerLink="/su-kien-admin" class="nav-item nav-link"
                 [class.active]="isRouteActive('/su-kien-admin')"><i
                     class="fa fa-keyboard me-2"
-                    style="background-color: white;"></i>Món ăn</a>
+                    style="background-color: white;"></i>Quản lý món ăn</a>
 
             <!-- <a href="table.html" class="nav-item nav-link"><i class="fa fa-diary me-2"></i>Nhật ký</a> -->
             <!-- <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Nhật ký</a> -->
@@ -90,7 +99,7 @@
                     (click)="toggleDropdown('personal')"
                     [class.active]="isRouteActive('/info-admin')">
                     <i class="far fa-file-alt me-2"
-                        style="background-color: white;"></i>Cá nhân
+                        style="background-color: white;"></i>Quản lý thông tin
                 </a>
                 <div class="dropdown-menu bg-transparent border-0"
                     [ngClass]="{ 'show': isDropdownOpen && currentDropdown === 'personal' }">
