@@ -28,6 +28,7 @@ import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.compon
 import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { BookTableComponent } from './book-table/book-table.component';
 import { TableComponent } from './table/table.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { TableComponent } from './table/table.component';
     KhachDatAdminComponent,
     BookTableComponent,
     TableComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

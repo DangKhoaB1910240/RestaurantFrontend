@@ -15,6 +15,7 @@ import { CategoryAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.co
 import { CategoryComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { BookTableComponent } from './book-table/book-table.component';
 import { TableComponent } from './table/table.component';
+import { CommentComponent } from './comment/comment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'su-kien-admin', component: ItemAdminComponent },
   { path: 'datve', component: KhachDatAdminComponent },
   { path: 'dat-ban', component: BookTableComponent },
+  { path: 'binh-luan', component: CommentComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

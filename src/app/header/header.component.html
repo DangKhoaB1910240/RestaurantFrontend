@@ -23,6 +23,8 @@
             routerLink="/lichsu">Lịch sử đặt bàn</a></li>
         <li [class.menu-active]="isRouteActive('/dat-ban')"><a
             routerLink="/dat-ban">Đặt bàn</a></li>
+        <li [class.menu-active]="isRouteActive('/binh-luan')"><a
+            routerLink="/binh-luan">Góp ý</a></li>
         <li [class.menu-active]="isRouteActive('/dangnhap')"><a *ngIf="!token"
             routerLink="/dangnhap">Đăng nhập</a><a *ngIf="token"
             (click)="dangXuat()">Đăng xuất</a></li>
