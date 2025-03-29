@@ -16,6 +16,19 @@ export class AuthService {
     return `${AppConfig.baseUrl}/${endpoint}`;
   }
 
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post<any>(this.getFullUrl('api/v1/auth/forgot-password'), {
+      email,
+    });
+  }
+
+  resetPassword(data: { token: string; newPassword: string }): Observable<any> {
+    return this.http.post<any>(
+      this.getFullUrl('api/v1/auth/reset-password'),
+      data
+    );
+  }
+
   //Lấy role
   getRoles(username: string): Observable<string[]> {
     return this.http.get<string[]>(

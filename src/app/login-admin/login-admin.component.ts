@@ -6,13 +6,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.component.html',
-  styleUrls: ['./login-admin.component.css']
+  styleUrls: ['./login-admin.component.css'],
 })
 export class LoginAdminComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder,private userService: UserService,private router:Router) { 
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   ngOnInit(): void {
@@ -23,33 +27,34 @@ export class LoginAdminComponent implements OnInit {
   errorMessage: string = '';
   dangNhap() {
     this.submitDangNhap = true;
-    if(this.loginForm.valid == true) {
-        this.userService.dangNhap(this.loginForm.value).subscribe({
-            next: (response: any) => {
-                  response.roles.forEach((element: string) => {
-                    if(element != "USER") {
-                        localStorage.setItem('tokenAdmin',response.token);
-                        localStorage.setItem('usernameAdmin',JSON.stringify(this.loginForm.value.username));
-                        this.router.navigate(['/trangchu-admin']);
-                        this.submitDangNhap = false
-                    } else {
-                      this.errorMessage = 'Đăng nhập thất bại!';
-                    }
-                  });
-                
-                
-            },
-            error: (error) => {
-              console.log(error);
-              if(error.error.httpStatusCode == 401) {
-                console.log(1);
-                this.errorMessage = 'Đăng nhập thất bại!';
-              } else {
-                this.errorMessage = error.error.message;
-              }
-                
+    if (this.loginForm.valid == true) {
+      this.userService.dangNhap(this.loginForm.value).subscribe({
+        next: (response: any) => {
+          response.roles.forEach((element: string) => {
+            if (element != 'USER') {
+              localStorage.setItem('tokenAdmin', response.token);
+              localStorage.setItem('role', element);
+              localStorage.setItem(
+                'usernameAdmin',
+                JSON.stringify(this.loginForm.value.username)
+              );
+              this.router.navigate(['/trangchu-admin']);
+              this.submitDangNhap = false;
+            } else {
+              this.errorMessage = 'Đăng nhập thất bại!';
             }
-        })
+          });
+        },
+        error: (error) => {
+          console.log(error);
+          if (error.error.httpStatusCode == 401) {
+            console.log(1);
+            this.errorMessage = 'Đăng nhập thất bại!';
+          } else {
+            this.errorMessage = error.error.message;
+          }
+        },
+      });
     }
   }
 }

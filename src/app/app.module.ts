@@ -30,6 +30,8 @@ import { BookTableComponent } from './book-table/book-table.component';
 import { TableComponent } from './table/table.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommentAdminComponent } from './comment-admin/comment-admin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { CommentAdminComponent } from './comment-admin/comment-admin.component';
     TableComponent,
     CommentComponent,
     CommentAdminComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

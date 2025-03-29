@@ -17,6 +17,8 @@ import { BookTableComponent } from './book-table/book-table.component';
 import { TableComponent } from './table/table.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommentAdminComponent } from './comment-admin/comment-admin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
@@ -36,6 +38,8 @@ const routes: Routes = [
   { path: 'dat-ban', component: BookTableComponent },
   { path: 'binh-luan', component: CommentComponent },
   { path: 'binh-luan-admin', component: CommentAdminComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
