@@ -10,6 +10,7 @@ import { RegistrationService } from '../Services/registration/registration.servi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from '../Models/sukien/su-kien';
 import { ReservationService } from '../Services/reservation/reservation.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-lich-su',
   templateUrl: './lich-su.component.html',
@@ -33,10 +34,12 @@ export class LichSuComponent implements OnInit {
       confirmPassword: ['', Validators.required],
     });
   }
-
+  minDateTime: string = '';
+  reservationId: number = 0;
   reservations: any[] = [];
   ngOnInit(): void {
     this.checkExistByUserId();
+    this.setMinDateTime();
     // Khai báo các biến
     let login: HTMLElement | null,
       closex: HTMLElement | null,
@@ -98,6 +101,7 @@ export class LichSuComponent implements OnInit {
   isCheckSuccess: boolean = false; //Kiểm tra đăng ký thành công không
   successMessage: string = ''; //Thêm thông điệp thành công khi đăng ký
   errorMessage: string = '';
+  selectedDate: string = '';
   changePassword() {
     this.submitted = true;
     const username = localStorage.getItem('username');
@@ -120,6 +124,11 @@ export class LichSuComponent implements OnInit {
           },
         });
     }
+  }
+  setMinDateTime(): void {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Chuyển về UTC để tránh lệch múi giờ
+    this.minDateTime = now.toISOString().slice(0, 16); // Định dạng YYYY-MM-DDTHH:MM
   }
   cancel() {
     this.changePasswordForm.reset();
@@ -186,5 +195,58 @@ export class LichSuComponent implements OnInit {
     //     console.log(this.Item);
     //   }
     // })
+  }
+
+  updateRegistration(id: number, trangThai: number) {
+    if (confirm('Bạn sẽ mất tiền cọc, bạn có chắc chắn muốn hủy bỏ?')) {
+      const object = {
+        status: trangThai,
+      };
+      this.registrationService
+        .updateById(id, JSON.parse(localStorage.getItem('userId')!), object)
+        .subscribe({
+          next: (response: void) => {
+            this.loadLichSu();
+          },
+          error: (error) => {},
+        });
+    }
+  }
+
+  updateReservationDate() {
+    console.log(this.selectedDate);
+    if (!this.selectedDate) {
+      Swal.fire('Có lỗi xảy ra', 'Vui lòng chọn ngày muốn đổi', 'error');
+      return;
+    }
+    const object = {
+      reservationTime: this.selectedDate,
+    };
+    console.log(object);
+    this.registrationService
+      .updateById(
+        this.reservationId,
+        JSON.parse(localStorage.getItem('userId')!),
+        object
+      )
+      .subscribe({
+        next: (response: void) => {
+          this.loadLichSu();
+          const modal = document.getElementById('editModal');
+          if (modal) {
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) backdrop.remove();
+          }
+          Swal.fire('Thành công', 'Đổi ngày nhận bàn thành công', 'success');
+          this.selectedDate = '';
+        },
+        error: (error) => {},
+      });
+  }
+  setReservationId(id: number) {
+    this.reservationId = id;
   }
 }

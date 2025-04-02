@@ -168,6 +168,16 @@
               class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title">Lịch sử đặt bàn #{{ i+1 }}</h5>
+
+                <button class="btn btn-danger"
+                  (click)="updateRegistration(reservation.id,3)"
+                  *ngIf="reservation.status != 3 && reservation.status !=2">Hủy</button>
+                <button class="btn btn-primary ms-2" data-bs-toggle="modal"
+                  data-bs-target="#editModal"
+                  *ngIf="reservation.status === 0 || reservation.status === 1"
+                  (click)="setReservationId(reservation.id)">
+                  Đổi thời gian nhận bàn
+                </button>
                 <p><strong>Ngày đặt:</strong> {{ reservation.ngayTao |
                   date:'dd/MM/yyyy HH:mm' }}</p>
                 <p><strong>Thời gian nhận bàn:</strong> {{
@@ -202,6 +212,31 @@
                       </div>
                     </li>
                   </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="editModal" tabindex="-1"
+            aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Chỉnh sửa ngày
+                    đặt</h5>
+                  <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <label for="newDate" class="form-label">Chọn ngày mới:</label>
+                  <input type="datetime-local" class="form-control"
+                    [min]="minDateTime"
+                    [(ngModel)]="selectedDate">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Đóng</button>
+                  <button type="button" class="btn btn-success"
+                    (click)="updateReservationDate()">Lưu thay đổi</button>
                 </div>
               </div>
             </div>
