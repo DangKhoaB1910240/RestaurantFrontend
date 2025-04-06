@@ -10,7 +10,7 @@
 
 <!-- Sidebar Start -->
 <div class="sidebar pe-4 pb-3" [class.open]="isSidebarOpen" style="background:
-#fb6340">
+#ffffff">
     <nav class="navbar bg-secondarys navbar-dark">
         <a routerLink="/trangchu-admin" class="navbar-brand mx-4 mb-3">
             <!-- <h3 class="text-red"><i class="fa fa-user-edit me-2"></i>nhà hàng TamTam</h3> -->
@@ -23,7 +23,7 @@
                     class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
             <div class="ms-3" *ngIf="user"
-                style="color: #fff; font-weight: bold;">
+                style="color: #1E2329; font-weight: bold;">
                 <h6 class="mb-0"
                     style="font-weight: bold;">{{user.fullname}}</h6>
                 <span *ngFor="let r of user.roles">{{r.name}}</span>
