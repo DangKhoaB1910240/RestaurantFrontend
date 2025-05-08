@@ -21,7 +21,7 @@ export class BookTableComponent implements OnInit {
   tables: Table[] = [];
   minDateTime: string = '';
   cartItems: any[] = [];
-  userId = 1; // ID người dùng (có thể lấy từ AuthService)
+  userId!: number; // ID người dùng (có thể lấy từ AuthService)
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -42,16 +42,17 @@ export class BookTableComponent implements OnInit {
   Item: Item[] = [];
 
   ngOnInit(): void {
-    this.loadCart();
     this.loadTables();
     this.setMinDateTime();
     this.checkExistByUserId();
   }
   checkExistByUserId() {
     const username = localStorage.getItem('username');
+
     this.userService.getInfoByUsername(JSON.parse(username!)).subscribe({
       next: (response: User) => {
         this.userId = response.id;
+        this.loadCart();
         // this.updateItemByStatusAnditemNameAndOrganizerId();
       },
       error: (error) => {

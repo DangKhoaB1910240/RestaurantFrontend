@@ -117,9 +117,11 @@ export class ItemComponent implements OnInit {
 
   checkExistByUserId() {
     const username = localStorage.getItem('username');
+
     this.userService.getInfoByUsername(JSON.parse(username!)).subscribe({
       next: (response: User) => {
         this.userId = response.id;
+        console.log(this.userId);
         this.user = response;
         // this.updateItemByStatusAnditemNameAndOrganizerId();
       },
@@ -139,7 +141,7 @@ export class ItemComponent implements OnInit {
   addToCart(item: any) {
     const data = {
       item_id: item.id,
-      user_id: 1,
+      user_id: this.userId,
       quantity: 1,
       totalPrice: item.cost,
     };
